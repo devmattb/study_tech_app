@@ -1,0 +1,202 @@
+<!--
+
+***/
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstroms') permission.
+*
+***/
+
+-->
+<template name="newCourse">
+  {{>header}}
+  {{>preloader}}
+  {{>navbar}}
+  <!-- TODO: Dynamic menus depending on course type etc... -->
+    <div id="coverPageDiv" class="blueGradient">
+
+        <!-- Front Login Page -->
+        <div class="col s12">
+            <br><br><br><br>
+            <h5 class="center-align bold white-text"><a href="/login">NY KURS</a></h5>
+            <br>
+            <form id="newCourseForm" class="row">
+              <div id="newCoursePartOne">
+                <div class="col s12">
+
+                  <!-- KURSTYP -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <select id="selectOne" name="courseType">
+                      <option style="color:red!important;" value="" disabled selected>Välj Kurstyp</option>
+                      <option value="Kvantitativ">Matematik</option>
+                      <option value="Språk">Svenska</option>
+                      <option value="Samhällskunskap">Religion</option>
+                    </select>
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+                <div class="col s12">
+
+                  <!-- ÅRSKURS -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <select id="selectTwo" name="schoolGrade">
+                      <option value="" disabled selected>Välj Årskurs</option>
+                      <option value="6or7">6-7</option>
+                      <option value="8or9">8-9</option>
+                      <option value="Gymnasiet">Gymnasiet</option>
+                    </select>
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+
+                <div class="col s12">
+
+                  <!-- EXAMINATIONSTYP -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <select id="selectThree" name="examinationType">
+                      {{> Template.dynamic template=exTypeOptions}}
+                    </select>
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+                <div class="col s12">
+                    <br>
+                    <div class="col s2"></div><!--DUMMY-->
+                    <div class="col s8 center-align">
+
+                        <a id="nextPartBtn" class="orange darken-1 btn">
+                            <span class="flow-text">
+                                NÄSTA &nbsp;<i class="fa fa-arrow-right"></i>
+                            </span>
+                        </a>
+
+                    </div>
+                    <div class="col s2"></div><!--DUMMY-->
+                </div>
+
+              </div> <!-- END OF PART ONE -->
+
+
+               <!-- <div class="col s12">
+                    <br>
+
+                    <div class="col s2"></div>
+                    <div class="col s8 center-align">
+
+                        <p style="font-size: 14px!important;" class="center-align white-text">
+                        Behöver du <a href="help">hjälp?</a>
+                        </p>
+
+                    </div>
+                    <div class="col s2"></div>
+                </div> -->
+
+            <div id="newCoursePartTwo" class="row">
+
+                <div class="col s12">
+
+                  <!-- Ambitionsnivå -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <select id="selectFour" name="ambitionLevel">
+                      <option value="" disabled selected>Välj Ambitionsnivå</option>
+                      <option value="Normal">Normal</option>
+                      <option value="Ambitiös">Ambitiös</option>
+                    </select>
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+                <div class="col s12">
+
+                  <!-- OMFATTNING -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <select id="selectFive" name="studyScope">
+                      {{> Template.dynamic template=omfattningTypeOptions}}
+                    </select>
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+                <div class="col s12">
+
+                  <!-- DATUM -->
+                  <div class="col s2"></div><!--DUMMY-->
+                  <div class="input-field col s8 grey-text">
+                    <!-- TODO: Date picker? -->
+                    <input type="text" class="datepicker">
+                    <!--<label>Materialize Select</label>-->
+                  </div>
+                  <div class="col s2"></div><!--DUMMY-->
+
+                </div>
+
+                <div class="col s12">
+                    <br>
+                    <div class="col s2"></div><!--DUMMY-->
+                    <div class="col s8 center-align">
+
+                        <button type="submit" role="submit" class="orange darken-1 btn">
+                            <span class="flow-text">
+                                LÄGG TILL KURS &nbsp;<i class="fa fa-send"></i>
+                            </span>
+                        </button>
+
+                        <br><br>
+
+                        <a id="backFormBtn" class="orange darken-1 btn">
+                            <span class="flow-text">
+                                <i class="fa fa-arrow-left"></i>&nbsp;
+                                TILLBAKA
+                            </span>
+                        </a>
+
+                    </div>
+                    <div class="col s2"></div><!--DUMMY-->
+                </div>
+
+
+               <!-- <div class="col s12">
+                    <br>
+
+                    <div class="col s2"></div>
+                    <div class="col s8 center-align">
+
+                        <p style="font-size: 14px!important;" class="center-align white-text">
+                        Behöver du <a href="help">hjälp?</a>
+                        </p>
+
+                    </div>
+                    <div class="col s2"></div>
+                </div> -->
+
+
+            </div>
+          </form>
+        </div>
+        <div class="col s12">
+          <button id="testMeBtn" style="position: absolute; bottom 0px; right: 0px;" class="btn waves-effect waves-light"> ADD DESC </button>
+        </div>
+    </div>
+
+    </template>

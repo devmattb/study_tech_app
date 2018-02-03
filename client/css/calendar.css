@@ -1,0 +1,150 @@
+/***
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
+*
+***/
+
+/* Date picker styling #4b6cb7 #fb8c00*/
+.picker__date-display {
+  background-color:#fb8c00;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  background-color:#fb8c00;
+  color: #fff!important;
+}
+.picker__nav--prev:hover, .picker__nav--next:hover {
+  background-color:rgba(251, 140, 0, 0.7);
+}
+
+.picker__day--today, .picker__close, .picker__today {
+  color:#fb8c00!important;
+}
+
+/* Schedule styling */
+.schedule {
+  position: relative;
+  top: 50px;
+}
+
+p[class^="type-"] {
+  margin: 0;
+}
+
+p[class="type-Corporate"] {
+  color: red;
+}
+
+p[class="type-Wedding"] {
+  color: green;
+}
+
+p[class="type-Birthday"] {
+  color: blue;
+}
+
+/* Calendar title */
+.fc-center h2 {
+  font-family: 'Roboto'!important;
+  position: relative;
+  top: 20px;
+  transform: scale(0.6);
+}
+
+/* Button CSS */
+.fc-button{
+  margin: 4px!important;
+  transition: 0.2s;
+  font-size: 12px!important;
+  font-family: 'Roboto'!important;
+  padding: 11.5px 15px 26px 15px!important;
+  color: #fff;
+  background: #fb8c00;  /* fallback for old browsers */
+  text-transform:uppercase;
+  border: 1px solid #fb8c00;
+}
+
+.fc-state-default {
+  background: #fb8c00!important;
+}
+.fc-state-active {
+  color: #fb8c00!important;
+  background: #fff!important;
+  transform: scale(1.1);
+}
+
+
+/* Remove color and border from today in Schedule */
+.fc-today {
+  opacity: 0!important;
+  border: none!important;
+}
+
+/* Styling for each event from Schedule */
+.fc-time-grid-event.fc-v-event.fc-event {
+  border-radius: 4px!important;
+  border: none!important;
+  padding: 5px!important;
+  opacity: .65!important;
+  left: 5% !important;
+  right: 5% !important;
+  transition: 0.2s;
+}
+
+/* EVENT STYLING */
+.fc .fc-event{
+  font-size: inherit !important;
+  font-weight: bold !important;
+  padding: 5px 10px;
+  background-color: #fb8c00!important;
+}
+
+.fc .fc-event h4{
+  font-size: 10px!important;
+}
+
+.fc .fc-event:hover{ cursor: pointer;}
+
+.fc .fc-event .fa{
+  margin: 10px;
+  font-size: 18px;
+}
+
+/* Remove the header border from Schedule */
+.fc td, .fc th {
+  color: #000!important;
+  font-family: 'Roboto'!important;
+
+  border-width: 2px !important;
+  padding: 0 !important;
+  vertical-align: top !important;
+}
+
+/* Inherits background for each event from Schedule. */
+.fc-event .fc-bg {
+  z-index: 1 !important;
+  background: #f81000 !important;
+  opacity: .25 !important;
+}
+
+/* Normal font weight for the time in each event */
+.fc-time-grid-event .fc-time {
+  font-weight: normal !important;
+}
+
+/* Apply same opacity to all day events */
+.fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
+  opacity: .65 !important;
+  margin-left: 12px !important;
+  padding: 5px! important;
+}
+
+/* Apply same opacity to all day events */
+.fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
+  opacity: .65 !important;
+  margin-left: 12px !important;
+  padding: 5px! important;
+}

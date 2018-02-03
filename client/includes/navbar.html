@@ -1,0 +1,44 @@
+<!--
+
+***/
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstroms') permission.
+*
+***/
+
+-->
+<template name="navbar">
+      <!-- MATERIALIZE NAVBAR -->
+      <nav role="navigation">
+        <div class="nav-wrapper blueGradient z-depth-3">
+          <a href="#!" class="brand-logo hide-on-med-and-down"><img src="img/logo_only.png" class="responsive-image logo">LOGOTMP</a>
+          <a href="#!" class="brand-logo hide-on-large-only"><img src="img/logo_only.png" class="responsive-image logo">LOGOTMP</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+
+            <li><a href="/">HEM</a></li>
+            <li><a href="newCourse">NY KURS</a></li>
+            <li><a href="scheduleOverview">SCHEMA ÖVERSIKT</a></li>
+            <li><a href="themes">TEMAN</a></li>
+            <li><a class="waves-effect waves-light" href="#contactModal">KONTAKT</a></li>
+            <li><a class="waves-effect waves-light" href="#termsModal">ANVÄNDARVILLKOR</a></li>
+
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+
+            <li style="margin-top: 10px;"><a href="/"><i class="blue-text text-darken-4 fa fa-home" aria-hidden="true"></i>HEM</a></li>
+            <li><a href="newCourse"><i class="blue-text text-darken-4 fa fa-plus-square" aria-hidden="true"></i>NY KURS</a></li>
+            <li><a href="calendar"><i class="blue-text text-darken-4 fa fa-calendar" aria-hidden="true"></i>SCHEMA ÖVERSIKT</a></li>
+            <li><a href="themes"><i class="blue-text text-darken-4 fa fa-shopping-cart" aria-hidden="true"></i>TEMAN</a></li>
+            <li><a href="settings"><i class="blue-text text-darken-4 fa fa-cog" aria-hidden="true"></i>INSTÄLLNINGAR</a></li>
+            <li><a class="waves-effect waves-light" href="#contactModal"><i class="blue-text text-darken-4 fa fa-envelope" aria-hidden="true"></i>KONTAKT</a></li>
+            <li><a class="waves-effect waves-light" href="#termsModal"><i class="blue-text text-darken-4 fa fa-handshake-o" aria-hidden="true"></i>ANVÄNDARVILLKOR</a></li>
+
+          </ul>
+        </div>
+      </nav>
+  </template>

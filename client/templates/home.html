@@ -1,0 +1,68 @@
+<!--
+
+***/
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstroms') permission.
+*
+***/
+
+-->
+<template name="home">
+
+  {{>header}}
+  {{>preloader}}
+  {{>navbar}}
+  {{>eventDescModal}}
+  <div id="" class="row">
+      <div class="col s12">
+        <br><br>
+        <h4 style="font-size: 26px; position: relative; bottom: -10px;" class="center grey-text text-darken-4">DAGENS SCHEMA</h4>
+      </div>
+      <div class="col s12">
+        <div class="schedule"></div>
+      </div>
+      <div class="col s12">
+        <button onclick="findSmth()" style="position: absolute; bottom 1000px!important; right: 100px;" class="red btn waves-effect waves-light"> FIND </button>
+      </div>
+      <div class="col s12">
+        <button onclick="addDesc()" style="position: absolute; bottom 0px; right: 0px;" class="btn waves-effect waves-light"> ADD DESC </button>
+      </div>
+  </div>
+
+  <script>
+
+  function findSmth() {
+    alert(Samhällskunskap.find({examinationType: "Skriftligt Prov"}));
+  }
+
+
+function addDesc() {
+  var docs = [];
+  var docEx = ["Litteraturanalys", "Skriftligt Prov", "Glosor", "Muntlig Redovisning", "Uppsats"];
+  var docDesc = ["Lit bro","Skriftligt bro","Glosor bro","Muntlig bro", "Redovisning bro", "Uppsats bro"];
+  for (var i = 0; i < 5; i++) {
+      docs[i] = {
+        examinationType: docEx[i],
+        desc: docDesc[i],
+      };
+  }
+
+
+  for (var i = 0; i < 5; i++) {
+    Samhällskunskap.insert(docs[i]);
+    Språk.insert(docs[i]);
+    Kvantitativ.insert(docs[i]);
+  }
+}
+
+  // var courseType = "Samhällskunskap";
+  // var exType = "Skriftligt Prov";
+  // console.log(Samhällskunskap.find({examinationType: exType}));
+
+  </script>
+
+  </template>
