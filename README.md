@@ -1,1 +1,0 @@
-# study_tech_app
