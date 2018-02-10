@@ -496,13 +496,13 @@ function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, 
 /**
 *   Depending on examinationtype, gets the connected description!
 **/
-function kvantitativDesc(desc, examinationType) {
+function kvantitativDesc(examinationType) {
 
   if ( Kvantitativ.findOne({'examinationType': examinationType}) ) {
     const descObj = Kvantitativ.findOne({'examinationType': examinationType});
     if ( descObj.desc ) {
       // We found our description for this course and examination type combination. Algorithm time.
-      desc = descObj.desc.toString(); // Needed for the MMR algorithm
+      return descObj.desc.toString(); // Needed for the MMR algorithm
     } else {
       // ERROR: Could not find description?
       Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
@@ -515,13 +515,13 @@ function kvantitativDesc(desc, examinationType) {
 /**
 *   Depending on examinationtype, gets the connected description!
 **/
-function språkDesc(desc, examinationType) {
+function språkDesc(examinationType) {
 
   if ( Språk.findOne({'examinationType': examinationType}) ) {
     const descObj = Språk.findOne({'examinationType': examinationType});
     if ( descObj.desc ) {
       // We found our description for this course and examination type combination. Algorithm time.
-      desc = descObj.desc.toString(); // Needed for the MMR algorithm
+      return descObj.desc.toString(); //Needed for the MMR algorithm
     } else {
       // ERROR: Could not find description?
       Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
@@ -534,13 +534,13 @@ function språkDesc(desc, examinationType) {
 /**
 *   Depending on examinationtype, gets the connected description!
 **/
-function samhällskunskapDesc(desc, examinationType) {
+function samhällskunskapDesc(examinationType) {
 
   if ( Samhällskunskap.findOne({'examinationType': examinationType}) ) {
     const descObj = Samhällskunskap.findOne({'examinationType': examinationType});
     if ( descObj.desc ) {
       // We found our description for this course and examination type combination. Algorithm time.
-      desc = descObj.desc.toString(); // Needed for the MMR algorithm
+      return descObj.desc.toString(); // Needed for the MMR algorithm
     } else {
       // ERROR: Could not find description?
       Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
@@ -659,21 +659,21 @@ Template.newCourse.events({
     **/
     if ( courseType == "Kvantitativ" ) {
 
-      kvantitativDesc(desc, examinationType);
+      desc = kvantitativDesc(examinationType);
 
       /**
       *   SKRIFTLIGT PROV: SPRÅK
       **/
     } else if ( courseType == "Språk" ) {
 
-      språkDesc(desc, examinationType);
+      desc = språkDesc(examinationType);
 
     /**
     *   SKRIFTLIGT PROV: SAMHÄLLSKUNSKAP
     **/
     } else if ( courseType == "Samhällskunskap" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -687,15 +687,15 @@ Template.newCourse.events({
     shortExType = "Other"; // Needed for the MMR algorithm
     if ( courseType == "Kvantitativ" ) {
 
-      kvantitativDesc(desc, examinationType);
+      desc = kvantitativDesc(examinationType);
 
     } else if ( courseType == "Språk" ) {
 
-      språkDesc(desc, examinationType);
+      desc = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -709,11 +709,11 @@ Template.newCourse.events({
     shortExType = examinationType; // Needed for the MMR algorithm
     if ( courseType == "Språk" ) {
 
-      språkDesc(desc, examinationType);
+      desc = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -727,15 +727,15 @@ Template.newCourse.events({
     shortExType = examinationType; // Needed for the MMR algorithm
     if ( courseType == "Kvantitativ" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else if ( courseType == "Språk" ) {
 
-      språkDesc(desc, examinationType);
+      desc = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -749,11 +749,11 @@ Template.newCourse.events({
     shortExType = "Other"; // Needed for the MMR algorithm
     if ( courseType == "Språk" ) {
 
-      språkDesc(desc, examinationType);
+      desc = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      samhällskunskapDesc(desc, examinationType);
+      desc = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.

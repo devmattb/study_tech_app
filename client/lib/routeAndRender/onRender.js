@@ -73,7 +73,7 @@ Template.home.rendered = function(){
           // Buttons and header text:
           left: 'agendaDay, list',
           center: 'title',
-          right: 'today, next'
+          right: 'prev, today, next'
 
         },
         allDayText: 'Deadlines', // Appears on top of the calendar issues.
