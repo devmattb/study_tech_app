@@ -36,7 +36,41 @@
   <script>
 
   function findSmth() {
-    alert(Samhällskunskap.find({examinationType: "Skriftligt Prov"}));
+    //alert(Samhällskunskap.find({examinationType: "Skriftligt Prov"}));
+
+    // var testArr = ["182011122018","161811122018","202211122018","161812122018"];
+    //
+    // for(var i = 0; i < testArr.length; i++) {
+    //   if ( "161812122018" == testArr[i] ){
+    //     alert("COLLISION");
+    //   }
+    // }
+    const connectedUserId = Session.get("id").toString();
+      var forbiddenDatesArr = new Array();
+      var forbiddenDatesCollection = CalEvents.find({connectedUserId, connectedUserId});
+      forbiddenDatesCollection.forEach(function(data){
+          /**
+          *   To filter out forbidden dates easily, we construct a standard format of dates, using strings. The format looks like the following:
+          *
+          *   ForbiddenDateString Format:   START-TIME+END-TIME+DAY+MONTH+YEAR
+          *
+          *   Where we get these paramaters from the students current schedule in our database:
+          *
+          *   START-TIME:             data.start.substring(11,13)
+          *   END-TIME:               data.end.substring(11,13)
+          *   DAY:                    data.start.substring(8,10)
+          *   MONTH:                  data.start.substring(5,7)
+          *   YEAR:                   data.start.substring(0,4)
+          **/
+          forbiddenDateString =
+          data.start.substring(11,13)+ // START-TIME
+          data.end.substring(11,13)+   // END-TIME
+          data.start.substring(8,10)+  // DAY
+          data.start.substring(5,7)+   // MONTH
+          data.start.substring(0,4);   // YEAR
+          forbiddenDatesArr.push(forbiddenDateString); // Add to our forbiddenTimesArr.
+      });
+      console.log(forbiddenDatesArr);
   }
 
 
@@ -47,10 +81,10 @@ function addDesc() {
   for (var i = 0; i < 5; i++) {
       docs[i] = {
         examinationType: docEx[i],
+        phase: parseInt(Math.random()*5+1),
         desc: docDesc[i],
       };
   }
-
 
   for (var i = 0; i < 5; i++) {
     Samhällskunskap.insert(docs[i]);

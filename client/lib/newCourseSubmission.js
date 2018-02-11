@@ -237,57 +237,85 @@ function calcNumStudySessions( examinationType, ambitionLevel, schoolGrade, stud
   return numStudySessions;
 }
 
-var collisionCount;
-function checkDates(arr, startFromDay, endHours) {
+/**
+*   checkDates()
+*   Checks our already chosen date to schedule this, and sees if it's set at a forbidden date and time.
+*   If we have scheduled at a forbidden time, reschedule this date.
+*
+*   @param forbDatesArr Is an array of forbidden dates, formatted as a ForbiddenDateString
+*   @param startDay Start day, e.g "28"
+*   @param startMonth Start month, e.g "02"
+*   @param startYear Start year, e.g "2018"
+*   @param currentEntireDate current scheduled date, in Date class format.
+*   @return currentDateString, the correctly scheduled date, formatted as a ForbiddenDateString.
+**/
+function checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate) {
+console.log("B4B4 "+startHour + " " +endHour);
+  // Fix formatting...
+  if (parseInt(startMonth) < 10 && startMonth.toString().substring(0,1) != "0") {
+    startMonth = "0"+startMonth; // Make sure we have a zero before the numbers.
+  }
 
-  for ( var i = 1; i < arr.length; i+=2 ) {
-    //console.log(arr);
-    var endDate = arr[i].split("|");
-    var endDateTime = endDate[1].substring(11,13);
-    var yearMonthDay = endDate[1].substring(0,10).split("-");
-    //console.log("TEST:"+ parseInt(yearMonthDay[0]) +","+parseInt(yearMonthDay[1]-1)+","+parseInt(yearMonthDay[2]));
-    //console.log(yearMonthDay[0]+","+yearMonthDay[1]-1+","+yearMonthDay[2]);
-    var thisDate = new Date(parseInt(yearMonthDay[0]),(parseInt(yearMonthDay[1])-1),parseInt(yearMonthDay[2]));
-    var daysBetween = Date.daysBetween(startFromDay, thisDate);
-    //console.log(daysBetween + " " + endDateTime);
+  if (parseInt(startDay) < 10 && startDay.toString().substring(0,1) != "0") {
+    startDay = "0"+startDay; // Make sure we have a zero before the numbers.
+  }
 
-    // Optimal case: This date is not colliding with the day nor the time of the current event we're searching through.
-    // Not-so-optimal case: The date collides with the day, but not the time.
-    // Worst case: We're trying to schedule the student on a day and time in which they're already scheduled.
-    if ( !(daysBetween != 0 && endHours != endDateTime) || !(daysBetween != 0) ) {
-      // daysBetween is zero. this endDateTime is equal to our set endHours.
-      if ( !(endHours != endDateTime) ) {
-        //OK for this date. recheck this for our previously collided dates.
-        if ( collisionCount > 1 ) {
-          // We've collided before. Try adding two hours, or skip to the next date.
-          console.log("HERE5");
-          if (endHours+2 <= 22) {
-            endHours+=2;
-            checkDates(arr, startFromDay,endHours); // Redo check with new hours.
-          } else {
-            startFromDay.addDays(1);
-            checkDates(arr, startFromDay,endHours);
-          }
-        }
-        console.log("HERE: " + startFromDay + endHours +" thisDate "+thisDate+ " daysBe "+ daysBetween);
-        // NOTE: If we haven't collided, we leave the preliminary scheduled date & time as it is!
-      } else {
-        // Not OK for this date. Try adding two hours or skip to the next date.
-          console.log("HERE4");
-        collisionCount++; // Count this collision.
-        if (endHours+2 <= 22) {
-          endHours+=2;
-          checkDates(arr, startFromDay,endHours); // Redo check with new hours.
-        } else {
-          startFromDay.addDays(1);
-          checkDates(arr, startFromDay,endHours);
-        }
+  // Always try to schedule from 16-18, and fix the date if it's illegal. TODO: Optimize.
+  var currentDateString = startHour+endHour+startDay+startMonth+startYear;
+
+  if (parseInt(startHour)>16) {
+    console.log("HM "+startHour + " " +endHour);
+    console.log("HM "+currentDateString );
+  }
+
+  //console.log("ZZZ "+currentDateString + " " + forbDatesArr[i]);
+  for ( var i = 0; i < forbDatesArr.length; i++ ) {
+  //console.log("ZERO "+currentDateString + " " + forbDatesArr[i]); // BUG: Check CalEvent DB and Check currentDateString...
+    if( currentDateString == forbDatesArr[i]) {
+      //Reschedule the date. A Date Collision has occured.
+    console.log("ONE "+currentDateString + " " + forbDatesArr[i]);
+      // This whole day was completely booked.
+      if ( endHour == "22" ) {
+
+        startHour = "16";
+        endHour = "18";
+
+        // Reconstruct our currentDateString, with all updated parameters, in next function call:
+        currentEntireDate.addDays(1); // BUG: Not sure if this changes outside this function too, for further use when scheduling other events... Create a pointer?
+        startDay = currentEntireDate.getDate();
+        startMonth = currentEntireDate.getMonth()+1; // Month starts at 0.
+        startYear = currentEntireDate.getFullYear();
+
+        checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate);
+        return;
+      } else { // This day is hopefully not entirely booked, yet.
+
+        console.log("B4 "+startHour + " " +endHour);
+        startHour=(parseInt(startHour)+2).toString();
+        endHour=(parseInt(endHour)+2).toString();
+        console.log("AFTER "+startHour + " " +endHour);
+
+        // TODO
+        // return currentDateString;
+        checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate);
+        currentDateString = startHour+endHour+startDay+startMonth+startYear; //TODO...
+        return currentDateString;
       }
 
     }
+  }
+
+  return currentDateString;
+
+}
+
+function checkDatesHelper(forbDates, currentDateString) {
+
+  for ( var i = 0; i < forbDatesArr.length; i++ ) {
+
 
   }
-  //collisionCount = 0; // clear collisoinCount
+
 }
 
 /**
@@ -308,7 +336,7 @@ function checkDates(arr, startFromDay, endHours) {
 *   @param numAvailableDays is the number of days until the deadline is reached.
 *
 **/
-function createStudySessions(desc, numStudySessions, numAvailableDays, deadline) {
+function createStudySessions(descArray, numStudySessions, numAvailableDays, deadline) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
@@ -327,10 +355,30 @@ function createStudySessions(desc, numStudySessions, numAvailableDays, deadline)
   //console.log("START FROM: "+ startFromDay.getYear());
 
   var justYMD;
+  var forbiddenDateString;
   var forbiddenDatesArr = new Array();
   var forbiddenDatesCollection = CalEvents.find({connectedUserId, connectedUserId});
   forbiddenDatesCollection.forEach(function(data){
-      forbiddenDatesArr.push(data.start + "|" + data.end); // Add to our forbiddenTimesArr.
+      /**
+      *   To filter out forbidden dates easily, we construct a standard format of dates, using strings. The format looks like the following:
+      *
+      *   ForbiddenDateString Format:   START-TIME+END-TIME+DAY+MONTH+YEAR
+      *
+      *   Where we get these paramaters from the students current schedule in our database:
+      *
+      *   START-TIME:             data.start.substring(11,13)
+      *   END-TIME:               data.end.substring(11,13)
+      *   DAY:                    data.start.substring(8,10)
+      *   MONTH:                  data.start.substring(5,7)
+      *   YEAR:                   data.start.substring(0,4)
+      **/
+      forbiddenDateString =
+      data.start.substring(11,13)+ // START-TIME
+      data.end.substring(11,13)+   // END-TIME
+      data.start.substring(8,10)+  // DAY
+      data.start.substring(5,7)+   // MONTH
+      data.start.substring(0,4);   // YEAR
+      forbiddenDatesArr.push(forbiddenDateString); // Add to our forbiddenTimesArr.
   });
 
   /**
@@ -361,47 +409,43 @@ function createStudySessions(desc, numStudySessions, numAvailableDays, deadline)
 
       /**
       *     Set preliminary event. Check if it's alright afterwards.
-      *     TODO: Start at 22 if they like to study late, 18 if they like to study early.
+      *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine learning..?
       **/
-      var startHours, endHours;
-      endHours = 18;
 
-      // Is this preliminary date forbidden?
-      checkDates(forbiddenDatesArr, startFromDay, endHours);
-
-      /**
-      *   We now know the date is okay. Let's do some formatting.
-      *   TODO: Add zeroes before day value!!!
-      **/
-      startHours = endHours-2; // Set the start hours.
+      var startHours = "16";
+      var endHours = "18";
       var startYear = startFromDay.getFullYear();
       var startMonth = startFromDay.getMonth()+1; // Month indexing starts at 0.
       var startDay = startFromDay.getDate();
 
-      if (startMonth < 10) {
-        startMonth = "0"+startMonth; // Make sure we have a zero before the numbers.
-      }
+      // Fix this date if it is scheduled illegally: NOTE: We start at 16-18 statically.
+      // NOTE: If the date is okay, we will return first available string.
+      var currentDateString = checkDates(forbiddenDatesArr,startHours,endHours,startDay,startMonth,startYear,startFromDay);
 
-      if (startDay < 10) {
-        startDay = "0"+startDay; // Make sure we have a zero before the numbers.
-      }
+      console.log("currentDateString:   "+currentDateString)
+      startHours = currentDateString.substring(0,2);
+      endHours = currentDateString.substring(2,4);
+      startDay = currentDateString.substring(4,6);
+      startMonth = currentDateString.substring(6,8); // Month indexing starts at 0.
+      startYear = currentDateString.substring(8,13);
+
+      /**
+      *   We now know the date is okay.
+      **/
 
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
 
-      // Add this session in to our forbiddenDatesArr for next loop.
-      forbiddenDatesArr.push(start+" "+startHours+":00:00" + "|" + end +" "+endHours+":00:00");
+      forbiddenDateString = startHours+endHours+startDay+startMonth+startYear; // NOTE: Check format of this string where we create forbiddenDatesArr.
+      forbiddenDatesArr.push(forbiddenDateString); // Add this session in to our forbiddenDatesArr for next loop.
 
-      // TODO htmlDescFormat is NOT FINISHED!
+      // TODO htmlDescFormat is NOT FINISHED! Add iteration of descriptions...
+      // TODO Add logic to handle descArray and study-phases.
       htmlDescFormat = `
       <br><br>
       <h3 class="center">`+title+` `+ startHours +`-`+ endHours +`</h3>
       <div class="col s12">
-        <ol>
-          <li>Läs <b>X</b> sidor av kaptitel <b>Y</b></li>
-          <li>Skriv en sammanfattning på dem <b>X</b> sidor av kapitel <b>Y</b> med <b>Z</b> punkter </li>
-        </ol>
-
+        `+descArray[0]/*TODO*/+`
       </div>`;
 
       /**
@@ -461,12 +505,12 @@ function createStudySessions(desc, numStudySessions, numAvailableDays, deadline)
 *   numAvailableDays is also used here.
 *
 *   createStudySessions params:
-*   @param desc is the description string grabbed from our database. It is the general tip description for the exType.
+*   @param descArray is the list of description strings grabbed from our database. It is the general tip description for the exType.
 *   @param numStudySessions is the number of study sessions we want to schedule in.
 *   numAvailableDays is also used here.
 *
 **/
-function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, desc, studyScope) {
+function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
     var numAvailableDays = calcNumAvailableDays(deadline);
@@ -489,7 +533,7 @@ function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, 
     }
 
     var deadlineFormatted = deadlineYear+"-"+deadlineMonth+"-"+deadlineDay+" 23:00:00"
-    createStudySessions(desc, numStudySessions, numAvailableDays, deadlineFormatted);
+    createStudySessions(descArray, numStudySessions, numAvailableDays, deadlineFormatted);
 
 }
 
@@ -498,16 +542,21 @@ function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, 
 **/
 function kvantitativDesc(examinationType) {
 
-  if ( Kvantitativ.findOne({'examinationType': examinationType}) ) {
-    const descObj = Kvantitativ.findOne({'examinationType': examinationType});
-    if ( descObj.desc ) {
-      // We found our description for this course and examination type combination. Algorithm time.
-      return descObj.desc.toString(); // Needed for the MMR algorithm
-    } else {
-      // ERROR: Could not find description?
-      Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
-      return;
-    }
+  //TODO: Add logic for handling examinationtype
+
+  // Puts all our activity descriptions in a list.
+  var allActivityDesc = Kvantitativ.find();
+  var listActivityDesc = new Array();
+  allActivityDesc.forEach(function(data){
+      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+  });
+  if ( listActivityDesc[0] ) {
+    // We found our description for this course and examination type combination. Algorithm time.
+    return listActivityDesc; //Needed for the MMR algorithm
+  } else {
+    // ERROR: Could not find description?
+    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
+    return;
   }
 
 }
@@ -517,16 +566,21 @@ function kvantitativDesc(examinationType) {
 **/
 function språkDesc(examinationType) {
 
-  if ( Språk.findOne({'examinationType': examinationType}) ) {
-    const descObj = Språk.findOne({'examinationType': examinationType});
-    if ( descObj.desc ) {
-      // We found our description for this course and examination type combination. Algorithm time.
-      return descObj.desc.toString(); //Needed for the MMR algorithm
-    } else {
-      // ERROR: Could not find description?
-      Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
-      return;
-    }
+  //TODO: Add logic for handling examinationtype
+
+  // Puts all our activity descriptions in a list.
+  var allActivityDesc = Språk.find();
+  var listActivityDesc = new Array();
+  allActivityDesc.forEach(function(data){
+      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+  });
+  if ( listActivityDesc[0] ) {
+    // We found our description for this course and examination type combination. Algorithm time.
+    return listActivityDesc; //Needed for the MMR algorithm
+  } else {
+    // ERROR: Could not find description?
+    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
+    return;
   }
 
 }
@@ -536,16 +590,21 @@ function språkDesc(examinationType) {
 **/
 function samhällskunskapDesc(examinationType) {
 
-  if ( Samhällskunskap.findOne({'examinationType': examinationType}) ) {
-    const descObj = Samhällskunskap.findOne({'examinationType': examinationType});
-    if ( descObj.desc ) {
-      // We found our description for this course and examination type combination. Algorithm time.
-      return descObj.desc.toString(); // Needed for the MMR algorithm
-    } else {
-      // ERROR: Could not find description?
-      Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
-      return;
-    }
+  //TODO: Add logic for handling examinationtype
+
+  // Puts all our activity descriptions in a list.
+  var allActivityDesc = Samhällskunskap.find();
+  var listActivityDesc = new Array();
+  allActivityDesc.forEach(function(data){
+      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+  });
+  if ( listActivityDesc[0] ) {
+    // We found our description for this course and examination type combination. Algorithm time.
+    return listActivityDesc; //Needed for the MMR algorithm
+  } else {
+    // ERROR: Could not find description?
+    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
+    return;
   }
 
 }
@@ -648,7 +707,8 @@ Template.newCourse.events({
   }
 
   // It's time to fetch the correct descriptions from our db.
-  var shortExType, desc;
+  var shortExType;
+  var descArray = new Array();
   /**
   *   SKRIFTLIGT PROV
   **/
@@ -659,21 +719,21 @@ Template.newCourse.events({
     **/
     if ( courseType == "Kvantitativ" ) {
 
-      desc = kvantitativDesc(examinationType);
+      descArray = kvantitativDesc(examinationType);
 
       /**
       *   SKRIFTLIGT PROV: SPRÅK
       **/
     } else if ( courseType == "Språk" ) {
 
-      desc = språkDesc(examinationType);
+      descArray = språkDesc(examinationType);
 
     /**
     *   SKRIFTLIGT PROV: SAMHÄLLSKUNSKAP
     **/
     } else if ( courseType == "Samhällskunskap" ) {
 
-      desc = samhällskunskapDesc(examinationType);
+      descArray = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -687,15 +747,15 @@ Template.newCourse.events({
     shortExType = "Other"; // Needed for the MMR algorithm
     if ( courseType == "Kvantitativ" ) {
 
-      desc = kvantitativDesc(examinationType);
+      descArray = kvantitativDesc(examinationType);
 
     } else if ( courseType == "Språk" ) {
 
-      desc = språkDesc(examinationType);
+      descArray = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      desc = samhällskunskapDesc(examinationType);
+      descArray = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -709,11 +769,11 @@ Template.newCourse.events({
     shortExType = examinationType; // Needed for the MMR algorithm
     if ( courseType == "Språk" ) {
 
-      desc = språkDesc(examinationType);
+      descArray = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      desc = samhällskunskapDesc(examinationType);
+      descArray = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -727,15 +787,15 @@ Template.newCourse.events({
     shortExType = examinationType; // Needed for the MMR algorithm
     if ( courseType == "Kvantitativ" ) {
 
-      desc = samhällskunskapDesc(examinationType);
+      descArray = samhällskunskapDesc(examinationType);
 
     } else if ( courseType == "Språk" ) {
 
-      desc = språkDesc(examinationType);
+      descArray = språkDesc(examinationType);
 
     } else if ( courseType == "Samhällskunskap" ) {
 
-      desc = samhällskunskapDesc(examinationType);
+      descArray = samhällskunskapDesc(examinationType);
 
     } else {
       // ERROR: Invalid coursetype.
@@ -768,7 +828,7 @@ Template.newCourse.events({
   /**
   *   FINALLY. Apply the MMR Algorithm.
   **/
-  theMMRAlgorithm(deadline, shortExType, ambitionLevel, schoolGrade, studyScopeLevel, desc, studyScope);
+  theMMRAlgorithm(deadline, shortExType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope);
 
 },
 

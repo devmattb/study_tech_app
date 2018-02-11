@@ -19,13 +19,18 @@ let CourseSchema = new SimpleSchema({
 
   'examinationType': {
     type: String,
-    label: 'The description of this study technique',
+    label: 'The examination type this activity is linked to.',
     // allowedValues: "Skriftligt Prov", "Litteraturanalys", "Muntlig Redovisning", "Glosor", "Uppsats"
+  },
+
+  'phase': {
+    type: Number,
+    label: 'The study phase this activity is linked to.'
   },
 
   'desc': {
     type: String,
-    label: 'The description of this study technique'
+    label: 'The description of this activity.'
   },
 
 });
