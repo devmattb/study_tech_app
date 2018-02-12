@@ -45,32 +45,31 @@
     //     alert("COLLISION");
     //   }
     // }
-    const connectedUserId = Session.get("id").toString();
-      var forbiddenDatesArr = new Array();
-      var forbiddenDatesCollection = CalEvents.find({connectedUserId, connectedUserId});
-      forbiddenDatesCollection.forEach(function(data){
-          /**
-          *   To filter out forbidden dates easily, we construct a standard format of dates, using strings. The format looks like the following:
-          *
-          *   ForbiddenDateString Format:   START-TIME+END-TIME+DAY+MONTH+YEAR
-          *
-          *   Where we get these paramaters from the students current schedule in our database:
-          *
-          *   START-TIME:             data.start.substring(11,13)
-          *   END-TIME:               data.end.substring(11,13)
-          *   DAY:                    data.start.substring(8,10)
-          *   MONTH:                  data.start.substring(5,7)
-          *   YEAR:                   data.start.substring(0,4)
-          **/
-          forbiddenDateString =
-          data.start.substring(11,13)+ // START-TIME
-          data.end.substring(11,13)+   // END-TIME
-          data.start.substring(8,10)+  // DAY
-          data.start.substring(5,7)+   // MONTH
-          data.start.substring(0,4);   // YEAR
-          forbiddenDatesArr.push(forbiddenDateString); // Add to our forbiddenTimesArr.
+
+      // Grab all activities:
+      var allActivityObj = Samhällskunskap.find();
+      var activityArray = new Array();
+      var listActivityDesc = new Array();
+
+      // Store all our objects from the object that holds all activity objects,
+      // in to an array instead.
+      allActivityObj.forEach(function(data){
+          activityArray.push(data); // Add to our forbiddenTimesArr.
       });
-      console.log(forbiddenDatesArr);
+
+      // Sorts all activities in Ascending order, in this array,
+      // according to their phase. Chronological phases...
+      activityArray.sort(function(dataA, dataB){
+        return dataA.phase-dataB.phase
+      });
+
+      // Put only the description strings of these activities in a list.
+      // Note that this list is still sorted.
+      activityArray.forEach(function(data){
+          listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+      });
+
+      console.log(listActivityDesc.toString());
   }
 
 

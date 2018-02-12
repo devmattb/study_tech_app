@@ -6,6 +6,7 @@
 *   Statement:
 *   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
 *
+*   TODO: IMPORTANT - Rewrite so we use 1 database instead of 3.
 ***/
 
 Template.newCourse.onCreated(function(){
@@ -238,6 +239,9 @@ function calcNumStudySessions( examinationType, ambitionLevel, schoolGrade, stud
 }
 
 /**
+*   TODO: Optimize when and correct time collision handling...
+*   TODO: Don't compare start-time, only end time of existing and start-time of current try of scheduling?
+*
 *   checkDates()
 *   Checks our already chosen date to schedule this, and sees if it's set at a forbidden date and time.
 *   If we have scheduled at a forbidden time, reschedule this date.
@@ -275,7 +279,7 @@ console.log("B4B4 "+startHour + " " +endHour);
       //Reschedule the date. A Date Collision has occured.
     console.log("ONE "+currentDateString + " " + forbDatesArr[i]);
       // This whole day was completely booked.
-      if ( endHour == "22" ) {
+      if ( endHour == "24" ) {
 
         startHour = "16";
         endHour = "18";
@@ -290,9 +294,10 @@ console.log("B4B4 "+startHour + " " +endHour);
         return;
       } else { // This day is hopefully not entirely booked, yet.
 
+        var incrementationStep = (Math.floor(Math.random() * 2) + 1)*2;
         console.log("B4 "+startHour + " " +endHour);
-        startHour=(parseInt(startHour)+2).toString();
-        endHour=(parseInt(endHour)+2).toString();
+        startHour=(parseInt(startHour)+incrementationStep).toString();
+        endHour=(parseInt(endHour)+incrementationStep).toString();
         console.log("AFTER "+startHour + " " +endHour);
 
         // TODO
@@ -409,7 +414,7 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
 
       /**
       *     Set preliminary event. Check if it's alright afterwards.
-      *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine learning..?
+      *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine Learning/Data Analytics..?
       **/
 
       var startHours = "16";
@@ -592,12 +597,29 @@ function samhällskunskapDesc(examinationType) {
 
   //TODO: Add logic for handling examinationtype
 
-  // Puts all our activity descriptions in a list.
-  var allActivityDesc = Samhällskunskap.find();
+  // Grab all activities:
+  var allActivityObj = Samhällskunskap.find();
+  var activityArray = new Array();
   var listActivityDesc = new Array();
-  allActivityDesc.forEach(function(data){
+
+  // Store all our objects from the object that holds all activity objects,
+  // in to an array instead.
+  allActivityObj.forEach(function(data){
+      activityArray.push(data); // Add to our forbiddenTimesArr.
+  });
+
+  // Sorts all activities in Ascending order, in this array,
+  // according to their phase. Chronological phases...
+  activityArray.sort(function(dataA, dataB){
+    return dataA.phase-dataB.phase
+  });
+
+  // Put only the description strings of these activities in a list.
+  // Note that this list is still sorted.
+  activityArray.forEach(function(data){
       listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
   });
+
   if ( listActivityDesc[0] ) {
     // We found our description for this course and examination type combination. Algorithm time.
     return listActivityDesc; //Needed for the MMR algorithm
