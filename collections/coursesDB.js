@@ -32,6 +32,12 @@ let CourseSchema = new SimpleSchema({
     label: 'The study phase this activity is linked to.'
   },
 
+  'phaseOrder': {
+    type: Number,
+    label: 'The study order in the phase this activity should have.'
+  },
+
+
   'desc': {
     type: String,
     label: 'The description of this activity.'
