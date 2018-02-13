@@ -35,16 +35,15 @@
 
   <script>
 
-  function findSmth() {
-    //alert(Samhällskunskap.find({examinationType: "Skriftligt Prov"}));
+/**
+*
+*     THE FOLLOWING IS ONLY TEST-CODE. USED FOR DEVELOPERS.
+*     TODO: REMOVE.
+*
+**/
 
-    // var testArr = ["182011122018","161811122018","202211122018","161812122018"];
-    //
-    // for(var i = 0; i < testArr.length; i++) {
-    //   if ( "161812122018" == testArr[i] ){
-    //     alert("COLLISION");
-    //   }
-    // }
+
+  function findSmth() {
 
       // Grab all activities:
       var allActivityObj = Samhällskunskap.find();
@@ -74,22 +73,31 @@
 
 
 function addDesc() {
+
   var docs = [];
+  var docCourse = ["Samhällskunskap", "Språk", "Kvantitativ"];
   var docEx = ["Litteraturanalys", "Skriftligt Prov", "Glosor", "Muntlig Redovisning", "Uppsats"];
   var docDesc = ["Lit bro","Skriftligt bro","Glosor bro","Muntlig bro", "Redovisning bro", "Uppsats bro"];
-  for (var i = 0; i < 5; i++) {
-      docs[i] = {
-        examinationType: docEx[i],
-        phase: parseInt(Math.random()*5+1),
-        desc: docDesc[i],
-      };
+
+  // Create all documents...
+  var cell = 0;
+  for (var j = 0; j < 3; j++) {
+    for (var i = 0; i < 5; i++) {
+        docs[cell] = {
+          courseType: docCourse[j],
+          examinationType: docEx[i],
+          phase: parseInt(Math.random()*5+1),
+          desc: docDesc[i],
+        };
+        cell++;
+    }
   }
 
-  for (var i = 0; i < 5; i++) {
-    Samhällskunskap.insert(docs[i]);
-    Språk.insert(docs[i]);
-    Kvantitativ.insert(docs[i]);
+  // Insert all documents...
+  for (var i = 0; i < 5*3; i++) {
+    Activities.insert(docs[i]);
   }
+
 }
 
   // var courseType = "Samhällskunskap";

@@ -543,62 +543,14 @@ function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, 
 }
 
 /**
-*   Depending on examinationtype, gets the connected description!
+*   Depending on course and examination type, gets the connected description!
 **/
-function kvantitativDesc(examinationType) {
+function activityDesc(cType, exType) {
 
   //TODO: Add logic for handling examinationtype
 
-  // Puts all our activity descriptions in a list.
-  var allActivityDesc = Kvantitativ.find();
-  var listActivityDesc = new Array();
-  allActivityDesc.forEach(function(data){
-      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
-  });
-  if ( listActivityDesc[0] ) {
-    // We found our description for this course and examination type combination. Algorithm time.
-    return listActivityDesc; //Needed for the MMR algorithm
-  } else {
-    // ERROR: Could not find description?
-    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
-    return;
-  }
-
-}
-
-/**
-*   Depending on examinationtype, gets the connected description!
-**/
-function språkDesc(examinationType) {
-
-  //TODO: Add logic for handling examinationtype
-
-  // Puts all our activity descriptions in a list.
-  var allActivityDesc = Språk.find();
-  var listActivityDesc = new Array();
-  allActivityDesc.forEach(function(data){
-      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
-  });
-  if ( listActivityDesc[0] ) {
-    // We found our description for this course and examination type combination. Algorithm time.
-    return listActivityDesc; //Needed for the MMR algorithm
-  } else {
-    // ERROR: Could not find description?
-    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
-    return;
-  }
-
-}
-
-/**
-*   Depending on examinationtype, gets the connected description!
-**/
-function samhällskunskapDesc(examinationType) {
-
-  //TODO: Add logic for handling examinationtype
-
-  // Grab all activities:
-  var allActivityObj = Samhällskunskap.find();
+  // Grab all activities with the selected course and examination type:s
+  var allActivityObj = Activities.find({courseType: cType, examinationType: exType});
   var activityArray = new Array();
   var listActivityDesc = new Array();
 
@@ -630,6 +582,7 @@ function samhällskunskapDesc(examinationType) {
   }
 
 }
+
 
 /**
 *   HANDLES ALL EVENTS ON THIS TEMPLATE.
@@ -709,7 +662,7 @@ Template.newCourse.events({
   FlowRouter.route("/newCourse");
 
   /**
-  *   The Low/Medium/High studyScopeLevel Table:
+  *   The Low/Medium/High studyScopeLevel Table/Matrix:
   **/
   var studyScopeLevel;
   if ( examinationType != "Glosor" && examinationType != "Muntlig Redovisning" ) {
@@ -731,121 +684,9 @@ Template.newCourse.events({
   // It's time to fetch the correct descriptions from our db.
   var shortExType;
   var descArray = new Array();
-  /**
-  *   SKRIFTLIGT PROV
-  **/
-  if ( examinationType == "Skriftligt Prov") {
-    shortExType = "Other"; // Needed for the MMR algorithm
-    /**
-    *   SKRIFTLIGT PROV: KVANTITATIV
-    **/
-    if ( courseType == "Kvantitativ" ) {
 
-      descArray = kvantitativDesc(examinationType);
-
-      /**
-      *   SKRIFTLIGT PROV: SPRÅK
-      **/
-    } else if ( courseType == "Språk" ) {
-
-      descArray = språkDesc(examinationType);
-
-    /**
-    *   SKRIFTLIGT PROV: SAMHÄLLSKUNSKAP
-    **/
-    } else if ( courseType == "Samhällskunskap" ) {
-
-      descArray = samhällskunskapDesc(examinationType);
-
-    } else {
-      // ERROR: Invalid coursetype.
-      Materialize.toast('Något gick fel med att identifiera kurstypen!', 4000, "red");
-    }
-
-  /**
-  *   LITTERATURANALYS
-  **/
-  } else if ( examinationType == "Litteraturanalys" ) {
-    shortExType = "Other"; // Needed for the MMR algorithm
-    if ( courseType == "Kvantitativ" ) {
-
-      descArray = kvantitativDesc(examinationType);
-
-    } else if ( courseType == "Språk" ) {
-
-      descArray = språkDesc(examinationType);
-
-    } else if ( courseType == "Samhällskunskap" ) {
-
-      descArray = samhällskunskapDesc(examinationType);
-
-    } else {
-      // ERROR: Invalid coursetype.
-      Materialize.toast('Något gick fel med att identifiera kurstypen!', 4000, "red");
-    }
-
-  /**
-  *   MUNTLIG REDOVISNING
-  **/
-  } else if ( examinationType == "Muntlig Redovisning" ) {
-    shortExType = examinationType; // Needed for the MMR algorithm
-    if ( courseType == "Språk" ) {
-
-      descArray = språkDesc(examinationType);
-
-    } else if ( courseType == "Samhällskunskap" ) {
-
-      descArray = samhällskunskapDesc(examinationType);
-
-    } else {
-      // ERROR: Invalid coursetype.
-      Materialize.toast('Något gick fel med att identifiera kurstypen!', 4000, "red");
-    }
-
-  /**
-  *  GLOSOR
-  **/
-  } else if ( examinationType == "Glosor" ) {
-    shortExType = examinationType; // Needed for the MMR algorithm
-    if ( courseType == "Kvantitativ" ) {
-
-      descArray = samhällskunskapDesc(examinationType);
-
-    } else if ( courseType == "Språk" ) {
-
-      descArray = språkDesc(examinationType);
-
-    } else if ( courseType == "Samhällskunskap" ) {
-
-      descArray = samhällskunskapDesc(examinationType);
-
-    } else {
-      // ERROR: Invalid coursetype.
-      Materialize.toast('Något gick fel med att identifiera kurstypen!', 4000, "red");
-    }
-
-  /**
-  *   UPPSATS
-  **/
-  } else if ( examinationType == "Uppsats" ) {
-    shortExType = "Other"; // Needed for the MMR algorithm
-    if ( courseType == "Språk" ) {
-
-      desc = språkDesc(examinationType);
-
-    } else if ( courseType == "Samhällskunskap" ) {
-
-      desc = samhällskunskapDesc(examinationType);
-
-    } else {
-      // ERROR: Invalid coursetype.
-      Materialize.toast('Något gick fel med att identifiera kurstypen!', 4000, "red");
-    }
-
-  } else {
-    // ERROR: Invalid Examination Type.
-    Materialize.toast('Något gick fel med att identifiera examinationstypen!', 4000, "red");
-  }
+  // Fetches the right description array, based on our course and examination type:
+  descArray = activityDesc(courseType, examinationType);
 
   /**
   *   FINALLY. Apply the MMR Algorithm.

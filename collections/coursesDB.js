@@ -11,11 +11,15 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-Samhällskunskap = new Mongo.Collection( 'Samhällskunskap' );
-Språk = new Mongo.Collection( 'Språk' );
-Kvantitativ = new Mongo.Collection( 'Kvantitativ' );
+Activities = new Mongo.Collection( 'Activities' );
 
 let CourseSchema = new SimpleSchema({
+
+  'courseType': {
+    type: String,
+    label: 'The course type this activity is linked to.',
+    // allowedValues: "Skriftligt Prov", "Litteraturanalys", "Muntlig Redovisning", "Glosor", "Uppsats"
+  },
 
   'examinationType': {
     type: String,
@@ -35,6 +39,4 @@ let CourseSchema = new SimpleSchema({
 
 });
 
-Samhällskunskap.attachSchema( CourseSchema );
-Språk.attachSchema( CourseSchema );
-Kvantitativ.attachSchema( CourseSchema );
+Activities.attachSchema( CourseSchema );
