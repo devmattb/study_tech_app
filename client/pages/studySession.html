@@ -1,0 +1,59 @@
+<!--
+
+***/
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstroms') permission.
+*
+***/
+
+-->
+  <template name="studySession">
+
+    {{>header}}
+    {{>preloader}}
+    <!-- GUI To view a study session: -->
+    <div class="row col s12">
+
+        <div style="margin-top: 40px;" class="col s12">
+          <h5 class="center"> {{title}} </h5>
+          <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#direktiv">Instruktion</a></li>
+            <li class="tab col s3"><a href="#demo">DEMO</a></li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 40px;" id="direktiv" class="row col s12">
+
+          <!-- Activity Description -->
+          <div class="col s1"></div>  <!-- DUMMY -->
+          <div class="col s10">
+            {{{description}}}
+          </div>
+          <div class="col s1"></div>  <!-- DUMMY -->
+
+        </div>
+
+        <div style="margin-top: 40px;" id="demo" class="row col s12">
+          <!-- Activity Video -->
+          <div class="col s1"></div>  <!-- DUMMY -->
+          <div class="col s10">
+              VIDEO
+          </div>
+          <div class="col s1"></div>  <!-- DUMMY -->
+
+        </div>
+
+
+
+      <div class="leftCornerFixedButtonDiv centered">
+        <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> Tillbaka </button></a>
+      </div>
+
+    </div>
+
+
+  </template>

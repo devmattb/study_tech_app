@@ -78,55 +78,5 @@ Template.calendar.onRendered( () => {
 // Click events, etc.
 Template.calendar.events({
 
-  'click .fc-event-container': function(e){
-    var htmlDesc;
-    // BUG: undefined sometimes...
-
-    // Only change htmlDesc if its something we dont want.
-    // Either the parent or the child holds the info.
-    if ($(e.target).parents(".fc-content").attr("htmlDesc") != undefined && (htmlDesc != $(e.target).parents(".fc-content").attr("htmlDesc"))) {
-      htmlDesc = $(e.target).parents(".fc-content").attr("htmlDesc");
-    } else if($(e.target).children(".fc-content").attr("htmlDesc") != undefined && (htmlDesc != $(e.target).children(".fc-content").attr("htmlDesc"))){
-      htmlDesc = $(e.target).children(".fc-content").attr("htmlDesc");
-    } else if ( $(e.target).find(".fc-content").attr("htmlDesc") != htmlDesc && $(e.target).find(".fc-content").attr("htmlDesc") != undefined) {
-      // If all else fails.. try this...
-      htmlDesc = $(e.target).find(".fc-content").attr("htmlDesc");
-    }
-    $("#eventDescModal .modal-content").html(`
-      <div class="row col s12">
-      `+htmlDesc+`
-      </div>
-    `);
-
-    $("#eventDescModal").modal('open');
-  }
-
-})
-
-// Click events, etc.
-Template.home.events({
-
-  'click .fc-event-container': function(e){
-    var htmlDesc;
-    // BUG: undefined sometimes...
-
-    // Only change htmlDesc if its something we dont want.
-    // Either the parent or the child holds the info.
-    if ($(e.target).parents(".fc-content").attr("htmlDesc") != undefined && (htmlDesc != $(e.target).parents(".fc-content").attr("htmlDesc"))) {
-      htmlDesc = $(e.target).parents(".fc-content").attr("htmlDesc");
-    } else if($(e.target).children(".fc-content").attr("htmlDesc") != undefined && (htmlDesc != $(e.target).children(".fc-content").attr("htmlDesc"))){
-      htmlDesc = $(e.target).children(".fc-content").attr("htmlDesc");
-    } else if ( $(e.target).find(".fc-content").attr("htmlDesc") != htmlDesc && $(e.target).find(".fc-content").attr("htmlDesc") != undefined) {
-      // If all else fails.. try this...
-      htmlDesc = $(e.target).find(".fc-content").attr("htmlDesc");
-    }
-    $("#eventDescModal .modal-content").html(`
-      <div class="row col s12">
-      `+htmlDesc+`
-      </div>
-    `);
-
-    $("#eventDescModal").modal('open');
-  }
 
 })

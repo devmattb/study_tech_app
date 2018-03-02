@@ -16,7 +16,6 @@
   {{>header}}
   {{>preloader}}
   {{>navbar}}
-  {{>eventDescModal}}
   <div id="" class="row">
       <div class="col s12">
         <br><br>
@@ -40,40 +39,58 @@
 *     THE FOLLOWING IS ONLY TEST-CODE. USED FOR DEVELOPERS.
 *     TODO: REMOVE.
 *
-**/
-
+**/function formatDayOrMonth(dateNum){
+  if (parseInt(dateNum) < 10 && dateNum.toString().substring(0,1) != "0") {
+    dateNum = "0"+dateNum; // Make sure we have a zero before the numbers.
+  }
+  return dateNum;
+}
+Date.prototype.addHours = function(h) {
+this.setTime(this.getTime() + (h*60*60*1000));
+return this;
+}
   function findSmth() {
 
-      // Grab all activities:
-      var allActivityObj = Activities.find({courseType: "Samhällskunskap"});
-      var activityArray = new Array();
-      var listActivityDesc = new Array();
+      // // Grab all activities:
+      // var allActivityObj = Activities.find({courseType: "Samhällskunskap"});
+      // var activityArray = new Array();
+      // var listActivityDesc = new Array();
+      //
+      // // Store all our objects from the object that holds all activity objects,
+      // // in to an array instead.
+      // allActivityObj.forEach(function(data){
+      //     activityArray.push(data); // Add to our forbiddenTimesArr.
+      // });
+      //
+      // // Sorts all activities in Ascending order, in this array,
+      // // according to their phase and phaseOrder. Chronological phases...
+      // activityArray.sort(function(dataA, dataB){
+      //
+      //   if ( dataA.phase == dataB.phase ) { // Same phase.
+      //     return dataA.phaseOrder-dataB.phaseOrder; // Sort by internal phaseOrder instead...
+      //   } else { // Not same phase
+      //     return dataA.phase-dataB.phase; // Sort by phase.
+      //   }
+      //
+      // });
+      //
+      // // Put only the description strings of these activities in a list.
+      // // Note that this list is still sorted.
+      // activityArray.forEach(function(data){
+      //     listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+      // });
+      //
+      // console.log(listActivityDesc.toString());
 
-      // Store all our objects from the object that holds all activity objects,
-      // in to an array instead.
-      allActivityObj.forEach(function(data){
-          activityArray.push(data); // Add to our forbiddenTimesArr.
-      });
 
-      // Sorts all activities in Ascending order, in this array,
-      // according to their phase and phaseOrder. Chronological phases...
-      activityArray.sort(function(dataA, dataB){
-
-        if ( dataA.phase == dataB.phase ) { // Same phase.
-          return dataA.phaseOrder-dataB.phaseOrder; // Sort by internal phaseOrder instead...
-        } else { // Not same phase
-          return dataA.phase-dataB.phase; // Sort by phase.
-        }
-
-      });
-
-      // Put only the description strings of these activities in a list.
-      // Note that this list is still sorted.
-      activityArray.forEach(function(data){
-          listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
-      });
-
-      console.log(listActivityDesc.toString());
+      var startFromDay = new Date();
+      var tmp = new Date("2018-03-02 16:00:00");
+      var preliminaryDateObj = new Date(""+startFromDay.getFullYear()
+      +"-"+formatDayOrMonth(startFromDay.getMonth()+1)
+      +"-"+formatDayOrMonth(startFromDay.getDate())
+      + " 16:00:00");
+      console.log(preliminaryDateObj.addHours(2).getHours());
+      console.log(tmp-preliminaryDateObj);
   }
 
 

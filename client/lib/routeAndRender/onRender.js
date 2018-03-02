@@ -87,7 +87,10 @@ Template.home.rendered = function(){
         // Enabling list-view.
         listDayFormat: true,
         height: 450,
-        // Get events from DB
+
+        /**
+        *   Get events from DB
+        **/
         events( start, end, timezone, callback ) {
           var eventsId = Session.get("id").toString();
           let data = CalEvents.find({connectedUserId: eventsId}).fetch().map( ( event ) => {
@@ -161,4 +164,9 @@ Template.newCourse.rendered = function(){
       closeOnSelect: true // Close upon selecting a date,
     });
 
+};
+
+// STUDY SESSION
+Template.studySession.rendered = function(){
+    pageInit();
 };

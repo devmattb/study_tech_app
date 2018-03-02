@@ -9,6 +9,9 @@
 *   TODO: IMPORTANT - Rewrite so we use 1 database instead of 3.
 ***/
 
+// Get the user ID:
+const connectedUserId = Session.get("id").toString();
+
 Template.newCourse.onCreated(function(){
 
   // Course variables. Regulates examinationType options.
@@ -38,12 +41,24 @@ Date.prototype.addDays = function(days) {
   return dat;
 }
 
+Date.prototype.addHours = function(h) {
+   this.setTime(this.getTime() + (h*60*60*1000));
+   return this;
+}
+
 Date.daysBetween = function( date1, date2 ) {   //Get 1 day in milliseconds
   var one_day=1000*60*60*24;    // Convert both dates to milliseconds
   var date1_ms = date1.getTime();
   var date2_ms = date2.getTime();    // Calculate the difference in milliseconds
   var difference_ms = date2_ms - date1_ms;        // Convert back to days and return
   return Math.round(difference_ms/one_day);
+}
+
+function formatDayOrMonth(dateNum){
+  if (parseInt(dateNum) < 10 || dateNum.toString().substring(0,1) != "0") {
+    dateNum = "0"+dateNum; // Make sure we have a zero before the numbers.
+  }
+  return dateNum;
 }
 
 /**
@@ -58,10 +73,7 @@ Date.daysBetween = function( date1, date2 ) {   //Get 1 day in milliseconds
 **/
 function calcNumAvailableDays(deadline) {
 
-   //var y2k  = new Date(2000, 0, 1);
-   //var Jan1st2010 = new Date(y2k.getFullYear() + 10, y2k.getMonth(), y2k.getDate());
-
-   var today= new Date(); //displays 726
+   var today= new Date();
    var tomorrow = today.addDays(1); // Don't start today.
    return Date.daysBetween(tomorrow, deadline);
 
@@ -246,77 +258,52 @@ function calcNumStudySessions( examinationType, ambitionLevel, schoolGrade, stud
 *   Checks our already chosen date to schedule this, and sees if it's set at a forbidden date and time.
 *   If we have scheduled at a forbidden time, reschedule this date.
 *
-*   @param forbDatesArr Is an array of forbidden dates, formatted as a ForbiddenDateString
-*   @param startDay Start day, e.g "28"
-*   @param startMonth Start month, e.g "02"
-*   @param startYear Start year, e.g "2018"
-*   @param currentEntireDate current scheduled date, in Date class format.
+*   @param preliminaryDateObj The preliminary START DateTime Date object for our study session.
 *   @return currentDateString, the correctly scheduled date, formatted as a ForbiddenDateString.
 **/
-function checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate) {
-console.log("B4B4 "+startHour + " " +endHour);
-  // Fix formatting...
-  if (parseInt(startMonth) < 10 && startMonth.toString().substring(0,1) != "0") {
-    startMonth = "0"+startMonth; // Make sure we have a zero before the numbers.
-  }
+function checkDates(preliminaryDateObj) {
 
-  if (parseInt(startDay) < 10 && startDay.toString().substring(0,1) != "0") {
-    startDay = "0"+startDay; // Make sure we have a zero before the numbers.
-  }
+  /**
+  *   Refetch our alredy existing events from our database.
+  **/
+  var forbiddenDatesArr = new Array();
+  var forbiddenDatesCollection = CalEvents.find({connectedUserId, connectedUserId});
+  forbiddenDatesCollection.forEach(function(data){
+      forbiddenDatesArr.push(new Date(data.start)); // Add a Date Objects to our forbiddenTimesArr.
+  });
 
-  // Always try to schedule from 16-18, and fix the date if it's illegal. TODO: Optimize.
-  var currentDateString = startHour+endHour+startDay+startMonth+startYear;
+  console.log(forbiddenDatesArr)
 
-  if (parseInt(startHour)>16) {
-    console.log("HM "+startHour + " " +endHour);
-    console.log("HM "+currentDateString );
-  }
+  /**
+  *   Look for DateTime collisions.
+  **/
+  for ( var i = 0; i < forbiddenDatesArr.length; i++ ) {
 
-  //console.log("ZZZ "+currentDateString + " " + forbDatesArr[i]);
-  for ( var i = 0; i < forbDatesArr.length; i++ ) {
-  //console.log("ZERO "+currentDateString + " " + forbDatesArr[i]); // BUG: Check CalEvent DB and Check currentDateString...
-    if( currentDateString == forbDatesArr[i]) {
-      //Reschedule the date. A Date Collision has occured.
-    console.log("ONE "+currentDateString + " " + forbDatesArr[i]);
-      // This whole day was completely booked.
-      if ( endHour == "24" ) {
+    var dateDiffMillisec = preliminaryDateObj-forbiddenDatesArr[i];
+    console.log("DATE DIFF ms: "+dateDiffMillisec);
 
-        startHour = "16";
-        endHour = "18";
-
-        // Reconstruct our currentDateString, with all updated parameters, in next function call:
-        currentEntireDate.addDays(1); // BUG: Not sure if this changes outside this function too, for further use when scheduling other events... Create a pointer?
-        startDay = currentEntireDate.getDate();
-        startMonth = currentEntireDate.getMonth()+1; // Month starts at 0.
-        startYear = currentEntireDate.getFullYear();
-
-        checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate);
-        return;
-      } else { // This day is hopefully not entirely booked, yet.
-
-        var incrementationStep = (Math.floor(Math.random() * 2) + 1)*2;
-        console.log("B4 "+startHour + " " +endHour);
-        startHour=(parseInt(startHour)+incrementationStep).toString();
-        endHour=(parseInt(endHour)+incrementationStep).toString();
-        console.log("AFTER "+startHour + " " +endHour);
-
-        // TODO
-        // return currentDateString;
-        checkDates(forbDatesArr, startHour, endHour, startDay, startMonth, startYear, currentEntireDate);
-        currentDateString = startHour+endHour+startDay+startMonth+startYear; //TODO...
-        return currentDateString;
+    if( dateDiffMillisec == 0 ) { // No date difference. Reschedule.
+        if ( preliminaryDateObj.getHours() <= 20 ) {
+          // As long as we don't go past 20.00 as start time, add 2 hours to our interval.
+          preliminaryDateObj.addHours(2);
+        } else {
+          // We've exceeded 20.00. Go to the next day.
+          preliminaryDateObj.addDays(1);
+        }
+        // Recursive call
+        console.log("Again!");
+        checkDates(preliminaryDateObj);
       }
 
     }
-  }
-
-  return currentDateString;
-
+    // The entire forbidden Date array was okay. Add this date to our forbiddenDatesArr.
+    //forbiddenDatesArr.push(preliminaryDateObj);
+    return preliminaryDateObj; // Return this date
 }
 
-function checkDatesHelper(forbDates, currentDateString) {
+function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 
-  for ( var i = 0; i < forbDatesArr.length; i++ ) {
+  for ( var i = 0; i < forbiddenDatesArr.length; i++ ) {
 
 
   }
@@ -349,48 +336,17 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
   *    Variables that are to be altered by the algorithm...
   **/
   var htmlDescFormat, title, type, startDate, endDate;
-  const connectedUserId = Session.get("id").toString();
 
   /**
   *    Get the time of the events that are already scheduled, so we do not schedule
   *    over these. Also, get the forbidden schedule times.
   **/
   var startFromDay = new Date();
-
-  //console.log("START FROM: "+ startFromDay.getYear());
-
   var justYMD;
-  var forbiddenDateString;
-  var forbiddenDatesArr = new Array();
-  var forbiddenDatesCollection = CalEvents.find({connectedUserId, connectedUserId});
-  forbiddenDatesCollection.forEach(function(data){
-      /**
-      *   To filter out forbidden dates easily, we construct a standard format of dates, using strings. The format looks like the following:
-      *
-      *   ForbiddenDateString Format:   START-TIME+END-TIME+DAY+MONTH+YEAR
-      *
-      *   Where we get these paramaters from the students current schedule in our database:
-      *
-      *   START-TIME:             data.start.substring(11,13)
-      *   END-TIME:               data.end.substring(11,13)
-      *   DAY:                    data.start.substring(8,10)
-      *   MONTH:                  data.start.substring(5,7)
-      *   YEAR:                   data.start.substring(0,4)
-      **/
-      forbiddenDateString =
-      data.start.substring(11,13)+ // START-TIME
-      data.end.substring(11,13)+   // END-TIME
-      data.start.substring(8,10)+  // DAY
-      data.start.substring(5,7)+   // MONTH
-      data.start.substring(0,4);   // YEAR
-      forbiddenDatesArr.push(forbiddenDateString); // Add to our forbiddenTimesArr.
-  });
 
   /**
   *   Create all events!
   **/
-  title = "TEST"; //TODO
-  type = "Math"; // TODO
 
   var studySessionsPerDay = Math.round(numStudySessions/numAvailableDays);
   var distancePerStudySession = Math.floor(numAvailableDays/numStudySessions);
@@ -417,41 +373,41 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine Learning/Data Analytics..?
       **/
 
-      var startHours = "16";
-      var endHours = "18";
-      var startYear = startFromDay.getFullYear();
-      var startMonth = startFromDay.getMonth()+1; // Month indexing starts at 0.
-      var startDay = startFromDay.getDate();
+      // Create a new DateTime Date object.
+      var preliminaryDateObj = new Date(""+startFromDay.getFullYear()
+      +"-"+formatDayOrMonth(startFromDay.getMonth()+1)
+      +"-"+formatDayOrMonth(startFromDay.getDate())
+      + " 16:00:00");
 
       // Fix this date if it is scheduled illegally: NOTE: We start at 16-18 statically.
-      // NOTE: If the date is okay, we will return first available string.
-      var currentDateString = checkDates(forbiddenDatesArr,startHours,endHours,startDay,startMonth,startYear,startFromDay);
+      // NOTE: If the date is okay, we will return first Date object.
+      var currentDateObj;
+      currentDateObj = checkDates(preliminaryDateObj);
 
-      console.log("currentDateString:   "+currentDateString)
-      startHours = currentDateString.substring(0,2);
-      endHours = currentDateString.substring(2,4);
-      startDay = currentDateString.substring(4,6);
-      startMonth = currentDateString.substring(6,8); // Month indexing starts at 0.
-      startYear = currentDateString.substring(8,13);
+      var startHours = currentDateObj.getHours();
+      var endHours = currentDateObj.getHours()+2;
+      var startDay = formatDayOrMonth(parseInt(currentDateObj.getDate()));
+      var startMonth = formatDayOrMonth(parseInt(currentDateObj.getMonth())+1); // Month indexing starts at 0.
+      var startYear = currentDateObj.getFullYear();
 
       /**
       *   We now know the date is okay.
       **/
+      type = "Math"; // TODO
+      title = type+' '+ startHours +':00-'+ endHours+':00';
 
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
-
-      forbiddenDateString = startHours+endHours+startDay+startMonth+startYear; // NOTE: Check format of this string where we create forbiddenDatesArr.
-      forbiddenDatesArr.push(forbiddenDateString); // Add this session in to our forbiddenDatesArr for next loop.
+      console.log("input0: " + currentDateObj);
+      console.log("input1: " + currentDateObj.getDate()+" vs "+ startDay);
+      console.log("input2: " + start+" "+startHours+":00:00");
 
       // TODO htmlDescFormat is NOT FINISHED! Add iteration of descriptions...
       // TODO Add logic to handle descArray and study-phases.
       htmlDescFormat = `
-      <br><br>
-      <h3 class="center">`+title+` `+ startHours +`-`+ endHours +`</h3>
-      <div class="col s12">
+      <!-- PUT SOME HTML HERE -->
         `+descArray[0]/*TODO*/+`
-      </div>`;
+      <!-- PUT SOME HTML HERE -->`;
 
       /**
       *   Creation of the JSON object that is to be inserted.
@@ -464,7 +420,8 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
         'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00        which is feb 2nd 22:00, 2017
         'type': type,
         'deadline': deadline,
-        'editable':false
+        'editable':false,
+        'url': "DUMMY_URL"
         // End of eventArray
       };
 
@@ -473,7 +430,7 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       **/
       CalEvents.insert(
         doc,
-        function(error, result) {
+        function(error, doc_id) {
           if ( error ) {
             console.log ( error ); //info about what went wrong
             Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
@@ -481,6 +438,13 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
           } else {
             // Everything went smoothly...
             Materialize.toast('EVENT skapat!', 4000, "green");
+
+            /**
+            *   UPDATE that meetings url to its id.
+            **/
+            var uniqueUrl = Meteor.absoluteUrl()+"studySession/"+doc_id;
+            doc.url = uniqueUrl; // Update doc with new url
+            Meteor.call("eventUpsert", doc_id, doc);
           }
         }
       );
@@ -549,8 +513,8 @@ function activityDesc(cType, exType) {
 
   //TODO: Add logic for handling examinationtype
 
-  // Grab all activities with the selected course and examination type:s
-  var allActivityObj = Activities.find({courseType: cType, examinationType: exType});
+  // Grab all activities:
+  var allActivityObj = Activities.find({courseType: "Samhällskunskap"});
   var activityArray = new Array();
   var listActivityDesc = new Array();
 
@@ -561,16 +525,24 @@ function activityDesc(cType, exType) {
   });
 
   // Sorts all activities in Ascending order, in this array,
-  // according to their phase. Chronological phases...
+  // according to their phase and phaseOrder. Chronological phases...
   activityArray.sort(function(dataA, dataB){
-    return dataA.phase-dataB.phase
+
+    if ( dataA.phase == dataB.phase ) { // Same phase.
+      return dataA.phaseOrder-dataB.phaseOrder; // Sort by internal phaseOrder instead...
+    } else { // Not same phase
+      return dataA.phase-dataB.phase; // Sort by phase.
+    }
+
   });
 
   // Put only the description strings of these activities in a list.
   // Note that this list is still sorted.
   activityArray.forEach(function(data){
-      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+      listActivityDesc.push(data.desc); // Add to our array.
   });
+
+  console.log(listActivityDesc.toString());
 
   if ( listActivityDesc[0] ) {
     // We found our description for this course and examination type combination. Algorithm time.

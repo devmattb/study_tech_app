@@ -58,12 +58,19 @@ FlowRouter.route('/calendar', {
         BlazeLayout.render('calendar'); //Render
     }
 });
-FlowRouter.route('/feed', {
-    name: 'feed', //Reference name
+
+FlowRouter.route('/studySession/:_id', {
+    name: 'studySession', //Reference name
     action() {  //What actually happens.
-      BlazeLayout.render('calendar'); //Render
+      // Set our "back" button's href link:
+      Template.studySession.backBtnHref = window.location.href;
+      BlazeLayout.render('studySession'); //Render
+      // TODO: Write security that throws out any accounts
+      // that should not to see this information.
     }
 });
+
+
 /* FlowRouter.route('/401', {
     name: '401', //Reference name
     action() {  //What actually happens.

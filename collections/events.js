@@ -60,6 +60,10 @@ let EventsSchema = new SimpleSchema({
     type: String,
     label: 'When is this examination due?'
   },
+  'url': {
+    type: String,
+    label: 'The unique clickable url for information about this study session'
+  },
   'editable': {
     type: Boolean,
     label: 'Can you edit this event?'
