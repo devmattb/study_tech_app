@@ -19,7 +19,7 @@ Template.studySession.onCreated(function(){
 
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
 
-    this.description.set(studySessionObj.htmlDescription);
+    //this.description.set(studySessionObj.htmlDescription);
     this.title.set(studySessionObj.title);
 
 });

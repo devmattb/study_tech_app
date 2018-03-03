@@ -25,10 +25,6 @@ function pageInit() {
     // Initialize modal
     $('.modal').modal();
 
-    $(".dailyItem").click(function(){
-        $("#dailyItemInfo").modal("open");
-    });
-
     $('select').not('disabled').material_select();
 
     $('ul.tabs').tabs();
@@ -61,7 +57,6 @@ Tracker.afterFlush(function() {
 Template.home.rendered = function(){
 
     pageInit();
-
     let isPast = ( date ) => {
     let today = moment().format();
     return moment( today ).isAfter( date );
@@ -92,7 +87,7 @@ Template.home.rendered = function(){
         *   Get events from DB
         **/
         events( start, end, timezone, callback ) {
-          var eventsId = Session.get("id").toString();
+          var eventsId = Meteor.userId();
           let data = CalEvents.find({connectedUserId: eventsId}).fetch().map( ( event ) => {
             event.editable = !isPast( event.start );
             return event;
@@ -119,7 +114,7 @@ Template.home.rendered = function(){
     });
 
     Tracker.autorun( () => {
-      var eventsId = Session.get("id").toString();
+      var eventsId = Meteor.userId();
       CalEvents.find({connectedUserId: eventsId}).fetch();
       $( '.schedule' ).fullCalendar( 'refetchEvents' );
     });

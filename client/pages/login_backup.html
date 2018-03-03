@@ -1,0 +1,91 @@
+<!--
+
+***/
+*
+*   Created: 03 December 2017
+*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
+*   Copyright 2017 Matt Bergstrom
+*   Statement:
+*   None of this code is to be copied or used without my (Matt Bergstroms') permission.
+*
+***/
+
+-->
+
+  <template name="loginBACKUPREMOVETHIS">
+
+    {{>header}}
+    {{>preloader}}
+    {{>userAgreement}}
+    <div id="coverPageDiv" class="blueGradient">
+
+
+        <div class="col s12">
+            <br><br><br><br>
+            <h5 class="center-align bold white-text">LOGGA IN</h5>
+            <br>
+            <form id="loginForm" class="row">
+
+                <div class="col s12">
+
+
+
+                    <div class="col s2"></div>
+                    <div class="input-field col s8 headerFont">
+
+                        <i class="prefixIcon fa fa-user-circle-o prefix"></i>
+                        <input name="user" id="user" type="text" class="validate">
+                        <label for="user">Användarnamn</label>
+
+                    </div>
+                    <div class="col s2"></div>
+
+
+                </div>
+
+                <div class="col s12">
+
+
+                    <div class="col s2"></div>
+                    <div class="input-field col s8">
+
+                        <i class="prefixIcon fa fa-user-secret prefix"></i>
+                        <input name="pass" id="pass" type="password" class="validate">
+                        <label for="pass">Lösenord</label>
+
+                    </div>
+                    <div class="col s2"></div>
+                </div>
+
+                <div class="col s12">
+                    <br>
+                    <div class="col s2"></div>
+                    <div class="col s8 center-align">
+
+                        <button class="orange darken-1 btn"><span class="flow-text">LOGIN</span></button>
+
+                    </div>
+                    <div class="col s2"></div>
+                </div>
+
+                <div class="col s12">
+                    <br>
+
+                    <div class="col s2"></div>
+                    <div class="col s8 center-align">
+
+                        <p class="center-align white-text">Har du inget konto? <br>
+                        <a href="/createAccount">Skapa Konto</a></p>
+                        <br><br><br><br>
+                        <p style="font-size: 16px!important;" class="center-align white-text">Glömt ditt lösenord? <br> <a>Återställ lösenord</a></p>
+
+                    </div>
+                    <div class="col s2"></div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    </template>

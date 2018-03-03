@@ -81,8 +81,8 @@ ul.dropdown-content.select-dropdown li span  {
     color: #fb8c00!important;
 }
 
-body p {
-    font-size: 20px!important;
+p {
+    font-size: 16px!important;
 }
 
 label { font-size: 18px!important;}
@@ -111,19 +111,20 @@ label { font-size: 18px!important;}
 
 #coverPageDiv {
 
-    position:fixed;
-    padding:0;
-    margin:0;
+    position:relative;
+    padding:0px;
+    margin:0px;
 
-    top:0;
-    left:0;
+    top:0px;
+    left:0px;
 
     width: 100%;
     height: 100%;
+    min-height: 850px;
 }
 
 #home {
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 /*body:after {

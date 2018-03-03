@@ -13,78 +13,37 @@
 -->
   <template name="login">
 
+    <style>
+
+      a {
+        color: #ff9900;
+      }
+
+      a:hover {
+        color: #ff8800;
+        opacity: 0.6;
+        text-decoration: none;
+      }
+
+    </style>
+
+
     {{>header}}
     {{>preloader}}
     {{>userAgreement}}
-    <div id="coverPageDiv" class="blueGradient">
+
+    <div id="coverPageDiv" class="row blueGradient">
 
         <!-- Front Login Page -->
-        <div class="col s12">
-            <br><br><br><br>
-            <h5 class="center-align bold white-text">LOGGA IN</h5>
-            <br>
-            <form id="loginForm" class="row">
+        <div style="margin-top: 100px;" class="row col s12 white-text">
 
-                <div class="col s12">
+            <div class="col s1"></div> <!-- DUMMY -->
+            <div class="col s10">
+              {{> atForm}}
+            </div>
+            <div class="col s1"></div> <!-- DUMMY -->
 
-                    <!-- USERNAME -->
-
-                    <div class="col s2"></div><!--DUMMY-->
-                    <div class="input-field col s8 headerFont">
-
-                        <i class="prefixIcon fa fa-user-circle-o prefix"></i>
-                        <input name="user" id="user" type="text" class="validate">
-                        <label for="user">Användarnamn</label>
-
-                    </div>
-                    <div class="col s2"></div><!--DUMMY-->
-
-
-                </div>
-
-                <div class="col s12">
-
-                    <!-- PASSWORD -->
-                    <div class="col s2"></div><!--DUMMY-->
-                    <div class="input-field col s8">
-
-                        <i class="prefixIcon fa fa-user-secret prefix"></i>
-                        <input name="pass" id="pass" type="password" class="validate">
-                        <label for="pass">Lösenord</label>
-
-                    </div>
-                    <div class="col s2"></div><!--DUMMY-->
-                </div>
-
-                <div class="col s12">
-                    <br>
-                    <div class="col s2"></div><!--DUMMY-->
-                    <div class="col s8 center-align">
-
-                        <button class="orange darken-1 btn"><span class="flow-text">LOGIN</span></button>
-
-                    </div>
-                    <div class="col s2"></div><!--DUMMY-->
-                </div>
-
-                <div class="col s12">
-                    <br>
-
-                    <div class="col s2"></div><!--DUMMY-->
-                    <div class="col s8 center-align">
-
-                        <p class="center-align white-text">Har du inget konto? <br>
-                        <a href="/createAccount">Skapa Konto</a></p>
-                        <br><br><br><br>
-                        <p style="font-size: 16px!important;" class="center-align white-text">Glömt ditt lösenord? <br> <a>Återställ lösenord</a></p>
-
-                    </div>
-                    <div class="col s2"></div><!--DUMMY-->
-                </div>
-
-            </form>
         </div>
-
     </div>
 
     </template>

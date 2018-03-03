@@ -8,38 +8,31 @@
 *
 ***/
 
-
-Template.login.events({
-
 /**
-*   Logs you in to the Service.
+*   Login Handling
 **/
-"submit #loginForm":function(event) {
 
-  //Prevent default redirect.
-  event.preventDefault();
+// Regular app log in:
 
-  const target = event.target;
-  const user = target.user.value;
-  const pass = CryptoJS.SHA256(target.pass.value).toString();
 
-  if ( Accounts.findOne({user: user, pass: pass}) ) { // If we find a user with this username and password.
-
-      const acc = Accounts.findOne({user: user, pass: pass});
-
-      // Set account info in a session variable.
-      Session.set({
-        id: acc._id,
-      });
-
-      FlowRouter.go("/");
-
+// Facebook
+Meteor.loginWithFacebook({
+  requestPermissions: ['user_friends', 'public_profile', 'email']
+}, (err) => {
+  if (err) {
+    // handle error
   } else {
-
-    Materialize.toast('Wrong username or password.', 4000, "red");
-
+    // successful login!
   }
+});
 
-},
-
+// Google
+Meteor.loginWithGoogle({
+  requestPermissions: ['user_friends', 'public_profile', 'email']
+}, (err) => {
+  if (err) {
+    // handle error
+  } else {
+    // successful login!
+  }
 });

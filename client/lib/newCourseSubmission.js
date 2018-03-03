@@ -9,9 +9,7 @@
 *   TODO: IMPORTANT - Rewrite so we use 1 database instead of 3.
 ***/
 
-// Get the user ID:
-const connectedUserId = Session.get("id").toString();
-
+var connectedUserId;
 Template.newCourse.onCreated(function(){
 
   // Course variables. Regulates examinationType options.
@@ -20,7 +18,8 @@ Template.newCourse.onCreated(function(){
   // examinationType variables. Regulates studyScope options.
   this.omfattningTypeTemplate = new ReactiveVar();
 
-
+  // Get the user ID:
+  connectedUserId = Meteor.userId();
 });
 
 /**
@@ -55,7 +54,7 @@ Date.daysBetween = function( date1, date2 ) {   //Get 1 day in milliseconds
 }
 
 function formatDayOrMonth(dateNum){
-  if (parseInt(dateNum) < 10 || dateNum.toString().substring(0,1) != "0") {
+  if (parseInt(dateNum) < 10 ) {
     dateNum = "0"+dateNum; // Make sure we have a zero before the numbers.
   }
   return dateNum;
@@ -342,7 +341,6 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
   *    over these. Also, get the forbidden schedule times.
   **/
   var startFromDay = new Date();
-  var justYMD;
 
   /**
   *   Create all events!
@@ -398,9 +396,6 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
 
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
-      console.log("input0: " + currentDateObj);
-      console.log("input1: " + currentDateObj.getDate()+" vs "+ startDay);
-      console.log("input2: " + start+" "+startHours+":00:00");
 
       // TODO htmlDescFormat is NOT FINISHED! Add iteration of descriptions...
       // TODO Add logic to handle descArray and study-phases.
@@ -412,8 +407,8 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       /**
       *   Creation of the JSON object that is to be inserted.
       **/
-      var doc = {
-        'connectedUserId': connectedUserId, //qHfJWYf4uSgQ7CuMD
+      let doc = {
+        'connectedUserId': connectedUserId, // e.g: qHfJWYf4uSgQ7CuMD
         'htmlDescription': htmlDescFormat,
         'title': title,
         'start': start+" "+startHours+":00:00",

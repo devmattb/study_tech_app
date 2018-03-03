@@ -41,7 +41,7 @@ Template.calendar.onRendered( () => {
       height: 450,
       // Get events from DB
       events( start, end, timezone, callback ) {
-        var eventsId = Session.get("id").toString();
+        var eventsId = Meteor.userId();
         let data = CalEvents.find({connectedUserId: eventsId}).fetch().map( ( event ) => {
           event.editable = !isPast( event.start );
           return event;
@@ -68,7 +68,7 @@ Template.calendar.onRendered( () => {
   });
 
   Tracker.autorun( () => {
-    var eventsId = Session.get("id").toString();
+    var eventsId =  Meteor.userId();
     CalEvents.find({connectedUserId: eventsId}).fetch();
     $( '.schedule' ).fullCalendar( 'refetchEvents' );
   });

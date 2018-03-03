@@ -1,0 +1,78 @@
+<template name="override-atInput">
+    {{> Template.dynamic template=templateName}}
+</template>
+
+<template name="override-atTextInput">
+  <div class="at-input {{#if isValidating}}validating{{/if}} {{#if hasError}}has-error{{/if}} {{#if hasSuccess}}has-success{{/if}} {{#if feedback}}has-feedback{{/if}}">
+
+    {{#if showLabels}}
+      <label for="at-field-{{_id}}">
+        {{displayName}} {{#unless required}}{{optionalText}}{{/unless}}
+      </label>
+    {{/if}}
+    <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}"  autocapitalize="none" autocorrect="off">
+    {{#if hasIcon}}
+        <i class="{{iconClass}}"></i>
+    {{/if}}
+    {{#if hasError}}
+      <span>{{errorText}}</span>
+    {{/if}}
+  </div>
+</template>
+
+<template name="override-atCheckboxInput">
+  <div class="at-input">
+      <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" {{disabled}}>
+      <label for="at-field-{{_id}}">{{displayName}}</label>
+  </div>
+</template>
+
+<template name="override-atSelectInput">
+  <div class="at-input">
+    <label for="at-field-{{_id}}">{{displayName}}</label>
+    <select id="at-field-{{_id}}" name="at-field-{{_id}}">
+      {{#each values}}
+        <option value="{{value}}">{{text}}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+
+<template name="override-atRadioInput">
+  <div class="at-input">
+    <label>{{displayName}}</label>
+  </div>
+  {{#each values}}
+    <div class="at-input">
+      <input id="at-field-{{id}}-choice-{{value}}" type="radio" name="at-field-{{id}}" value={{value}}>
+      <label>{{text}}</label>
+    </div>
+  {{/each}}
+</template>
+
+<template name="override-atHiddenInput">
+  <input type="hidden" id="at-field-{{_id}}" name="at-field-{{_id}}">
+</template>
+
+<template name="override-atPwdFormBtn">
+    <br><br>
+  <div class="row">
+    <div class="col s3"></div> <!-- DUMMY -->
+    <div class="col s6">
+      <button type="submit" class="at-btn btn submit white-text orange {{submitDisabled}}" id="at-btn">
+        {{buttonText}}
+      </button>
+    </div>
+     <div class="col s3"></div> <!-- DUMMY -->
+  </div>
+</template>
+
+<template name="override-atSocial">
+
+    <div class="col s6">
+      <button class="at-social-btn btn {{disabled}}" id="at-{{name}}" name="{{name}}">
+        <i class="{{iconClass}}"></i> {{buttonText}}
+      </button>
+    </div>
+
+</template>

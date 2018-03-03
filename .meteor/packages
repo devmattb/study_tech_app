@@ -33,7 +33,7 @@ fastclick@1.0.13
 raix:handlebar-helpers
 aldeed:autoform
 accounts-ui@1.1.9
-accounts-password@1.4.0
+accounts-password
 matb33:bootstrap-glyphicons
 zimme:active-route
 gwendall:auth-client-callbacks
@@ -45,3 +45,10 @@ email@1.2.3
 jparker:crypto-sha256
 jquery@1.11.10
 session@1.1.7
+useraccounts:materialize
+aldeed:template-extension
+accounts-facebook
+accounts-google
+softwarerero:accounts-t9n
+service-configuration
+useraccounts:flow-routing

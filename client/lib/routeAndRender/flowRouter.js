@@ -21,6 +21,12 @@
 
 } */
 
+function checkLoggedIn(){
+  if(!Meteor.userId()){
+    FlowRouter.go("login");
+  }
+}
+
 /**
 *   ALL ROUTES: The link pipeline.
 **/
@@ -28,6 +34,7 @@ FlowRouter.route('/', {
     name: 'home', //Reference name
     action() {  //What actually happens.
         BlazeLayout.render('home'); //Render our HomeLayout as soon as we route to /home
+        checkLoggedIn();
     }
 });
 
@@ -42,6 +49,7 @@ FlowRouter.route('/createAccount', {
     name: 'createAccount', //Reference name
     action() {  //What actually happens.
         BlazeLayout.render('createAccount'); //Render
+        checkLoggedIn();
     }
 });
 
@@ -49,6 +57,7 @@ FlowRouter.route('/newCourse', {
     name: 'newCourse', //Reference name
     action() {  //What actually happens.
         BlazeLayout.render('newCourse'); //Render
+        checkLoggedIn();
     }
 });
 
@@ -56,6 +65,7 @@ FlowRouter.route('/calendar', {
     name: 'calendar', //Reference name
     action() {  //What actually happens.
         BlazeLayout.render('calendar'); //Render
+        checkLoggedIn();
     }
 });
 
@@ -65,8 +75,7 @@ FlowRouter.route('/studySession/:_id', {
       // Set our "back" button's href link:
       Template.studySession.backBtnHref = window.location.href;
       BlazeLayout.render('studySession'); //Render
-      // TODO: Write security that throws out any accounts
-      // that should not to see this information.
+      checkLoggedIn();
     }
 });
 
