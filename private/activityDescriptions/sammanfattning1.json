@@ -1,8 +1,9 @@
 {
   "courseType": ["Språk", "Språk", "Samhällskunskap", "Samhällskunskap"],
-  "examinationType": ["Skriftligt", "Litteraturanalys", "Skriftligt", "Uppsats"],
+  "examinationType": ["Skriftligt Prov", "Litteraturanalys", "Skriftligt Prov", "Uppsats"],
   "phase": [1,1,1,1],
   "phaseOrder": [1,1,1,2],
+  "optional": [false, false, false, false],
   "desc":
   "<ol><li>Skaffa dig en förförståelse eller hum om vad boken/kapitlen handlar om. Få uppfattningen genom att läsa på baksidan, vad alla kapitel heter, söka på internet, lägg 10 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/kapitlen handlar om.</li><li>Dela upp texten i korta text-intervaller. Läs valfritt antal stycken åt gången och skriv ner stödord på ett separat papper under tiden du läser.</li><li>När du läst dina stycken, använd stödorden för att avgöra vad som var viktigast i de du precis läst. Här kan det krävas att du går tillbaka och läser snabbt igenom vissa specifika delar igen. </li><li>När du bedömt vad som var det viktiga i det du precis läst skriv ner det i punktform på ditt andra papper, sammanfattningspappret. Förklara vad varje punkt innebär i din sammanfattning med några få meningar bredvid/under punkten. </li><li>Fundera och skriv ner om du kan koppla egna erfarenheter eller andra kunskaper till det du precis läst.</li> <li>Upprepa steg 2-5 fram tills det är dags för rast. Ha i åtanke det rekommenderade sidantalet. </li> </ol>"
 }

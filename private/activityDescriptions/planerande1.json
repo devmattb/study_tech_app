@@ -1,8 +1,9 @@
 {
   "courseType": ["Språk", "Samhällskunskap"],
-  "examinationType": ["Muntlig", "Muntlig"],
+  "examinationType": ["Muntlig Redovisning", "Muntlig Redovisning"],
   "phase": [1,1],
   "phaseOrder": [1,1],
+  "optional": [false, false],
   "desc":
   "<ol><li> Tänk igenom vilken situation du kommer presentera i. Är din presentation egnad åt att informera, övertyga eller underhålla? Ett bra tips är alltid att tänka dig vara en i publiken, vad skulle du vilja höra från den som presenterar? Skriv ner på ett papper.</li><li> Vad är det viktigaste budskapet som publiken ska komma ihåg. Du ska designa din presentation utifrån det. Skriv ner i en mening det du vill att varje person ska komma ihåg efter att du presenterat.  </li> <li> Skriv en kort beskrivning av den publik du ska presentera för. Vill du att publiken ska bli varma om hjärtat eller vill du att publiken ska bli taggade på att börja träna fotboll? </li> <li> Ta en kort paus på 5 minuter. Under pausen försök komma ihåg någon gång då en person väckte en stark känsla hos dig genom att bara prata eller hålla tal (kan vara i film, sport, skola, eller var som helst). </li> <li> Sammanfatta de tidigare stegen och bedöm helheten av hur ditt tal ska se ut. Vilken situation ska du presentera i, viktigt budskap, hur är din publik och varför reagerade du starkt på ett tal? Skriv ner alla dessa och behåll dem. Du har nu skapat grunden för ditt tal. </li> </ol>"
 }

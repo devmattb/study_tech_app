@@ -1,8 +1,9 @@
 {
   "courseType": ["Samhällskunskap"],
-  "examinationType": ["Skriftligt"],
+  "examinationType": ["Skriftligt Prov"],
   "phase": [2],
   "phaseOrder": [2],
+  "optional": [true],
   "desc":
   "<ol><li>Skriv upp de viktigaste saker att komma ihåg till provet på ett papper, gärna i en tidslinje eller annan logisk ordning.</li><li>Välj sedan en promenadrunda som du är väl bekant med, har gått många gånger och kan utantill i huvudet. Ta med pappret och associera olika saker på vägen under promenaden med händelserna i tidslinjen. Se nästan steg för exempel.</li><li><b>Exempel:</b> Andra världskrigets händelseförlopp. Förklaring: Ditt hus när du börjar promenaden blir ”levnadsrummet” som Hitler ville ha åt sitt tyska folk som de förlorat efter första världskriget. När du går förbi grannens utomhuspool är året 1939 och Hitler invaderar Polen osv. </li><li>På pappret skriver du “Tyskland invaderar Polen 1939 - Utomhuspool”. Alltså Händelse och sedan plats på din promenad. Du fortsätter promenaden på detta sätt tills du kommer hem igen och alla händelser är utplottade. </li><li>Hemma går du igenom promenaden i huvudet med listan framför dig och ser alla händelser en gång till. </li><li>Gå igenom promenaden i huvudet en gång varje 15 minut 5 gånger med listan framför dig. Promenaden är väldigt bra att försöka minnas på provet senare.</li></ol>"
 }

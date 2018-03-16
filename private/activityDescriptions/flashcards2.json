@@ -1,8 +1,9 @@
 {
   "courseType": ["Språk"],
-  "examinationType": ["Skriftligt"],
+  "examinationType": ["Skriftligt Prov"],
   "phase": [2],
   "phaseOrder": [3],
+  "optional": [false],
   "desc":
   "<ol><li>Skriv ned alla grammatiska regler eller räkneregler på flashcards (finns alltid i boken), skriv förklaringen/definitionen kortfattat på andra sidan. </li><li>Gå igenom varje kort där du berättar högt för dig själv vad varje regel innebär.</li><li>Gör detta även omvänt, börja med förklaringen/definitionen och försök komma på regeln.</li><li>Upprepa steg 2 till 3 tills du är säker på de flesta. </li> <li>Be någon annan förhöra dig med hjälp av flashcardsen. </li> </ol>"
 }

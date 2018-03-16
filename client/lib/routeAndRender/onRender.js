@@ -163,5 +163,26 @@ Template.newCourse.rendered = function(){
 
 // STUDY SESSION
 Template.studySession.rendered = function(){
-    pageInit();
+  /**
+  *   PRELOADER
+  **/
+  setTimeout(function(){  $("#preloader").fadeOut("slow");}, 700);
+  setTimeout(function(){  $("body").fadeIn("slow");}, 1000);
+
+  /**
+  *      NAV INITIALIZATION
+  **/
+  // Initialize sidenav button
+   $(".button-collapse").sideNav({'closeOnClick': true});
+
+  // Initialize modal
+  $('.modal').modal();
+
+  $('select').not('disabled').material_select();
+
+  $('ul.tabs').tabs();
+
+  $(".userAgreementLink").click(function(){
+     $('#userAgreement').modal('open');
+  });
 };

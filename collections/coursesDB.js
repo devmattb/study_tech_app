@@ -12,7 +12,7 @@ import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
 Activities = new Mongo.Collection( 'Activities' );
-//
+// TODO: Make anonymous Arrays work with SimpleSchema.
 // let CourseSchema = new SimpleSchema({
 //
 //   'courseType': {

@@ -1,8 +1,9 @@
 {
   "courseType": ["Språk"],
-  "examinationType": ["Skriftligt"],
+  "examinationType": ["Skriftligt Prov"],
   "phase": [2],
   "phaseOrder": [2],
+  "optional": [true],
   "desc":
   "<ol><li>Skriv upp de viktigaste saker att komma ihåg till provet på ett papper, gärna i en tidslinje eller annan logisk ordning. </li><li>Välj sedan en promenadrunda som du är väl bekant med, har gått många gånger och kan utantill i huvudet. Ta med pappret och associera olika saker på vägen under promenaden med händelserna i tidslinjen. Se nästan steg för exempel.</li><li><b>Exempel:</b> Det svenska språkets historia. Ditt hus när du börjar promenaden blir “urnordiskan” som var det första germanska språket som talades i Scandinavien. När du går förbi grannens bil, som är ett <i>for</i>don, är året runt 700 och urnordiskan har utvecklats till <i>forn</i>nordiskan osv. </li><li>På pappret skriver du “Fornnordiskan utvecklades ca år 700 - Grannens fordon”. Alltså händelse och sedan plats på din promenad. Du fortsätter promenaden på detta sätt tills du kommer hem igen och alla händelser är utplottade. </li><li>Hemma går du igenom promenaden i huvudet med listan framför dig och ser alla händelser en gång till. </li><li>Gå igenom promenaden i huvudet en gång varje 15 minut 5 gånger. Promenaden är väldigt bra att försöka minnas på provet senare.</li></ol>"
 }

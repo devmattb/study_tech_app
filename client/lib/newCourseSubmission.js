@@ -80,6 +80,59 @@ function calcNumAvailableDays(deadline) {
 
 /**
 *
+*   returnExTypeResult():
+*   Checks what examinationType we have, and returns a given result.
+*   This function was made to shorten code.
+*   @param exType is the Examination Type.
+*   @param mun is the return value for exType === "Muntlig Redovisning"
+*   @param skr is the return value for exType === "Skriftligt Prov"
+*   @param lit is the return value for exType === "Litteraturanalys"
+*   @param glo is the return value for exType === "Glosor"
+*   @param upp is the return value for exType === "Uppsats"
+*
+**/
+function returnExTypeResult (exType, mun, skr, lit, glo, upp) {
+
+  if ( exType === "Muntlig Redovisning" ) {
+    return mun;
+  } else if ( exType === "Skriftligt Prov" ) {
+    return skr;
+  } else if ( exType === "Litteraturanalys" ) {
+    return lit;
+  } else if ( exType === "Glosor" ) {
+    return glo;
+  } else if ( exType === "Uppsats" ) {
+    return upp;
+  }
+
+}
+
+
+/**
+*
+*   getMinimumNumSesh():
+*   Gets the minumum amount of sessions for a specific
+*   course+examination-type combination
+*   @param cType is the Course Type.
+*   @param exType is the Examination Type.
+*
+**/
+function getMinimumNumSesh(cType, exType) {
+
+  var minSessions;
+  if ( cType === "Språk" ) {
+    minSessions = returnExTypeResult(exType, 4,3,3,1,4);
+  } else if ( cType === "Samhällskunskap" ) {
+    minSessions = returnExTypeResult(exType, 4,3,null,null,4);
+  } else if ( cType === "Kvantitativ" ) {
+    minSessions = returnExTypeResult(exType, null,3,null,null,null);
+  }
+  return minSessions;
+
+}
+
+/**
+*
 *   calcNumStudySessions():
 *   Calculates the number of study sessions we need to schedule this student for.
 *
@@ -90,6 +143,7 @@ function calcNumAvailableDays(deadline) {
 *   For any Other examinationType, use our tables defined in docs, with a dynamic study scope adjustment.
 *
 *   TODO: Ta hänsyn till omfattning på muntlig redovisning?
+*   TODO: Ta hänsyn till kurstyp?
 *   @param examinationType Muntlig Redovisning, Glosor or Other
 *   @param ambitionLevel is Normal or Ambitiös.
 *   @param schoolGrade is true if 6-9, false if "Gymnasiet"
@@ -325,16 +379,18 @@ function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 *   @param desc is the description string grabbed from our database. It is the general tip description for the exType.
 *   @param numStudySessions is the measurement for the examination. Which could mean the amount of pages, exercises or words required for the examination.
 *   @param numAvailableDays is the number of days until the deadline is reached.
+*   @param deadline is the users deadline.
+*   @param numOptional The number of optional activities we can squeeze in for the student.
 *
 **/
-function createStudySessions(descArray, numStudySessions, numAvailableDays, deadline) {
+function createStudySessions(descArray, numStudySessions, numAvailableDays, deadline, numOptional) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
   /**
   *    Variables that are to be altered by the algorithm...
   **/
-  var htmlDescFormat, title, type, startDate, endDate;
+  var title, type, startDate, endDate;
 
   /**
   *    Get the time of the events that are already scheduled, so we do not schedule
@@ -397,19 +453,14 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
 
-      // TODO htmlDescFormat is NOT FINISHED! Add iteration of descriptions...
       // TODO Add logic to handle descArray and study-phases.
-      htmlDescFormat = `
-      <!-- PUT SOME HTML HERE -->
-        `+descArray[0]/*TODO*/+`
-      <!-- PUT SOME HTML HERE -->`;
 
       /**
       *   Creation of the JSON object that is to be inserted.
       **/
       let doc = {
         'connectedUserId': connectedUserId, // e.g: qHfJWYf4uSgQ7CuMD
-        'htmlDescription': htmlDescFormat,
+        'htmlDescription': descArray[i],
         'title': title,
         'start': start+" "+startHours+":00:00",
         'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00        which is feb 2nd 22:00, 2017
@@ -474,11 +525,26 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
 *   numAvailableDays is also used here.
 *
 **/
-function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope) {
+function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
     var numAvailableDays = calcNumAvailableDays(deadline);
     var numStudySessions = calcNumStudySessions(examinationType,ambitionLevel,schoolGrade,studyScopeLevel,numAvailableDays);
+
+    /**
+    *   Variables that help us fetch the correct description sequence:
+    *   cycles: The number of cycles we can manage before the deadline is upon us.
+    *   numOptional: The number of optional activities we can squeeze in.
+    **/
+    var minNumSesh = getMinimumNumSesh(courseType, examinationType);
+    // Calculate number of cycles:
+    var cycles = Math.floor(numStudySessions/minNumSesh);
+    // Get the number of optional activities we have time for:
+    var numOptional = numStudySessions - cycles*minNumSesh;
+
+    // Fetches the right description array, based on our course and examination type:
+    var descArray = new Array();
+    descArray = activityDesc(courseType, examinationType, numOptional, cycles);
 
     // NOTE: Uncomment to test the first two functions.
     //console.log("numAvailableDays: " + numAvailableDays + " numStudySessions: " + numStudySessions);
@@ -504,29 +570,56 @@ function theMMRAlgorithm(deadline, examinationType, ambitionLevel, schoolGrade, 
 /**
 *   Depending on course and examination type, gets the connected description!
 **/
-function activityDesc(cType, exType) {
+function activityDesc(cType, exType, numOptional, cycles) {
 
-  //TODO: Add logic for handling examinationtype
-
-  // Grab all activities:
-  var allActivityObj = Activities.find({courseType: "Samhällskunskap"});
+  var allActivityObj = Activities.find();
   var activityArray = new Array();
   var listActivityDesc = new Array();
 
-  // Store all our objects from the object that holds all activity objects,
-  // in to an array instead.
-  allActivityObj.forEach(function(data){
-      activityArray.push(data); // Add to our forbiddenTimesArr.
-  });
+  // Get the entire description sequence, for all cycles:
+  for (var k = 0; k < cycles; k++) {
+
+      /**
+      *   Get all activities that match our course-and-examination type from
+      *   our DB in to an Array, called activityArray.
+      **/
+      allActivityObj.forEach(function(data){
+
+        // Loop: Go through the coursetypes of each activity object.
+        for (var i = 0; i < data.courseType.length; i++) {
+
+          if (data.courseType[i] === cType && data.examinationType[i] === exType)  {
+            // Add this particular index to our JSON object,
+            // So we know exaclty what spot to look in the
+            // phase, phaseOrder and examinationType array.
+            if (data.optional[i] === true && numOptional > 0) {
+              // This is an optional Activity. But we still have room for some.
+              data.relevantIndex = i;
+              activityArray.push(data); // Add to our forbiddenTimesArr.
+              numOptional--; // Decrement the number of optionals we have space for.
+              break; // Break out of loop. Go to next activity.
+            } else if (data.optional[i] === false) {
+              // This is a mandatory activity. Add it.
+              data.relevantIndex = i;
+              activityArray.push(data); // Add to our forbiddenTimesArr.
+              break; // Break out of loop. Go to next activity.
+            }
+          }
+
+        }
+
+      });
+    } // Now we have the entire activity sequence, for all cycles, ready for sorting!
+
 
   // Sorts all activities in Ascending order, in this array,
   // according to their phase and phaseOrder. Chronological phases...
   activityArray.sort(function(dataA, dataB){
 
-    if ( dataA.phase == dataB.phase ) { // Same phase.
-      return dataA.phaseOrder-dataB.phaseOrder; // Sort by internal phaseOrder instead...
+    if ( dataA.phase[dataA.relevantIndex] == dataB.phase[dataB.relevantIndex] ) { // Same phase.
+      return dataA.phaseOrder[dataA.relevantIndex]-dataB.phaseOrder[dataB.relevantIndex]; // Sort by internal phaseOrder instead...
     } else { // Not same phase
-      return dataA.phase-dataB.phase; // Sort by phase.
+      return dataA.phase[dataA.relevantIndex]-dataB.phase[dataB.relevantIndex]; // Sort by phase.
     }
 
   });
@@ -534,7 +627,7 @@ function activityDesc(cType, exType) {
   // Put only the description strings of these activities in a list.
   // Note that this list is still sorted.
   activityArray.forEach(function(data){
-      listActivityDesc.push(data.desc); // Add to our array.
+      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
   });
 
   console.log(listActivityDesc.toString());
@@ -648,17 +741,10 @@ Template.newCourse.events({
     studyScopeLevel = "NOT_USED";
   }
 
-  // It's time to fetch the correct descriptions from our db.
-  var shortExType;
-  var descArray = new Array();
-
-  // Fetches the right description array, based on our course and examination type:
-  descArray = activityDesc(courseType, examinationType);
-
   /**
   *   FINALLY. Apply the MMR Algorithm.
   **/
-  theMMRAlgorithm(deadline, shortExType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope);
+  theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, studyScope);
 
 },
 
