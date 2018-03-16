@@ -498,6 +498,7 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       // If we added more than one study session this day.
       if ( j > 1 ) {
         numStudySessions--;
+        i++; // So we go to the next desc.
       }
 
     }
@@ -589,6 +590,13 @@ function activityDesc(cType, exType, numOptional, cycles) {
         for (var i = 0; i < data.courseType.length; i++) {
 
           if (data.courseType[i] === cType && data.examinationType[i] === exType)  {
+
+            if ( k > 0 ) {
+              // Make sure we get the activities in the right order.
+              // This is not the first cycle so when we sort later we
+              // need to know that this will NOT be in the first phase for example.
+              data.phase[i] = data.phase[i] * 5*k;
+            }
             // Add this particular index to our JSON object,
             // So we know exaclty what spot to look in the
             // phase, phaseOrder and examinationType array.
