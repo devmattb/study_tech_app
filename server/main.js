@@ -2,6 +2,35 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
 
+
+  /**
+  *   Make sure the database has all our activites inserted in to it:
+  *
+  *   NOTE/TODO:
+  *   Getting all filenames in a directory seemed to be a nightmare in Meteor.
+  *   Therefore, the filenames are listed here, until further notice.
+  **/
+  var fileNames = ["flashcards2.json", "planerande1.json", "presentationsdesign1.json",
+  "sammanfattning1.json", "sammanfattning2.json",
+  "övning1.json", "övningprov1.json"];
+  var amountOfFilesInDB = Activities.find().count();
+
+  // If we have more files in our activityDesc folder than in in our database, we need to update our DB.
+  if ( fileNames.length > amountOfFilesInDB ) {
+    // Clean out the entire database:
+    Activities.remove({});
+
+    // Insert the updated activity files:
+    for(var i = 0; i < fileNames.length; i++) {
+        // Read the contents of this file, and insert it to our activities database.
+        var fileContents = JSON.parse(Assets.getText('activityDescriptions/'+fileNames[i]));
+        Activities.insert(fileContents);
+    }
+  }
+
+  /**
+  *   Define global Meteor functions that will be used throughout the entire program.
+  **/
   Meteor.methods({
 
       accountUpsert: function( id, doc ) {

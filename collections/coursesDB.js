@@ -16,27 +16,26 @@ Activities = new Mongo.Collection( 'Activities' );
 let CourseSchema = new SimpleSchema({
 
   'courseType': {
-    type: String,
+    type: [String],
     label: 'The course type this activity is linked to.',
     // allowedValues: "Skriftligt Prov", "Litteraturanalys", "Muntlig Redovisning", "Glosor", "Uppsats"
   },
 
   'examinationType': {
-    type: String,
+    type: [String],
     label: 'The examination type this activity is linked to.',
     // allowedValues: "Skriftligt Prov", "Litteraturanalys", "Muntlig Redovisning", "Glosor", "Uppsats"
   },
 
   'phase': {
-    type: Number,
+    type: [Number],
     label: 'The study phase this activity is linked to.'
   },
 
   'phaseOrder': {
-    type: Number,
+    type: [Number],
     label: 'The study order in the phase this activity should have.'
   },
-
 
   'desc': {
     type: String,
