@@ -1,8 +1,8 @@
 {
-  "courseType": ["Språk"],
-  "examinationType": ["Muntlig"],
-  "phase": [1],
-  "phaseOrder": [3],
+  "courseType": ["Språk", "Samhällskunskap"],
+  "examinationType": ["Muntlig", "Muntlig"],
+  "phase": [2,2],
+  "phaseOrder": [1],
   "desc":
   "<ol><li> Generellt bryter man ner ett tal i fem delar. Introduktion, argument 1, argument 2, argument 3 och avslutning. En förklaring hur du ska designa de olika delarna följer.</li><li> <b>Introduktion:</b> I den här delen vill du väcka uppmärksamhet hos publiken. Fånga deras intresse direkt och visa att du är värd att lyssna på. Välj ut de delar från din sammanfattning som du tycker ger din presentation trovärdighet. Du ska prata om dessa i introduktionen. Se till att presentera ämnet så publiken vet exakt vilket ämne du pratar om innan du börjar argumentera för det. </li><li> <b>Argument 1:</b> Detta är det argument som du tycker är näst bäst. Se till att ha med logiska resonemang. Siffror och statistik som styrker ditt resonemang är alltid bra att ha med.</li><li> <b>Argument 2:</b> Detta är det argument du tycker är svagast. Gör det kort och tydligt. Även fast det är ditt svagast argument ska det inte vara en svag länk. </li><li> <b>Argument 3:</b> Sista argumentet är det viktigaste och bästa. Här gäller det att smälla på stort. Du bör också i denna del möta ett motargument för att visa att du har förståelse för helheten. </li><li> <b>Avslutningen:</b> Den här delen ska koppla samman dina tre argument och visa tydligt att din åsikt är värdefull och korrekt. Spela gärna på publikens känslor. Till exempel kan man avsluta med en öppen fråga som kopplas till inledningen. Om du argumenterar för att få skolan att servera pizza till lunch kan man ställa en fråga som; “skulle inte du också vilja äta gratis pizza till lunch imorgon?”. Sånt får publiken att tänka till och då blir de engagerade.</li> </ol>"
 }

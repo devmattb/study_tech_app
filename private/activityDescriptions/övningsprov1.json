@@ -1,8 +1,8 @@
 {
-  "courseType": ["Språk"],
-  "examinationType": ["Skriftligt"],
-  "phase": [1],
-  "phaseOrder": [3],
+  "courseType": ["Språk", "Samhällskunskap"],
+  "examinationType": ["Skriftligt", "Skriftligt"],
+  "phase": [3,3],
+  "phaseOrder": [1,1],
   "desc":
   "<ol><li>Nu ska du jobba på samma sätt du ska jobba på provet. Slå upp de sidor i läroboken du har prov på och skriv upp titeln på kapitlet/delkapitlet på ett papper bredvid dig. </li><li>Utan att titta i boken, skriv upp allt du kan och kommer på angående det ämnet som du pluggat in hittills. Du får välja om du vill skriva text, stödord, punkter, rita figurer eller hur du vill göra. </li><li>Ta fram din sammanfattning och dubbelkolla med den och boken för att se om du kom ihåg det mest övergripande eller om du missade en viktigt del. Markera den i sammanfattningen i så fall med en överstrykpenna. Det du markerat måste du gå tillbaka till i slutet av pluggsessionen.</li>  <li>Jobba vidare på detta sätt till det rekommenderade antalet sidor är täckt. Gå då tillbaka till det du markerat och läs på om det, samt gör om övningen för just den delen av kapitlet. </li> </ol>"
 }

@@ -10,9 +10,14 @@ Meteor.startup(() => {
   *   Getting all filenames in a directory seemed to be a nightmare in Meteor.
   *   Therefore, the filenames are listed here, until further notice.
   **/
-  var fileNames = ["flashcards2.json", "planerande1.json", "presentationsdesign1.json",
-  "sammanfattning1.json", "sammanfattning2.json",
-  "övning1.json", "övningprov1.json"];
+  var fileNames = [
+    "flashcards1.json", "flashcards2.json", "flashcards3.json",
+    "glosor1.json", "glosor2.json", "mattenedbrytning1.json",
+    "mindmap1.json","mindmap2.json","mindmap3.json","mindmap4.json",
+    "minnespromenad1.json", "minnespromenad2.json",
+    "planerande1.json", "presentationsdesign1.json",
+    "sammanfattning1.json", "sammanfattning2.json", "skriv1.json",
+    "övning1.json", "övningsprov1.json"];
   var amountOfFilesInDB = Activities.find().count();
 
   // If we have more files in our activityDesc folder than in in our database, we need to update our DB.

@@ -2,7 +2,7 @@
   "courseType": ["Samhällskunskap"],
   "examinationType": ["Skriftligt"],
   "phase": [2],
-  "phaseOrder": [2],
+  "phaseOrder": [1],
   "desc":
   "<ol><li>Skriv ned alla nyckelord och läromålen på flashcards (finns i början eller slutet av kapitlet i boken), skriv förklaringen kortfattat på andra sidan. </li><li>Gå igenom varje kort där du berättar högt för dig själv vad varje uttryck/läromål betyder.</li><li>Gör detta även omvänt, börja med förklaringen och försök komma på uttrycket/läromålet.</li><li>Upprepa steg 2 till 3 tills du är säker på de flesta.</li><li>Be någon annan förhöra dig med hjälp av flashcardsen.</li></ol>"
 }

@@ -1,8 +1,8 @@
 {
-  "courseType": ["BYTMIG"],
-  "examinationType": ["BYTMIG"],
-  "phase": [1337],
-  "phaseOrder": [2018],
+  "courseType": ["Kvantitativ"],
+  "examinationType": ["Skriftligt"],
+  "phase": [1],
+  "phaseOrder": [2],
   "desc":
   "<ol><li>Skriv ned alla räkneregler som står i inledningen av delkapitlet i matteboken på flashcards, skriv förklaringen/definitionen kortfattat på andra sidan. </li><li>Gå igenom varje kort där du berättar högt för dig själv vad varje regel innebär.</li><li>Gör detta även omvänt, börja med förklaringen/definitionen och försök komma på regeln.</li><li>Upprepa steg 2 till 3 tills du är säker på de flesta. </li><li>Be någon annan förhöra dig med hjälp av flashcardsen. Ha gärna med dem och gå igenom för dig själv på bussen.</li></ol>"
 }

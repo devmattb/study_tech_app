@@ -1,8 +1,8 @@
 {
-  "courseType": ["BYTMIG"],
-  "examinationType": ["BYTMIG"],
-  "phase": [1337],
-  "phaseOrder": [2018],
+  "courseType": ["Språk"],
+  "examinationType": ["Glosor"],
+  "phase": [2],
+  "phaseOrder": [2],
   "desc":
   "<ol><li>Gör papperslappar och skriv de svenska och utländska orden på. Ett ord och språk per lapp.</li><li>Dela upp papperslapparna med en kompis, en av er får bara svenska ord, och den andra får bara utländska ord. </li><li><b>Spela kort:</b> en börjar med att lägga ett ord på bordet, den andra ska lägga den rätta översättningen som svar. Är det rätt = 1 poäng, fel = 0 poäng, skriv ned poängen på ett papper. Turas om att lägga vartannat kort. Kort som lagts på bordet och är rätt tas bort och läggs i “skräphögen”, kort som lagts på bordet och är fel ligger kvar på bordet och kan därför fortfarande spelas på. </li><li>När alla kort har lagts är det halvtid, byt kort med varandra (dvs byt språk) och påbörja andra halvlek, upprepa spelet. Efter andra halvlek se vem som vann och kör igen.</li></ol>"
 }
