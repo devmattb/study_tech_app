@@ -73,7 +73,7 @@ FlowRouter.route('/studySession/:_id', {
     name: 'studySession', //Reference name
     action() {  //What actually happens.
       // Set our "back" button's href link:
-      //Template.studySession.backBtnHref = window.location.href;
+      Template.studySession.backBtnHref = window.location.href;
       BlazeLayout.render('studySession'); //Render
       checkLoggedIn();
     }
