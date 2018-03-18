@@ -489,7 +489,7 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
             *   UPDATE that meetings url to its id.
             **/
 
-            var uniqueUrl = process.env.ROOT_URL + "studySession/"+doc_id;
+            var uniqueUrl = process.env.ROOT_URL+"studySession/"+doc_id;
             doc.url = uniqueUrl; // Update doc with new url
             Meteor.call("eventUpsert", doc_id, doc);
           }
