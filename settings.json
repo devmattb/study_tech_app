@@ -1,0 +1,7 @@
+{
+  "galaxy.meteor.com":{
+  	"env":{
+  	   "MONGO_URL": "mongodb://Mattiasbergstrom:9R6M7M25vpT@ds215739.mlab.com:15739/stacy"
+    }
+  }
+}
