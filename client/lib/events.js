@@ -74,9 +74,3 @@ Template.calendar.onRendered( () => {
   });
 
 });
-
-// Click events, etc.
-Template.calendar.events({
-
-
-})

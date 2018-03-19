@@ -34,9 +34,9 @@ let EventsSchema = new SimpleSchema({
   },
 
   // An object holding all event with their info.
-  'htmlDescription': {
+  'htmlDescriptionId': {
     type: String,
-    label: 'The HTML code for the description of this event!',
+    label: 'The ID (in Activities) to the HTML code for the description of this event!',
   },
 
   'title': {

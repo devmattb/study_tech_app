@@ -383,7 +383,7 @@ function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 *   @param numOptional The number of optional activities we can squeeze in for the student.
 *
 **/
-function createStudySessions(descArray, numStudySessions, numAvailableDays, deadline, numOptional) {
+function createStudySessions(descIdArray, numStudySessions, numAvailableDays, deadline, numOptional) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
@@ -453,14 +453,14 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
 
-      // TODO Add logic to handle descArray and study-phases.
+      // TODO Add logic to handle descIdArray and study-phases.
 
       /**
       *   Creation of the JSON object that is to be inserted.
       **/
       let doc = {
         'connectedUserId': connectedUserId, // e.g: qHfJWYf4uSgQ7CuMD
-        'htmlDescription': descArray[i],
+        'htmlDescriptionId': descIdArray[i],
         'title': title,
         'start': start+" "+startHours+":00:00",
         'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00        which is feb 2nd 22:00, 2017
@@ -521,12 +521,12 @@ function createStudySessions(descArray, numStudySessions, numAvailableDays, dead
 *   numAvailableDays is also used here.
 *
 *   createStudySessions params:
-*   @param descArray is the list of description strings grabbed from our database. It is the general tip description for the exType.
+*   @param descIdArray is the list of description strings grabbed from our database. It is the general tip description for the exType.
 *   @param numStudySessions is the number of study sessions we want to schedule in.
 *   numAvailableDays is also used here.
 *
 **/
-function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descArray, studyScope) {
+function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descIdArray, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
     var numAvailableDays = calcNumAvailableDays(deadline);
@@ -542,10 +542,12 @@ function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, s
     var cycles = Math.floor(numStudySessions/minNumSesh);
     // Get the number of optional activities we have time for:
     var numOptional = numStudySessions - cycles*minNumSesh;
+    // IMPORTANT: Changing numStudySessions so that it matches our cycles+numOptional
+    numStudySessions = cycles+numOptional;
 
     // Fetches the right description array, based on our course and examination type:
-    var descArray = new Array();
-    descArray = activityDesc(courseType, examinationType, numOptional, cycles);
+    var descIdArray = new Array();
+    descIdArray = activityDesc(courseType, examinationType, numOptional, cycles);
 
     // NOTE: Uncomment to test the first two functions.
     //console.log("numAvailableDays: " + numAvailableDays + " numStudySessions: " + numStudySessions);
@@ -564,7 +566,7 @@ function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, s
     }
 
     var deadlineFormatted = deadlineYear+"-"+deadlineMonth+"-"+deadlineDay+" 23:00:00"
-    createStudySessions(descArray, numStudySessions, numAvailableDays, deadlineFormatted);
+    createStudySessions(descIdArray, numStudySessions, numAvailableDays, deadlineFormatted);
 
 }
 
@@ -575,7 +577,7 @@ function activityDesc(cType, exType, numOptional, cycles) {
 
   var allActivityObj = Activities.find();
   var activityArray = new Array();
-  var listActivityDesc = new Array();
+  var listActivityIds = new Array();
 
   // Get the entire description sequence, for all cycles:
   for (var k = 0; k < cycles; k++) {
@@ -598,13 +600,14 @@ function activityDesc(cType, exType, numOptional, cycles) {
               data.phase[i] = data.phase[i] * 5*k;
             }
             // Add this particular index to our JSON object,
-            // So we know exaclty what spot to look in the
+            // So we know exactly what spot to look in the
             // phase, phaseOrder and examinationType array.
             if (data.optional[i] === true && numOptional > 0) {
               // This is an optional Activity. But we still have room for some.
               data.relevantIndex = i;
-              activityArray.push(data); // Add to our forbiddenTimesArr.
-              numOptional--; // Decrement the number of optionals we have space for.
+              activityArray.push(data); // Add to our activityArray.
+              numOptional--;            // Decrement the number of optionals we have space for.
+              i++;                      // Do not count this cycle iteration, since its an optional activity.
               break; // Break out of loop. Go to next activity.
             } else if (data.optional[i] === false) {
               // This is a mandatory activity. Add it.
@@ -635,17 +638,17 @@ function activityDesc(cType, exType, numOptional, cycles) {
   // Put only the description strings of these activities in a list.
   // Note that this list is still sorted.
   activityArray.forEach(function(data){
-      listActivityDesc.push(data.desc); // Add to our forbiddenTimesArr.
+      listActivityIds.push(data._id); // Add to our forbiddenTimesArr.
   });
 
-  console.log(listActivityDesc.toString());
+  console.log(listActivityIds.toString());
 
-  if ( listActivityDesc[0] ) {
+  if ( listActivityIds[0] ) {
     // We found our description for this course and examination type combination. Algorithm time.
-    return listActivityDesc; //Needed for the MMR algorithm
+    return listActivityIds; //Needed for the MMR algorithm
   } else {
     // ERROR: Could not find description?
-    Materialize.toast('Något gick fel med att hämta examinationsbeskrivningen!', 4000, "red");
+    Materialize.toast('Något gick fel med att hämta studiesessions-beskrivningen!', 4000, "red");
     return;
   }
 
@@ -691,7 +694,7 @@ Template.newCourse.events({
 },
 
 "click #testMeBtn":function(event) {
-
+    // NOTE: ONLY FOR TESTING! REMOVE LATER!
     calcNumAvailableDays(" ");
 
 },

@@ -2,8 +2,33 @@
 *   TODO: Configure Facebook/Google Logins!
 **/
 
+if (Meteor.isClient) {
+
+    /***
+    *   Form Translations.
+    *   Reference link to all attributes:
+    *   https://github.com/softwarerero/meteor-accounts-t9n/blob/master/t9n/en.coffee
+    **/
+    T9n.map('en', {
+        'Invalid email': 'Felaktig Email!',
+        'Required Field': 'Fältet är ej ifyllt!',
+        'usernameOrEmail': "Användarnamn eller Email",
+        'passwordAgain': "Bekräfta Lösenord",
+        'emailResetLink': "Återställ Lösenord",
+        error: {
+            accounts: {
+                'Login forbidden': 'Vi hittade inget konto med de givna detaljerna!',
+                'User not found': 'Vi hittade inget konto med de givna detaljerna!',
+                'Incorrect password': 'Felaktigt Lösenord!',
+            },
+        }
+    });
+}
+
 /**
-*   Configure forms:
+*   More Form Translations.
+*   Reference link to all attributes:
+*   https://github.com/meteor-useraccounts/core/blob/master/Guide.md
 **/
 AccountsTemplates.configure({
     /**
@@ -26,7 +51,6 @@ AccountsTemplates.configure({
     /**
     *   Appearance:
     **/
-    // Appearance
     showAddRemoveServices: true,
     showForgotPasswordLink: true,
     showLabels: true,
@@ -57,10 +81,9 @@ AccountsTemplates.configure({
       },
 
       errors: {
-        accountsCreationDisabled: "Client side accounts creation is disabled!!!",
         cannotRemoveService: "Du kan inte inaktivera din enda aktiva tjänst!",
         captchaVerification: "Captcha verifering misslyckades",
-        loginForbidden: "Inloggning förbjuden",
+        loginForbidden: "Vi hittade inget konto med de givna detaljerna!",
         mustBeLoggedIn: "Du måste vara inloggad!",
         pwdMismatch: "Dina lösenord matchade inte!",
         validationErrors: "Ett fel skedde i valideringen.",
@@ -128,7 +151,7 @@ AccountsTemplates.addFields([
       required: true,
       displayName: "email",
       re: /.+@(.+){2,}\.(.+){2,}/,
-      errStr: 'Invalid email',
+      errStr: 'Felaktig Email!',
   },
   {
       _id: "password",

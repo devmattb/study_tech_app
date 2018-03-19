@@ -7,13 +7,18 @@ Template.studySession.helpers({
 
   // Displays the descripton of the activity:
   description: function(){
+    // Find this particular study session
     var studySessionId = FlowRouter.getParam('_id');
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    return studySessionObj.htmlDescription;
+
+    // The study session always holds the id to the activity description:
+    const activityObj = Activities.findOne({_id:studySessionObj.htmlDescriptionId});
+    return activityObj.desc; // Returns the HTML code for this activity description.
   },
 
   // Displays the descripton of the activity:
-  title: function(){
+  title: function() {
+    // Find this particular study session
     var studySessionId = FlowRouter.getParam('_id');
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
     return studySessionObj.title;
