@@ -79,6 +79,14 @@ FlowRouter.route('/studySession/:_id', {
     }
 });
 
+FlowRouter.route('/timer', {
+    name: 'timer', //Reference name
+    action() {  //What actually happens.
+      // Set our "back" button's href link:
+      BlazeLayout.render('timer'); //Render
+      checkLoggedIn();
+    }
+});
 
 /* FlowRouter.route('/401', {
     name: '401', //Reference name

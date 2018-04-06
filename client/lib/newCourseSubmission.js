@@ -392,10 +392,10 @@ function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 *   @param numStudySessions is the measurement for the examination. Which could mean the amount of pages, exercises or words required for the examination.
 *   @param numAvailableDays is the number of days until the deadline is reached.
 *   @param deadline is the users deadline.
-*   @param numOptional The number of optional activities we can squeeze in for the student.
+*   @param pagesPerSession The number of pages per session in this activity chain.
 *
 **/
-function createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadline, numOptional) {
+function createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadline, pagesPerSession) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
@@ -479,6 +479,7 @@ function createStudySessions(courseName, descIdArray, numStudySessions, numAvail
         'type': type,
         'deadline': deadline,
         'editable':false,
+        'pagesPerSession': pagesPerSession,
         'url': "DUMMY_URL"
         // End of eventArray
       };
@@ -538,11 +539,19 @@ function createStudySessions(courseName, descIdArray, numStudySessions, numAvail
 *   numAvailableDays is also used here.
 *
 **/
-function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descIdArray, studyScope) {
+function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
     var numAvailableDays = calcNumAvailableDays(deadline);
     var numStudySessions = calcNumStudySessions(examinationType,ambitionLevel,schoolGrade,studyScopeLevel,numAvailableDays);
+
+    /**
+    *   Calculate the recommended pages per session interval:
+    **/
+    var pagesPerSession, pagesInterval;
+    pagesInterval = studyScope.split("-");
+    // We round up because the student might not always do the maximum amount of pages.
+    pagesPerSession = Math.ceil(parseInt(pagesInterval[0])/numStudySessions)+"-"+Math.ceil(parseInt(pagesInterval[1])/numStudySessions);
 
     /**
     *   Variables that help us fetch the correct description sequence:
@@ -578,7 +587,7 @@ function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambi
     }
 
     var deadlineFormatted = deadlineYear+"-"+deadlineMonth+"-"+deadlineDay+" 23:00:00"
-    createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadlineFormatted);
+    createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadlineFormatted, pagesPerSession);
 
 }
 
@@ -753,9 +762,9 @@ Template.newCourse.events({
   if ( examinationType != "Glosor" && examinationType != "Muntlig Redovisning" ) {
     // Our measurement for study scope is "course book pages".
 
-    if ( studyScope == "0-10" || studyScope == "10-20" || studyScope == "20-30" ) {
+    if ( studyScope === "0-10" || studyScope === "10-20" || studyScope === "20-30" ) {
       studyScopeLevel = "Low"; // This is considered a low workload.
-    } else if ( studyScope == "30-40" || studyScope == "40-50" || studyScope == "50-60" ) {
+    } else if ( studyScope === "30-40" || studyScope === "40-50" || studyScope === "50-60" ) {
       studyScopeLevel = "Medium"; // This is considered a medium workload.
     } else {
       studyScopeLevel = "High"; // Anything else is considered a high workload.

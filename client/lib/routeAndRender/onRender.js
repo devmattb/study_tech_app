@@ -18,7 +18,10 @@
 *   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
 *
 ***/
-function initCal() {
+function initCal(timeSpan) {
+  // NOTE: The time span is used to give us all available timespan buttons.
+  //       We use the first given timeSpan from the input as the defaultView of the calendar.
+  const defaultView = timeSpan.split(", ");
 
   let isPast = ( date ) => {
     let today = moment().format();
@@ -29,7 +32,7 @@ function initCal() {
 
       header: {
         // Buttons and header text:
-        left: 'agendaWeek, month, list',
+        left: timeSpan,
         center: 'title',
         right: 'prev, today, next'
 
@@ -40,7 +43,7 @@ function initCal() {
       maxTime: '22:00:00',
       editable: false, // Not editable
       weekends: true, // Include weekends.
-      defaultView: 'agendaWeek',
+      defaultView: defaultView[0],
       eventStartEditable: false,
       // Enabling list-view.
       listDayFormat: true,
@@ -126,18 +129,19 @@ Tracker.afterFlush(function() {
 *   ALL RENDERS:
 **/
 
-// HOME
+Template.timer.rendered = function(){
+    pageInit();
+};
 
+// HOME
 Template.home.onCreated( () => {
   let template = Template.instance();
   template.subscribe( 'CalEvents' );
 });
 
 Template.home.rendered = function(){
-
     pageInit();
-    initCal();
-
+    initCal('agendaDay');
 };
 
 // LOGIN
@@ -164,7 +168,7 @@ Template.calendar.rendered = function(){
 
     pageInit();
     $('ul.tabs').tabs();
-    initCal();
+    initCal('agendaWeek, month');
 };
 
 // NEW COURSE

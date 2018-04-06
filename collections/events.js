@@ -75,6 +75,11 @@ let EventsSchema = new SimpleSchema({
     label: 'Can you edit this event?'
   },
 
+  'pagesPerSession': {
+    type: String,
+    label: 'How many pages do we wish to have per session?'
+  },
+
   // Calculate the icon for this specific course name.
   'icon': {
     type: String,
