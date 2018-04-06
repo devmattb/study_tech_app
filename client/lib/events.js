@@ -56,14 +56,15 @@ Template.calendar.onRendered( () => {
 
       // TODO: Add subject/study tech symbol to html event.
       //if (event.type == "Math") { }
-      element.find( '.fc-content' ).html(
-        `
-         <h4 class="white-text center">${ event.title }<br>
-         <small><i class="fa fa-pie-chart"></i></small>
-         </h4>
-        `
-        // <p class="type-${ event.type } white-text">#${ event.type }</p>
-      ).attr("htmlDesc", event.htmlDescription);
+        element.find( '.fc-content' ).html(
+          `
+           <h4 class="white-text center">${ event.title }<br>
+           <small><i class="${ event.icon}"></i></small>
+           </h4>
+          `
+        )
+        // Set the class that controls the events color based on what course name it has!
+        element.addClass(event.type.toLowerCase())
       }
   });
 

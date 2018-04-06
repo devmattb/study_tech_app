@@ -60,6 +60,18 @@ function formatDayOrMonth(dateNum){
   return dateNum;
 }
 
+function getCourseType(courseName) {
+
+  if (courseName === "Matematik" || courseName === "Fysik") {
+    return "Kvantitativ";
+  } else if (courseName === "Svenska" || courseName === "Engelska" || courseName === "Andravalsspråk") {
+    return "Språk";
+  } else { // Annars borde det vara ett kunskapsämne.
+    return "Kunskapsämne";
+  }
+
+}
+
 /**
 *
 *   calcNumAvailableDays():
@@ -122,7 +134,7 @@ function getMinimumNumSesh(cType, exType) {
   var minSessions;
   if ( cType === "Språk" ) {
     minSessions = returnExTypeResult(exType, 4,3,3,1,4);
-  } else if ( cType === "Samhällskunskap" ) {
+  } else if ( cType === "Kunskapsämne" ) {
     minSessions = returnExTypeResult(exType, 4,3,null,null,4);
   } else if ( cType === "Kvantitativ" ) {
     minSessions = returnExTypeResult(exType, null,3,null,null,null);
@@ -383,7 +395,7 @@ function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 *   @param numOptional The number of optional activities we can squeeze in for the student.
 *
 **/
-function createStudySessions(descIdArray, numStudySessions, numAvailableDays, deadline, numOptional) {
+function createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadline, numOptional) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
@@ -447,8 +459,8 @@ function createStudySessions(descIdArray, numStudySessions, numAvailableDays, de
       /**
       *   We now know the date is okay.
       **/
-      type = "Math"; // TODO
-      title = type+' '+ startHours +':00-'+ endHours+':00';
+      type = courseName; // Set the course name
+      title = courseName+' '+ startHours +':00-'+ endHours+':00';
 
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
@@ -526,7 +538,7 @@ function createStudySessions(descIdArray, numStudySessions, numAvailableDays, de
 *   numAvailableDays is also used here.
 *
 **/
-function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descIdArray, studyScope) {
+function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, descIdArray, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
     var numAvailableDays = calcNumAvailableDays(deadline);
@@ -566,7 +578,7 @@ function theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, s
     }
 
     var deadlineFormatted = deadlineYear+"-"+deadlineMonth+"-"+deadlineDay+" 23:00:00"
-    createStudySessions(descIdArray, numStudySessions, numAvailableDays, deadlineFormatted);
+    createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadlineFormatted);
 
 }
 
@@ -599,6 +611,7 @@ function activityDesc(cType, exType, numOptional, cycles) {
               // need to know that this will NOT be in the first phase for example.
               data.phase[i] = data.phase[i] * 5*k;
             }
+
             // Add this particular index to our JSON object,
             // So we know exactly what spot to look in the
             // phase, phaseOrder and examinationType array.
@@ -608,12 +621,12 @@ function activityDesc(cType, exType, numOptional, cycles) {
               activityArray.push(data); // Add to our activityArray.
               numOptional--;            // Decrement the number of optionals we have space for.
               i++;                      // Do not count this cycle iteration, since its an optional activity.
-              break; // Break out of loop. Go to next activity.
+              break;                    // Break out of loop. Go to next activity.
             } else if (data.optional[i] === false) {
               // This is a mandatory activity. Add it.
               data.relevantIndex = i;
               activityArray.push(data); // Add to our forbiddenTimesArr.
-              break; // Break out of loop. Go to next activity.
+              break;                    // Break out of loop. Go to next activity.
             }
           }
 
@@ -709,7 +722,8 @@ Template.newCourse.events({
 
   //$("#courseType").val().toString();
   const target = event.target;
-  const courseType = target.courseType.value; // get course value
+  const courseName = target.courseName.value; // get course value
+  const courseType = getCourseType(courseName); // get course value
   const schoolGrade = target.schoolGrade.value;
   const ambitionLevel = target.ambitionLevel.value;
   const examinationType = target.examinationType.value;
@@ -755,7 +769,7 @@ Template.newCourse.events({
   /**
   *   FINALLY. Apply the MMR Algorithm.
   **/
-  theMMRAlgorithm(deadline, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, studyScope);
+  theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, studyScope);
 
 },
 
@@ -763,13 +777,14 @@ Template.newCourse.events({
   *   Change examinationType according to courseType
   **/
   "change #selectOne": function(){
-    const val = $("#selectOne").val();
+    // Get the course TYPE for this specific course NAME.
+    const val = getCourseType($("#selectOne").val());
     if ( val == "Kvantitativ" ) {
       Template.instance().examinationTypeTemplate.set("KvantitativOptions");
     } else if ( val == "Språk" ) {
       Template.instance().examinationTypeTemplate.set("SpråkOptions");
-    } else if ( val == "Samhällskunskap") {
-      Template.instance().examinationTypeTemplate.set("SamhällskunskapOptions");
+    } else if ( val == "Kunskapsämne") {
+      Template.instance().examinationTypeTemplate.set("KunskapsämneOptions");
     }
     // Update select.
     window.setTimeout(function(){

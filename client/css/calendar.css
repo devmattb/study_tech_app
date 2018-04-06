@@ -99,7 +99,47 @@ p[class="type-Birthday"] {
   font-size: inherit !important;
   font-weight: bold !important;
   padding: 5px 10px;
-  background-color: #fb8c00!important;
+}
+
+
+/***
+*   EVENT COURSE NAME COLORS:
+***/
+.matematik{
+  background-color: red!important;
+}
+.fysik{
+  background-color: orange!important;
+}
+.biologi{
+  background-color: pink!important;
+}
+.kemi{
+  background-color: green!important;
+}
+.teknik{
+  background-color: black!important;
+}
+.historia{
+  background-color: yellow!important;
+}
+.geografi{
+  background-color: brown!important;
+}
+.religion{
+  background-color: purple!important;
+}
+.samhällskunskap{
+  background-color: lightblue!important;
+}
+.svenska{
+  background-color: teal!important;
+}
+.engelska{
+  background-color: blue!important;
+}
+.andravalsspråk{
+  background-color: gray!important;
 }
 
 .fc .fc-event h4{

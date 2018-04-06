@@ -1,5 +1,5 @@
 {
-  "courseType": ["Språk", "Språk", "Samhällskunskap", "Samhällskunskap"],
+  "courseType": ["Språk", "Språk", "Kunskapsämne", "Kunskapsämne"],
   "examinationType": ["Skriftligt Prov", "Litteraturanalys", "Skriftligt Prov", "Uppsats"],
   "phase": [1,1,1,1],
   "phaseOrder": [1,1,1,2],
