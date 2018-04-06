@@ -58,8 +58,8 @@ Template.calendar.onRendered( () => {
       //if (event.type == "Math") { }
         element.find( '.fc-content' ).html(
           `
-           <h4 class="white-text center">${ event.title }<br>
-           <small><i class="${ event.icon}"></i></small>
+           <h4 class="white-text center">${ event.title }<br><br>
+           <small style="font-size: 18px;" ><i class="${event.icon}"></i></small>
            </h4>
           `
         )
