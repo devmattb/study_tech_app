@@ -104,39 +104,6 @@ function pageInit() {
 }
 
 /**
-*   Get the remaining time:
-*   @param endtime is the Date object with the final time.
-**/
-function getTimeRemaining(endtime){
-
-  var t = Date.parse(endtime) - Session.get('time');
-  var seconds = ("0" + Math.floor( (t/1000) % 60 )).slice(-2);
-  var minutes = ("0" + Math.floor( (t/1000/60) % 60 )).slice(-2);
-
-  console.log(t)
-  if(t <= 0)
-    clearInterval(timeinterval);
-
-  return {
-    'total': t,
-    'minutes': minutes,
-    'seconds': seconds
-  };
-
-}
-
-/**
-*   PRELOADER
-**/
-Tracker.afterFlush(function() {
-
-    // Animate loader off screen
-    $("#preloader").fadeOut("slow");
-    $("body").fadeIn("slow");
-
-});
-
-/**
 *   ALL RENDERS:
 **/
 
@@ -221,14 +188,8 @@ Template.studySession.rendered = function(){
      $('#userAgreement').modal('open');
   });
 
-  /***
-  *   Timer init
-  ***/
-  var endtime = new Date();
-  endtime.addMinutes(1);
-  timeinterval = setInterval(function () {
-    Session.set("time", new Date());
-    var t = getTimeRemaining(endtime);
-    Session.set("t", t);
-  }, 1000);
+  // Timer variables:
+  Session.set("paused", false);
+  Session.set("cyclesDone", 0);
+
 };

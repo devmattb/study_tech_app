@@ -23,14 +23,19 @@
           font-weight: 100;
       }
 
-      h1{
+      h1 {
           color: rgba(251, 140, 0, 0.9);
           font-weight: 100;
           font-size: 40px;
           margin: 40px 0px 20px;
       }
 
-      #clockdiv{
+      p {
+        font-family: Arial!important;
+        font-weight: 400!important;
+      }
+
+      #clockdiv {
           font-family: sans-serif;
           color: #fff;
           display: inline-block;
@@ -39,117 +44,163 @@
           font-size: 30px;
       }
 
-      #clockdiv > div{
+      #clockdiv > div {
           padding: 10px;
           border-radius: 3px;
           background: rgba(251, 140, 0, 0.7);
           display: inline-block;
       }
 
-      #clockdiv div > span{
+      #clockdiv div > span {
           padding: 15px;
           border-radius: 3px;
           background: #fb8c00;
           display: inline-block;
       }
 
-      .smalltext{
+      .smalltext {
           padding-top: 5px;
           font-size: 16px;
       }
-    </style>
 
+      .descItem {
+        position: absolute;
+        font-size: 20px!important;
+        margin-top: 30px;
+      }
+
+    </style>
 
     <!-- GUI To view a study session: -->
     <div id="gui" style="margin-top: 50px;" class="row col s12 scale-transition scale-out">
         <div id="guiBody" class="row">
 
-          {{#if ended}}
+          {{#if paused}}
+            <!-- Pause -->
+            <div id="pauseDiv" class="col s12 scale-transition scale-out">
+
+              <h5 style="margin:30px;"> <b>PAUS!</b> </h5>
+              <h1><i class="fas fa-stopwatch"></i></h1>
+              <!-- TIMER -->
+              <div id="clockdiv" class="col s12">
+                <div>
+                  <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+                  <div class="smalltext">Minuter</div>
+                </div>
+
+                <div>
+                  <span class="seconds">{{t.seconds}}</span>
+                  <div class="smalltext">Sekunder</div>
+                </div>
+              </div>
+              <div style="margin-top: 100px;" class="col s12 center">
+                <button id="endPause" class="btn webOrange waves-effect waves-light"> Avsluta Paus </button>
+              </div>
+
+          </div>
+
+          {{else if ended}}
 
             <!-- Standard End of Cycle Instructions -->
-            <div id="endActivityDiv" class="col s12">
-              <h5><b>Tiden är slut!</b> <br><br> En sista uppgift innan du tar paus... </h5>
+            <div id="endActivityDiv" class="col s12 scale-transition">
+              <h5><b>Bra jobbat!</b> <br><br> En sista uppgift innan du tar paus... </h5>
               <p>
                   Filma/spela in dig själv där du under 30-60 sekunder berättar vad det du precis läst handlar om, ta även med övriga kunskaper som passar
                   in om du kommer på några! För att hålla reda på vilken video som är vilken börjar du alltid alla videor med att filma ett papper där du
                   skrivit; Kurs:...Kapitel:...Metod:... Spara videon! Videos kan du också passa på att titta igenom när du sitter på bussen.
               </p>
-              <button id="endActivity" class="btn waves-effect waves-effect-light webOrange">Ta Paus</button>
+              <button id="endActivity" class="btn waves-effect waves-light webOrange">Ta Paus</button>
             </div>
 
-          {{else if pause}}
+          {{else if done}}
 
-          <div id="pauseDiv">
+          <!-- The entire Study Session is finished! -->
+          <div style="margin-top: 50px;" id="endSessionDiv" class="col s12 scale-transition">
+            <h5><b> Du är nu klar med hela studiesessionen!</b> </h5>
+            <br><br>
+            <div class="col s2"></div> <!-- DUMMY -->
+            <div style="text-align:left!important;" class="col s8">
+              <h5><b> Belöning: </b> </h5>
+              <ul>
+                  <li> Insamlad EXP: </li>
+                  <li> Insamlade Badges: </li>
+              </ul>
+            </div>
+            <div class="col s2"></div> <!-- DUMMY -->
 
-            <h5 style="margin:30px;"> <b>PAUS!</b> </h5>
-            <h1><i class="fas fa-stopwatch"></i></h1>
-            <!-- TIMER -->
-            <div id="clockdiv" class="col s12">
-              <div>
-                <span class="minutes" {{attributes}}>{{t.minutes}}</span>
-                <div class="smalltext">Minuter</div>
-              </div>
-
-              <div>
-                <span class="seconds">{{t.seconds}}</span>
-                <div class="smalltext">Sekunder</div>
-              </div>
+            <div style="margin-top: 50px;" class="col s12">
+              <h5><b> Bedöm din egen prestation: </b> </h5>
+              <!-- TODO -->
+              <button style="margin-top: 50px;" id="endSession" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
             </div>
 
-          </div>
-
-          {{else}}
-
-          <!-- Start Cycle -->
-          <div class="col s12">
-            <h5 style="margin: 30px;" > <b>Nu är det dags för lite {{type}}!</b> <br><br> Är du redo? </h5>
-            <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
-          </div>
-
-          <!-- Standard Start Cycle Instructions -->
-          <div id="startCycleDiv" class="col s12">
-
-            <div>
-              <p>Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar/sammanfattningar du jobbade med senast.</p>
-              <button class="btn waves-effect waves-effect-light webOrange">Nästa</button>
-            </div>
-
-            <div>
-              <p>
-                Skaffa dig en förförståelse eller hum om vad du ska plugga handlar om. Få uppfattningen genom att läsa på baksidan av boken, vad alla kapitel heter, söka på internet,
-                lägg 3 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/avsnittet handlar om.
-              </p>
-              <button id="startActivity" class="btn waves-effect waves-effect-light webOrange">Nästa</button>
-            </div>
-
-          </div>
-
-          <!-- Display Instructions and Timer -->
-          <div id="activityDiv" class="hidden">
-
-            <h1><i class="fas fa-stopwatch"></i></h1>
-            <!-- TIMER -->
-            <div id="clockdiv" class="col s12">
-              <div>
-                <span class="minutes" {{attributes}}>{{t.minutes}}</span>
-                <div class="smalltext">Minuter</div>
-              </div>
-
-              <div>
-                <span class="seconds">{{t.seconds}}</span>
-                <div class="smalltext">Sekunder</div>
-              </div>
-            </div>
-
-            <!-- Activity Description -->
-            <div class="col s1"></div>  <!-- DUMMY -->
-            <div class="col s10">
-              {{{description}}}
-            </div>
-            <div class="col s1"></div>  <!-- DUMMY -->
           </div>
 
           {{/if}}
+
+          {{#unless ended}}
+            {{#unless paused}}
+              {{#unless done}}
+                <!-- Start -->
+                <div id="startDiv" class="col s12 scale-transition">
+                  <div style="margin: 30px;">
+                    <h5> <b id="introText">Nu är det dags för lite {{type}}!</b> <br><br> Är du redo? </h5>
+                    <h5 id="continueText" class="hidden" > <b>Det är dags att fortsätta med {{type}}!</b> <br><br> Är du redo? </h5>
+                  </div>
+                  <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
+                </div>
+
+                <!-- Standard Start Cycle Instructions -->
+                <div id="startCycleDiv" class="col s12 scale-transition scale-out">
+
+                  <div id="repetitionDiv" class="scale-transition">
+                    <h5> <b>Repetition:</b> </h5>
+                    <p>Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar/sammanfattningar du jobbade med senast.</p>
+                    <button id="showPreparations" class="btn waves-effect waves-light webOrange">Nästa</button>
+                  </div>
+
+                  <div id="preparationsDiv" class="col s12 scale-transition scale-out">
+                    <h5> <b>Förberedelser:</b> </h5>
+                    <p>
+                      Skaffa dig en förförståelse eller hum om vad du ska plugga handlar om. Få uppfattningen genom att läsa på baksidan av boken, vad alla kapitel heter, söka på internet,
+                      lägg 3 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/avsnittet handlar om.
+                    </p>
+                    <button id="startActivity" class="btn waves-effect waves-light webOrange">Nästa</button>
+                  </div>
+
+                </div>
+
+                <!-- Display Instructions and Timer -->
+                <div id="activityDiv" class="scale-transition scale-out">
+
+                  <h1><i class="fas fa-stopwatch"></i></h1>
+                  <!-- TIMER -->
+                  <div style="margin-bottom: 20px;" id="clockdiv" class="col s12">
+                    <div>
+                      <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+                      <div class="smalltext">Minuter</div>
+                    </div>
+
+                    <div>
+                      <span class="seconds">{{t.seconds}}</span>
+                      <div class="smalltext">Sekunder</div>
+                    </div>
+                  </div>
+
+                  <!-- Activity Description -->
+                  <div>
+                    <h5> <b>Dagens Agenda:</b> </h5>
+                    <div id="description">{{{description}}}</div>
+                    <div style="margin-top: 250px;" class="col s12 center">
+                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep">Tillbaka</button>
+                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa</button>
+                    </div>
+                  </div>
+
+                </div>
+              {{/unless}}
+            {{/unless}}
+          {{/unless}}
         </div>
 
     </div>
