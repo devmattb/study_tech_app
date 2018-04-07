@@ -7,17 +7,9 @@
 *   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
 *
 ***/
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 
-
-/***
-*
-*   Created: 03 December 2017
-*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
-*   Copyright 2017 Matt Bergstrom
-*   Statement:
-*   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
-*
-***/
 function initCal(timeSpan) {
   // NOTE: The time span is used to give us all available timespan buttons.
   //       We use the first given timeSpan from the input as the defaultView of the calendar.
@@ -111,8 +103,27 @@ function pageInit() {
 
 }
 
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+/**
+*   Get the remaining time:
+*   @param endtime is the Date object with the final time.
+**/
+function getTimeRemaining(endtime){
+
+  var t = Date.parse(endtime) - Session.get('time');
+  var seconds = ("0" + Math.floor( (t/1000) % 60 )).slice(-2);
+  var minutes = ("0" + Math.floor( (t/1000/60) % 60 )).slice(-2);
+
+  console.log(t)
+  if(t <= 0)
+    clearInterval(timeinterval);
+
+  return {
+    'total': t,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+
+}
 
 /**
 *   PRELOADER
@@ -129,10 +140,6 @@ Tracker.afterFlush(function() {
 *   ALL RENDERS:
 **/
 
-Template.timer.rendered = function(){
-    pageInit();
-};
-
 // HOME
 Template.home.onCreated( () => {
   let template = Template.instance();
@@ -146,16 +153,12 @@ Template.home.rendered = function(){
 
 // LOGIN
 Template.login.rendered = function(){
-
     pageInit();
-
 };
 
 // CREATE ACCOUNT
 Template.createAccount.rendered = function(){
-
     pageInit();
-
 };
 
 // CALENDAR ACCOUNT
@@ -165,7 +168,6 @@ Template.calendar.onCreated( () => {
 });
 
 Template.calendar.rendered = function(){
-
     pageInit();
     $('ul.tabs').tabs();
     initCal('agendaWeek, month');
@@ -173,7 +175,6 @@ Template.calendar.rendered = function(){
 
 // NEW COURSE
 Template.newCourse.rendered = function(){
-
     pageInit();
 
     $('.datepicker').pickadate({
@@ -185,8 +186,15 @@ Template.newCourse.rendered = function(){
       formatSubmit: 'yyyy-mm-dd',
       closeOnSelect: true // Close upon selecting a date,
     });
-
 };
+
+
+Date.prototype.addMinutes = function(m) {
+   this.setTime(this.getTime() + (m*60*1000));
+   return this;
+}
+
+var timeinterval;
 
 // STUDY SESSION
 Template.studySession.rendered = function(){
@@ -194,7 +202,7 @@ Template.studySession.rendered = function(){
   *   PRELOADER
   **/
   setTimeout(function(){  $("#preloader").fadeOut("slow");}, 700);
-  setTimeout(function(){  $("body").fadeIn("slow");}, 1000);
+  setTimeout(function(){  $("#gui").removeClass("scale-out");}, 1000);
 
   /**
   *      NAV INITIALIZATION
@@ -212,4 +220,15 @@ Template.studySession.rendered = function(){
   $(".userAgreementLink").click(function(){
      $('#userAgreement').modal('open');
   });
+
+  /***
+  *   Timer init
+  ***/
+  var endtime = new Date();
+  endtime.addMinutes(1);
+  timeinterval = setInterval(function () {
+    Session.set("time", new Date());
+    var t = getTimeRemaining(endtime);
+    Session.set("t", t);
+  }, 1000);
 };

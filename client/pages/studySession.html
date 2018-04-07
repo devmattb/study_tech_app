@@ -16,25 +16,146 @@
     {{>header}}
     {{>preloader}}
 
+    <style>
+      #guiBody {
+          text-align: center;
+          font-family: sans-serif;
+          font-weight: 100;
+      }
+
+      h1{
+          color: rgba(251, 140, 0, 0.9);
+          font-weight: 100;
+          font-size: 40px;
+          margin: 40px 0px 20px;
+      }
+
+      #clockdiv{
+          font-family: sans-serif;
+          color: #fff;
+          display: inline-block;
+          font-weight: 100;
+          text-align: center;
+          font-size: 30px;
+      }
+
+      #clockdiv > div{
+          padding: 10px;
+          border-radius: 3px;
+          background: rgba(251, 140, 0, 0.7);
+          display: inline-block;
+      }
+
+      #clockdiv div > span{
+          padding: 15px;
+          border-radius: 3px;
+          background: #fb8c00;
+          display: inline-block;
+      }
+
+      .smalltext{
+          padding-top: 5px;
+          font-size: 16px;
+      }
+    </style>
+
+
     <!-- GUI To view a study session: -->
-    <div style="margin-top: 50px;" class="row col s12">
-        <h5 class="center"> {{title}} </h5>
-        {{>timer}}
-        <div class="row col s12 left">
+    <div id="gui" style="margin-top: 50px;" class="row col s12 scale-transition scale-out">
+        <div id="guiBody" class="row">
 
-          <!-- Activity Description -->
-          <div class="col s1"></div>  <!-- DUMMY -->
-          <div class="col s10">
-            {{{description}}}
+          {{#if ended}}
+
+            <!-- Standard End of Cycle Instructions -->
+            <div id="endActivityDiv" class="col s12">
+              <h5><b>Tiden är slut!</b> <br><br> En sista uppgift innan du tar paus... </h5>
+              <p>
+                  Filma/spela in dig själv där du under 30-60 sekunder berättar vad det du precis läst handlar om, ta även med övriga kunskaper som passar
+                  in om du kommer på några! För att hålla reda på vilken video som är vilken börjar du alltid alla videor med att filma ett papper där du
+                  skrivit; Kurs:...Kapitel:...Metod:... Spara videon! Videos kan du också passa på att titta igenom när du sitter på bussen.
+              </p>
+              <button id="endActivity" class="btn waves-effect waves-effect-light webOrange">Ta Paus</button>
+            </div>
+
+          {{else if pause}}
+
+          <div id="pauseDiv">
+
+            <h5 style="margin:30px;"> <b>PAUS!</b> </h5>
+            <h1><i class="fas fa-stopwatch"></i></h1>
+            <!-- TIMER -->
+            <div id="clockdiv" class="col s12">
+              <div>
+                <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+                <div class="smalltext">Minuter</div>
+              </div>
+
+              <div>
+                <span class="seconds">{{t.seconds}}</span>
+                <div class="smalltext">Sekunder</div>
+              </div>
+            </div>
+
           </div>
-          <div class="col s1"></div>  <!-- DUMMY -->
 
+          {{else}}
+
+          <!-- Start Cycle -->
+          <div class="col s12">
+            <h5 style="margin: 30px;" > <b>Nu är det dags för lite {{type}}!</b> <br><br> Är du redo? </h5>
+            <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
+          </div>
+
+          <!-- Standard Start Cycle Instructions -->
+          <div id="startCycleDiv" class="col s12">
+
+            <div>
+              <p>Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar/sammanfattningar du jobbade med senast.</p>
+              <button class="btn waves-effect waves-effect-light webOrange">Nästa</button>
+            </div>
+
+            <div>
+              <p>
+                Skaffa dig en förförståelse eller hum om vad du ska plugga handlar om. Få uppfattningen genom att läsa på baksidan av boken, vad alla kapitel heter, söka på internet,
+                lägg 3 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/avsnittet handlar om.
+              </p>
+              <button id="startActivity" class="btn waves-effect waves-effect-light webOrange">Nästa</button>
+            </div>
+
+          </div>
+
+          <!-- Display Instructions and Timer -->
+          <div id="activityDiv" class="hidden">
+
+            <h1><i class="fas fa-stopwatch"></i></h1>
+            <!-- TIMER -->
+            <div id="clockdiv" class="col s12">
+              <div>
+                <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+                <div class="smalltext">Minuter</div>
+              </div>
+
+              <div>
+                <span class="seconds">{{t.seconds}}</span>
+                <div class="smalltext">Sekunder</div>
+              </div>
+            </div>
+
+            <!-- Activity Description -->
+            <div class="col s1"></div>  <!-- DUMMY -->
+            <div class="col s10">
+              {{{description}}}
+            </div>
+            <div class="col s1"></div>  <!-- DUMMY -->
+          </div>
+
+          {{/if}}
         </div>
 
-      <div class="leftCornerFixedButtonDiv centered">
-        <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> Tillbaka </button></a>
-      </div>
+    </div>
 
+    <div class="leftCornerFixedButtonDiv centered">
+      <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> Tillbaka </button></a>
     </div>
 
 

@@ -38,6 +38,9 @@ Meteor.startup(() => {
   **/
   Meteor.methods({
 
+      /**
+      *  Updates account collection. (DEPRICATED)
+      **/
       accountUpsert: function( id, doc ) {
        Accounts.upsert( id, doc,
         function(err, res) { // Handle errors
@@ -49,6 +52,9 @@ Meteor.startup(() => {
        );
      },
 
+     /**
+     *  Updates event collection.
+     **/
      eventUpsert: function( id, doc ) {
       CalEvents.upsert({_id: id}, {$set:doc},
        function(err, res) { // Handle errors
@@ -58,6 +64,13 @@ Meteor.startup(() => {
          }
        }
       );
+    },
+
+    /**
+    *   Used in Timer for each study session.
+    **/
+    'getCurrentTime': function (){
+      return Date.parse(new Date());
     },
 
  });

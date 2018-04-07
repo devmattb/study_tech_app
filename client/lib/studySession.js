@@ -24,5 +24,26 @@ Template.studySession.helpers({
     return studySessionObj.title;
   },
 
+  // Displays the course name.
+  type: function (){
+    var studySessionId = FlowRouter.getParam('_id');
+    const studySessionObj = CalEvents.findOne({_id:studySessionId});
+    return studySessionObj.type;
+  },
+
+  backBtnHref: function(){
+    return Session.get("backBtnHref");
+  },
+
+  // Below are two variables used in the timer functionality:
+  ended:function () {
+    console.log(Session.get("t").total <= 0);
+    return Session.get("t").total <= 0;
+  },
+
+  t: function () {
+    return Session.get("t");
+  },
+
 
 });

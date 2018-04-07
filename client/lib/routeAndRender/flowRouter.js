@@ -71,10 +71,15 @@ FlowRouter.route('/calendar', {
 
 FlowRouter.route('/studySession/:_id', {
     name: 'studySession', //Reference name
-    action() {  //What actually happens.
-      // Set our "back" button's href link:
-      Template.studySession.backBtnHref = window.location.href;
-      BlazeLayout.render('studySession'); //Render
+    action() { 
+      // Set our "back" button's href link to the previous page:
+      if ( document.referrer === Meteor.absoluteUrl("calendar", {}) || document.referrer === Meteor.absoluteUrl()) {
+        Session.set("backBtnHref", document.referrer);
+      } else { // If the user for some reason has refreshed awkwardly, retreat to home page.
+        Session.set("backBtnHref", Meteor.absoluteUrl());
+      }
+
+      BlazeLayout.render('studySession');
       checkLoggedIn();
     }
 });
