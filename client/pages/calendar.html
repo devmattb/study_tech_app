@@ -17,58 +17,11 @@
   {{>header}}
   {{>preloader}}
   {{>navbar}}
-  <script>
 
-  Tracker.afterFlush(function() {
-
-    //TODO: Get values within an array inside of an object ??? OPTIMIZATION.
-    // TODO: Fill the htmlDesc with values from the algorithm!
-    $("#addEventBtn").click(function() {
-      var doc = {
-            'connectedUserId': 'qHfJWYf4uSgQ7CuMD', //qHfJWYf4uSgQ7CuMD
-            'htmlDescription': `
-            <br><br>
-            <h5 class="center">MATH 18.00-20.00:</h5>
-            <div class="col s12">
-              <ol>
-                <li>Läs <b>X</b> sidor av kaptitel <b>Y</b></li>
-                <li>Skriv en sammanfattning på dem <b>X</b> sidor av kapitel <b>Y</b> med <b>Z</b> punkter </li>
-              </ol>
-
-            </div>
-
-            `,
-            'title': 'Math',
-            'start': '2018-02-01 18:00:00',
-            'end': '2018-02-01 20:00:00',
-            'type': 'Math',
-            'deadline': '2018-08-01 22:00:00', // 8 months after.
-            'editable':false
-        // End of eventArray
-      };
-      CalEvents.insert(
-        doc,
-        function(error, result) {
-          if ( error ) {
-            console.log ( error ); //info about what went wrong
-            Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
-            return; // Stop exec
-          } else {
-            // Everything went smoothly...
-            Materialize.toast('EVENT skapat!', 4000, "green");
-          }
-        }
-      );
-  });
-
-}); // End of afterFlush.
-
-  </script>
   <div class="row">
     <div class="col s12">
       <div class="schedule"></div>
     </div>
-    <button id="addEventBtn" style="position: absolute; bottom: 1px; right: 1px;" class="btn-large waves-effect waves-light">ADD EVENT</button>
   </div>
 
 </template>

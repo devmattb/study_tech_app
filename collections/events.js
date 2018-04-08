@@ -60,6 +60,11 @@ let EventsSchema = new SimpleSchema({
     allowedValues: [ 'Matematik', 'Fysik', 'Biologi', 'Kemi', 'Teknik' , 'Historia' , 'Geografi' , 'Religion' , 'Samhällskunskap', 'Svenska', 'Engelska' , 'Andravalsspråk' ]
   },
 
+  'examinationType': {
+    type: String,
+    label: 'What examination type is given?',
+  },
+
   'deadline': {
     type: String,
     label: 'When is this examination due?'

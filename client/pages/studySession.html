@@ -190,8 +190,13 @@
                   <!-- Activity Description -->
                   <div>
                     <h5> <b>Dagens Agenda:</b> </h5>
-                    <div id="description">{{{description}}}</div>
+                    <div id="description">
+                      {{{description}}}
+                    </div>
                     <div style="margin-top: 250px;" class="col s12 center">
+                      {{#if pageMeasurement}}
+                        <p><b>Antal sidor denna Session:</b> {{amount}} </p>
+                      {{/if}}
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep">Tillbaka</button>
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa</button>
                     </div>

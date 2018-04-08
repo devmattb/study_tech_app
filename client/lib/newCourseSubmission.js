@@ -395,7 +395,7 @@ function checkDatesHelper(forbiddenDatesArr, currentDateString) {
 *   @param pagesPerSession The number of pages per session in this activity chain.
 *
 **/
-function createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadline, pagesPerSession) {
+function createStudySessions(courseName, exType, descIdArray, numStudySessions, numAvailableDays, deadline, pagesPerSession) {
 
   numAvailableDays -= 1; // Don't study the last day.
 
@@ -477,6 +477,7 @@ function createStudySessions(courseName, descIdArray, numStudySessions, numAvail
         'start': start+" "+startHours+":00:00",
         'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00        which is feb 2nd 22:00, 2017
         'type': type,
+        'examinationType':exType,
         'deadline': deadline,
         'editable':false,
         'pagesPerSession': pagesPerSession,
@@ -587,7 +588,7 @@ function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambi
     }
 
     var deadlineFormatted = deadlineYear+"-"+deadlineMonth+"-"+deadlineDay+" 23:00:00"
-    createStudySessions(courseName, descIdArray, numStudySessions, numAvailableDays, deadlineFormatted, pagesPerSession);
+    createStudySessions(courseName, examinationType, descIdArray, numStudySessions, numAvailableDays, deadlineFormatted, pagesPerSession);
 
 }
 

@@ -1,4 +1,12 @@
 /**
+*   BUG/TODO 's:
+*   Ta bort pausen i slutet.
+*   Slutvillkor är inte klara. diskutera med partners.
+*
+**/
+
+
+/**
 *   TIMER: Get the remaining time:
 *   @param endtime is the Date object with the final time.
 **/
@@ -80,6 +88,7 @@ String.prototype.replaceAll = function(search, replacement) {
 *   This function helps populate the content on the page "studySession",
 *   The "studySession" page is used to display information about
 *   specific scheduled study sessions to the user.
+*   TODO: Optimize how we grab the details of the calendar events.
 **/
 Template.studySession.helpers({
 
@@ -143,6 +152,22 @@ Template.studySession.helpers({
     return Session.get("t");
   },
 
+  amount: function () {
+    var studySessionId = FlowRouter.getParam('_id');
+    const studySessionObj = CalEvents.findOne({_id:studySessionId});
+    return studySessionObj.pagesPerSession;
+  },
+
+  pageMeasurement: function () {
+    var studySessionId = FlowRouter.getParam('_id');
+    const studySessionObj = CalEvents.findOne({_id:studySessionId});
+    if ( studySessionObj.examinationType === "Glosor" ) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
 });
 
 
@@ -180,7 +205,7 @@ Template.studySession.events({
 
 "click #startActivity":function(event) {
 
-  initTimer(0.07);
+  initTimer(25);
 
   $("#startCycleDiv").addClass("scale-out");
   setTimeout(function(){
