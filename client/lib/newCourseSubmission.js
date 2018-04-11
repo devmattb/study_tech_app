@@ -366,14 +366,6 @@ function checkDates(preliminaryDateObj) {
     return preliminaryDateObj; // Return this date
 }
 
-function checkDatesHelper(forbiddenDatesArr, currentDateString) {
-
-  for ( var i = 0; i < forbiddenDatesArr.length; i++ ) {
-
-
-  }
-
-}
 
 /**
 *
@@ -687,7 +679,7 @@ Template.newCourse.events({
 *   Handles the hiding and showing of forms.
 **/
 "click #nextPartBtn":function(event) {
-
+  event.preventDefault();
   // Make sure all options have been selected.
   if (
     $("#selectOne").val() != null && $("#selectOne").val() != undefined &&
@@ -708,7 +700,7 @@ Template.newCourse.events({
 },
 
 "click #backFormBtn":function(event) {
-
+    event.preventDefault();
     $("#newCoursePartTwo").fadeOut(100);
     window.setTimeout(function(){
         $("#newCoursePartOne").fadeIn(100);
@@ -716,16 +708,10 @@ Template.newCourse.events({
 
 },
 
-"click #testMeBtn":function(event) {
-    // NOTE: ONLY FOR TESTING! REMOVE LATER!
-    calcNumAvailableDays(" ");
-
-},
-
 /**
 *   Handles the new course submission to the app.
 **/
-"submit #newCourseForm":function(event) {
+"submit #newCourseForm ":function(event) {
 
   //Prevent default redirect.
   event.preventDefault();

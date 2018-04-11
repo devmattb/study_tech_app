@@ -116,18 +116,23 @@
 
           <!-- The entire Study Session is finished! -->
           <div style="margin-top: 50px;" id="endSessionDiv" class="col s12 scale-transition">
+            <h5><b> Bra Jobbat! </b> </h5> <br>
             <h5><b> Du är nu klar med hela studiesessionen!</b> </h5>
             <br><br>
             <div class="col s2"></div> <!-- DUMMY -->
             <div style="text-align:left!important;" class="col s8">
+              <!--
+              COMMING SOON:
               <h5><b> Belöning: </b> </h5>
               <ul>
                   <li> Insamlad EXP: </li>
                   <li> Insamlade Badges: </li>
               </ul>
+              -->
             </div>
             <div class="col s2"></div> <!-- DUMMY -->
 
+            <!-- Feedback Div -->
             <div style="margin-top: 50px;" class="col s12">
               <h5><b> Bedöm din egen prestation: </b> </h5>
               <!-- TODO -->
@@ -156,7 +161,7 @@
                   <div id="repetitionDiv" class="scale-transition">
                     <h5> <b>Repetition:</b> </h5>
                     <p>Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar/sammanfattningar du jobbade med senast.</p>
-                    <button id="showPreparations" class="btn waves-effect waves-light webOrange">Nästa</button>
+                    <button id="showPreparations" class="btn waves-effect waves-light webOrange">Nästa!</button>
                   </div>
 
                   <div id="preparationsDiv" class="col s12 scale-transition scale-out">
@@ -165,7 +170,7 @@
                       Skaffa dig en förförståelse eller hum om vad du ska plugga handlar om. Få uppfattningen genom att läsa på baksidan av boken, vad alla kapitel heter, söka på internet,
                       lägg 3 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/avsnittet handlar om.
                     </p>
-                    <button id="startActivity" class="btn waves-effect waves-light webOrange">Nästa</button>
+                    <button id="startActivity" class="btn waves-effect waves-light webOrange">Nästa!</button>
                   </div>
 
                 </div>
@@ -197,8 +202,8 @@
                       {{#if pageMeasurement}}
                         <p><b>Antal sidor denna Session:</b> {{amount}} </p>
                       {{/if}}
-                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep">Tillbaka</button>
-                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa</button>
+                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep"><i class="fas fa-arrow-left"></i>&nbsp; Tillbaka</button>
+                      <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa &nbsp;<i class="fas fa-arrow-right"></i></button>
                     </div>
                   </div>
 
@@ -211,7 +216,7 @@
     </div>
 
     <div class="leftCornerFixedButtonDiv centered">
-      <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> Tillbaka </button></a>
+      <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> AVSLUTA </button></a>
     </div>
 
 

@@ -71,7 +71,7 @@ FlowRouter.route('/calendar', {
 
 FlowRouter.route('/studySession/:_id', {
     name: 'studySession', //Reference name
-    action() { 
+    action() {
       // Set our "back" button's href link to the previous page:
       if ( document.referrer === Meteor.absoluteUrl("calendar", {}) || document.referrer === Meteor.absoluteUrl()) {
         Session.set("backBtnHref", document.referrer);
@@ -92,6 +92,15 @@ FlowRouter.route('/timer', {
       checkLoggedIn();
     }
 });
+
+/*FlowRouter.route('/confetti', {
+    name: 'confetti', //Reference name
+    action() {  //What actually happens.
+      // Set our "back" button's href link:
+      BlazeLayout.render('confetti'); //Render
+      checkLoggedIn();
+    }
+});*/
 
 /* FlowRouter.route('/401', {
     name: '401', //Reference name

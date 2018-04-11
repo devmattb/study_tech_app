@@ -113,12 +113,13 @@ AccountsTemplates.configure({
       socialConfigure: "Lägg till sociala medier för bästa möjliga användarupplevelse.",
       socialSignUp: "",
       socialIcons: {
-          "meteor-developer": "fa fa-rocket"
+          facebook: "fab fa-facebook-f",
+          google: "fab fa-google",
       },
       inputIcons: {
-        isValidating: "fa fa-spinner fa-spin",
-        hasSuccess: "fa fa-check",
-        hasError: "fa fa-times",
+        isValidating: "fas fa-spinner fa-spin",
+        hasSuccess: "fas fa-check",
+        hasError: "fas fa-times",
       },
       socialRemove: "Ta bort",
       socialSignIn: "",
@@ -143,7 +144,7 @@ AccountsTemplates.addFields([
       displayName: "Användarnamn",
       required: true,
       minLength: 4,
-      icon: "prefixIcon fa fa-user-circle-o prefix",
+      icon: "prefixIcon fas fa-user-circle-o prefix", // BUG: Not working yet...
   },
   {
       _id: 'email',
