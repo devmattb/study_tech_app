@@ -30,22 +30,6 @@
   top: 50px;
 }
 
-p[class^="type-"] {
-  margin: 0;
-}
-
-p[class="type-Corporate"] {
-  color: red;
-}
-
-p[class="type-Wedding"] {
-  color: green;
-}
-
-p[class="type-Birthday"] {
-  color: blue;
-}
-
 /* Calendar title */
 .fc-center h2 {
   font-family: 'Passion One'!important;

@@ -510,6 +510,9 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
 
   } // End of event creation...
 
+  // SUCCESS ACTIONS:
+  Materialize.toast('Lyckades!', 6000, "green");
+  FlowRouter.go("calendar");
 }
 /**
 *   theMMRAlgorithm():
