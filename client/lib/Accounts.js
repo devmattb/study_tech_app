@@ -11,7 +11,7 @@ if (Meteor.isClient) {
     **/
     T9n.map('en', {
         'Invalid email': 'Felaktig Email!',
-        'Required Field': 'Fältet är ej ifyllt!',
+        'Required Field': 'Fältet är tomt!',
         'usernameOrEmail': "Användarnamn eller Email",
         'passwordAgain': "Bekräfta Lösenord",
         'emailResetLink': "Återställ Lösenord",

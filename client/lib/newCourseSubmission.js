@@ -473,7 +473,7 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
         'deadline': deadline,
         'editable':false,
         'pagesPerSession': pagesPerSession,
-        'url': "DUMMY_URL"
+        'url': "DUMMY_URL" // Updated after insert.
         // End of eventArray
       };
 
@@ -489,10 +489,9 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
             return; // Stop exec
           } else {
             // Everything went smoothly...
-            Materialize.toast('EVENT skapat!', 4000, "green");
-
             /**
-            *   UPDATE that meetings url to its id.
+            *   UPDATE meetings url to its id.
+            *   This makes each study session uniquely clickable.
             **/
             var uniqueUrl = Meteor.absoluteUrl("studySession/"+doc_id, {});
             doc.url = uniqueUrl; // Update doc with new url

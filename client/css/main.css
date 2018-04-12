@@ -67,9 +67,16 @@
  color: #fb8c00!important;
 }
 
-
+/**
+*   More font styling
+**/
 input {
   font-size: 18px!important;
+  font-family: "Passion One"!important;
+}
+
+label, option, select {
+    font-family: "Passion One"!important;
 }
 
 .input-field {
@@ -168,13 +175,13 @@ button, .btn {
 }
 
 p, button, .btn {
-    font-family: "Oswald"!important;
+    font-family: "Passion One"!important;
 }
 
 h5,h4,h3,h2,h1, nav li a  {
   text-transform: capitalize;
   letter-spacing: 1.5px;
-  font-family: "Roboto"!important;
+  font-family: "Oswald"!important;
   font-weight: 300;
 }
 

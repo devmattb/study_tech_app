@@ -48,7 +48,8 @@ p[class="type-Birthday"] {
 
 /* Calendar title */
 .fc-center h2 {
-  font-family: 'Roboto'!important;
+  font-family: 'Passion One'!important;
+  font-size: 50px!important;
   position: relative;
   top: 20px;
   transform: scale(0.6);
