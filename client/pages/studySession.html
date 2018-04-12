@@ -199,11 +199,29 @@
                       {{{description}}}
                     </div>
                     <div style="margin-top: 250px;" class="col s12 center">
+
+                      <!-- STEP INDICATORS -->
+                      <div class="col s3"></div> <!-- DUMMY -->
+                      <div id="stepIndicators" class="col s6">
+                        <div class="stepIndicator activeStep"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                        <div class="stepIndicator"></div>
+                      </div>
+                      <div class="col s3"></div> <!-- DUMMY -->
+
+                      <div class="col s12">
+                      <!-- MEASUREMENT + BUTTONS -->
                       {{#if pageMeasurement}}
                         <p><b>Antal sidor denna Session:</b> {{amount}} </p>
                       {{/if}}
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep"><i class="fas fa-arrow-left"></i>&nbsp; Tillbaka</button>
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa &nbsp;<i class="fas fa-arrow-right"></i></button>
+                    </div>
                     </div>
                   </div>
 
