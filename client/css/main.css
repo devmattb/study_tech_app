@@ -86,6 +86,24 @@ label, option, select {
   color: #fff!important;
 }
 
+input[type=range]::-webkit-slider-thumb {
+  background-color: #fb8c00!important;
+}
+input[type=range]::-moz-range-thumb {
+  background-color: #fb8c00!important;
+}
+input[type=range]::-ms-thumb {
+  background-color: #fb8c00!important;
+}
+
+/***** These are to edit the thumb and the text inside the thumb *****/
+input[type=range] + .thumb {
+  background-color: #fb8c00!important;
+}
+input[type=range] + .thumb.active .value {
+  color: #fff!important;
+}
+
 .prefixIcon {
     position: relative;
     top: 10px;

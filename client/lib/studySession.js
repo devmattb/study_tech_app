@@ -1,7 +1,7 @@
 /**
 *   BUG/TODO 's:
 *   Ta bort pausen i slutet.
-*   Slutvillkor är inte klara. diskutera med partners.
+*   Slutvillkor efter en studiesession är inte klara. diskutera med partners.
 *
 **/
 
@@ -180,6 +180,20 @@ Template.studySession.helpers({
       return true;
     }
   },
+
+  randomQuestion: function() {
+    var randNum = Template.studySession.randomQNum.get();
+    if (randNum = 0) {
+      return "activityAccuracyQuestion";
+    } else if (randNum = 1) {
+      return "activityFunQuestion";
+    } else if (randNum = 2) {
+      return "performanceQuestion";
+    } else if (randNum = 3) {
+      return "schedulingQuestion";
+    }
+  }
+
 
 });
 
