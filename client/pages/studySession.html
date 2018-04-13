@@ -52,7 +52,8 @@
       }
 
       #clockdiv div > span {
-          padding: 15px;
+          width: 70px;
+          padding: 6px 0px 6px 0px;
           border-radius: 3px;
           background: #fb8c00;
           display: inline-block;
@@ -60,12 +61,14 @@
 
       .smalltext {
           padding-top: 5px;
-          font-size: 16px;
+          font-size: 21px;
+          font-weight: 100;
+          font-family: "Passion One"!important;
       }
 
       .descItem {
         position: absolute;
-        font-size: 20px!important;
+        font-size: 18px!important;
         margin-top: 30px;
       }
 
@@ -85,12 +88,12 @@
               <div id="clockdiv" class="col s12">
                 <div>
                   <span class="minutes" {{attributes}}>{{t.minutes}}</span>
-                  <div class="smalltext">Minuter</div>
+                  <p class="smalltext">Minuter</p>
                 </div>
 
                 <div>
                   <span class="seconds">{{t.seconds}}</span>
-                  <div class="smalltext">Sekunder</div>
+                  <p class="smalltext">Sekunder</p>
                 </div>
               </div>
               <div style="margin-top: 100px;" class="col s12 center">
@@ -149,7 +152,7 @@
                 <!-- Start -->
                 <div id="startDiv" class="col s12 scale-transition">
                   <div style="margin: 30px;">
-                    <h5> <b id="introText">Nu är det dags för lite {{type}}!</b> <br><br> Är du redo? </h5>
+                    <h5> <b id="introText">Nu är det dags för lite {{type}}!</b> <br><br><br> <span style="font-family:Passion One; font-size: 35px;"> Är du redo?</span> </h5>
                     <h5 id="continueText" class="hidden" > <b>Det är dags att fortsätta med {{type}}!</b> <br><br> Är du redo? </h5>
                   </div>
                   <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
@@ -159,17 +162,29 @@
                 <div id="startCycleDiv" class="col s12 scale-transition scale-out">
 
                   <div id="repetitionDiv" class="scale-transition">
-                    <h5> <b>Repetition:</b> </h5>
-                    <p>Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar/sammanfattningar du jobbade med senast.</p>
+
+                    <h5 class="col s12"> <b>Repetition:</b> </h5>
+
+                    <div class="col s1"></div> <!-- DUMMY -->
+                    <p class="col s10">
+                      Titta på din(a) videor du spelade in förra sessionen. Skumma igenom uträkningar / sammanfattningar du jobbade med senast.
+                    </p>
+                    <div class="col s1"></div> <!-- DUMMY -->
+
                     <button id="showPreparations" class="btn waves-effect waves-light webOrange">Nästa!</button>
                   </div>
 
                   <div id="preparationsDiv" class="col s12 scale-transition scale-out">
-                    <h5> <b>Förberedelser:</b> </h5>
-                    <p>
+
+                    <h5 class="col s12"> <b>Förberedelser:</b> </h5>
+
+                    <div class="col s1"></div> <!-- DUMMY -->
+                    <p class="col s10">
                       Skaffa dig en förförståelse eller hum om vad du ska plugga handlar om. Få uppfattningen genom att läsa på baksidan av boken, vad alla kapitel heter, söka på internet,
                       lägg 3 minuter och skriv ner några nyckelord. Använd sedan dessa nyckelord att skriva en kort sammanfattning på några rader om vad du tror boken/avsnittet handlar om.
                     </p>
+                    <div class="col s1"></div> <!-- DUMMY -->
+
                     <button id="startActivity" class="btn waves-effect waves-light webOrange">Nästa!</button>
                   </div>
 
@@ -192,25 +207,22 @@
                     </div>
                   </div>
 
-                  <!-- Activity Description -->
-                  <div>
+                  <div style="padding: 10px;" class="col s12 row">
                     <h5> <b>Dagens Agenda:</b> </h5>
-                    <div id="description">
+
+                    <!-- Activity Description -->
+                    <div class="col s1"></div> <!-- DUMMY -->
+                    <div class="col s8 center-align row" id="description">
                       {{{description}}}
                     </div>
-                    <div style="margin-top: 250px;" class="col s12 center">
+                    <div class="col s3"></div> <!-- DUMMY -->
+
+                    <div style="margin-top: 350px;" class="col s12 center">
 
                       <!-- STEP INDICATORS -->
                       <div class="col s3"></div> <!-- DUMMY -->
                       <div id="stepIndicators" class="col s6">
-                        <div class="stepIndicator activeStep"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
-                        <div class="stepIndicator"></div>
+                        {{steps}}
                       </div>
                       <div class="col s3"></div> <!-- DUMMY -->
 

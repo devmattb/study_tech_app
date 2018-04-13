@@ -169,7 +169,18 @@ Template.studySession.rendered = function(){
   *   PRELOADER
   **/
   setTimeout(function(){  $("#preloader").fadeOut("slow");}, 700);
-  setTimeout(function(){  $("#gui").removeClass("scale-out");}, 1000);
+  setTimeout(function(){
+    // Show GUI and create stepIndicators:
+    $("#gui").removeClass("scale-out");
+    var numSteps = $(".descItem").length;
+    for(var i = 0; i < numSteps; i++) {
+      if ( i == 0 ) {
+        $("#stepIndicators").append('<div class="stepIndicator activeStep"></div>');
+      } else {
+        $("#stepIndicators").append('<div class="stepIndicator"></div>');
+      }
+    }
+  }, 1000);
 
   /**
   *      NAV INITIALIZATION
@@ -191,5 +202,6 @@ Template.studySession.rendered = function(){
   // Timer variables:
   Session.set("paused", false);
   Session.set("cyclesDone", 0);
+
 
 };

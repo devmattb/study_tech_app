@@ -18,14 +18,17 @@
 .webOrangeText {
   color: #fb8c00;
 }
-.webOrange {
-  transition: 0.2s;
-  background-color: #fb8c00;
+
+.webOrangeTextFaded {
+  color: rgba(251, 140, 0, 0.4);
 }
 
-.webOrange:hover {
-  background-color: #fb8c00;
-  transform: scale(1.05);
+.webOrange {
+  background-color: #fb8c00!important;
+}
+
+.webOrangeFaded {
+  background-color: rgba(251, 140, 0, 0.4)!important;
 }
 
 .tabs .tab a{
@@ -248,6 +251,7 @@ h5 {
 .stepIndicator {
   width: 15px;
   height: 15px;
+  margin: 2px;
   background-color: rgba(153, 153, 153, 0.5);
   border: 1px solid rgb(153, 153, 153);
   border-radius: 100%;
@@ -259,4 +263,16 @@ h5 {
   border: 1px solid rgb(255, 255, 255);
   background-color: rgba(251, 140, 0, 0.7);
   transition: 0.2s;
+}
+
+.minutes, .seconds {
+  font-family: Passion One!important;
+}
+
+/**
+*   Some list styling for studySession.html
+**/
+ol {
+  padding-right:0px!important;
+  padding-left:0px!important;
 }

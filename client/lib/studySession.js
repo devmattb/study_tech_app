@@ -5,7 +5,6 @@
 *
 **/
 
-
 /**
 *   TIMER: Get the remaining time:
 *   @param endtime is the Date object with the final time.
@@ -80,10 +79,24 @@ function stopTimer() {
   clearInterval(timeinterval);
 }
 
+function updateStepIndicators(s){
+  $(".activeStep").removeClass("activeStep");
+  $(".stepIndicator:nth-child("+s+")").addClass("activeStep");
+}
+
+/**
+*   String.prototype.replaceAll() Function:
+*
+*   Replaces all occurences of the search 'string', with the 'replacement' string.
+*   @param search Is the string you wish to search all occurences of.
+*   @param replacement Is the string you wish to replace said occurences with.
+*
+**/
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
 };
+
 /**
 *   This function helps populate the content on the page "studySession",
 *   The "studySession" page is used to display information about
@@ -105,7 +118,7 @@ Template.studySession.helpers({
     *   Manipulate the description:
     ***/
     var dbDesc = activityObj.desc;
-    var showableDesc = dbDesc.replaceAll('<li>', '<li class="descItem scale-transition scale-out">');
+    var showableDesc = dbDesc.replaceAll('<li>', '<li style="max-width: 75%;" class="descItem scale-transition scale-out">');
 
     return showableDesc; // Returns the HTML code for this activity description.
   },
@@ -174,6 +187,7 @@ Template.studySession.helpers({
 /**
 *   EVENTS: Mostly for handling the scripting of each session!
 **/
+// Step indicator variables:
 var step = 1; // Keeps track of current activity step.
 Template.studySession.events({
 
@@ -221,7 +235,7 @@ Template.studySession.events({
 *   Go to the next step in our activity description:
 **/
 "click #nextStep":function(event) {
-  var numSteps = $(".descItem").length;
+  var numSteps = $(".descItem").length; // Keeps track of total amount of steps.
   // Hide previous step:
   $(".descItem:nth-child("+(step)+")").addClass("scale-out");
   // Show next (now current) step:
@@ -229,6 +243,7 @@ Template.studySession.events({
     if (step != numSteps) {
       step++;
       $(".descItem:nth-child("+step+")").removeClass("scale-out");
+      updateStepIndicators(step);
     } else {
       // Student is done with entire study session!
       // TODO: Give student a message saying he finished early?
@@ -255,6 +270,7 @@ Template.studySession.events({
     setTimeout( function(){
       step--;
       $(".descItem:nth-child("+(step)+")").removeClass("scale-out");
+      updateStepIndicators(step);
     }, 200);
   }
 },
