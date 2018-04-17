@@ -162,9 +162,6 @@ Date.prototype.addMinutes = function(m) {
 }
 
 var timeinterval;
-
-// STUDY SESSION
-Template.studySession.randomQuestion = new ReactiveVar();
 Template.studySession.rendered = function(){
   /**
   *   PRELOADER
@@ -203,18 +200,5 @@ Template.studySession.rendered = function(){
   // Timer variables:
   Session.set("paused", false);
   Session.set("cyclesDone", 0);
-
-  // Random Feedback Question Variables:
-
-  /**
-  *   NOTE: You could make this more scalable by
-  *   searching through the file tree and counting
-  *   the numer of files in the partials/feedbackForms folder.
-  **/
-  // BUG: Only generates once.
-  var max = 3;
-  var min = 0;
-  var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
-  Template.studySession.randomQNum.set(randNum);
 
 };

@@ -84,6 +84,15 @@ function updateStepIndicators(s){
   $(".stepIndicator:nth-child("+s+")").addClass("activeStep");
 }
 
+function getRandNum(min,max){
+  /**
+  *   NOTE: You could make this more scalable by
+  *   searching through the file tree and counting
+  *   the numer of files in the partials/feedbackForms folder.
+  **/
+  return Math.floor(Random.fraction() * (max - min + 1)) + min;
+}
+
 /**
 *   String.prototype.replaceAll() Function:
 *
@@ -182,17 +191,19 @@ Template.studySession.helpers({
   },
 
   randomQuestion: function() {
-    var randNum = Template.studySession.randomQNum.get();
-    if (randNum = 0) {
-      return "activityAccuracyQuestion";
-    } else if (randNum = 1) {
-      return "activityFunQuestion";
-    } else if (randNum = 2) {
-      return "performanceQuestion";
-    } else if (randNum = 3) {
-      return "schedulingQuestion";
+    var randNum = getRandNum(0,4);
+    if (randNum == 0) {
+      return "funniness";
+    } else if (randNum == 1) {
+      return "learningQuality";
+    } else if (randNum == 2) {
+      return "amountOfSessions";
+    } else if (randNum == 3) {
+      return "pauses";
+    } else if (randNum == 4) {
+      return "tooLong";
     }
-  }
+  },
 
 
 });

@@ -78,6 +78,12 @@
     <div id="gui" style="margin-top: 50px;" class="row col s12 scale-transition scale-out">
         <div id="guiBody" class="row">
 
+          <!-- Feedback Div -->
+          <div style="margin-top: 50px;" class="col s12">
+            {{> Template.dynamic template=randomQuestion }}
+            <button style="margin-top: 50px;" id="endSession" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
+          </div>
+
           {{#if paused}}
             <!-- Pause -->
             <div id="pauseDiv" class="col s12 scale-transition scale-out">
