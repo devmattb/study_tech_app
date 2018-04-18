@@ -1,4 +1,5 @@
 {
+  "name": "övning1",
   "courseType": ["Språk", "Kunskapsämne"],
   "examinationType": ["Muntlig Redovisning", "Muntlig Redovisning"],
   "phase": [3,3],

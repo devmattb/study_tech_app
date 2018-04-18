@@ -93,7 +93,7 @@ function pageInit() {
     // Initialize modal
     $('.modal').modal();
 
-    $('select').not('disabled').material_select();
+    $('select').material_select();
 
     $('ul.tabs').tabs();
 
@@ -180,22 +180,7 @@ Template.studySession.rendered = function(){
     }
   }, 1000);
 
-  /**
-  *      NAV INITIALIZATION
-  **/
-  // Initialize sidenav button
-   $(".button-collapse").sideNav({'closeOnClick': true});
-
-  // Initialize modal
-  $('.modal').modal();
-
-  $('select').not('disabled').material_select();
-
-  $('ul.tabs').tabs();
-
-  $(".userAgreementLink").click(function(){
-     $('#userAgreement').modal('open');
-  });
+  pageInit();
 
   // Timer variables:
   Session.set("paused", false);

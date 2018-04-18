@@ -1,4 +1,5 @@
 {
+  "name": "skriv1",
   "courseType": ["Språk", "Språk", "Kunskapsämne"],
   "examinationType": ["Litteraturanalys", "Uppsats", "Uppsats"],
   "phase": [3,3,3],

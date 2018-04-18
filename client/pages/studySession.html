@@ -77,13 +77,10 @@
     <!-- GUI To view a study session: -->
     <div id="gui" style="margin-top: 50px;" class="row col s12 scale-transition scale-out">
         <div id="guiBody" class="row">
-
           <!-- Feedback Div -->
-          <div style="margin-top: 50px;" class="col s12">
+          <div class="col s12">
             {{> Template.dynamic template=randomQuestion }}
-            <button style="margin-top: 50px;" id="endSession" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
           </div>
-
           {{#if paused}}
             <!-- Pause -->
             <div id="pauseDiv" class="col s12 scale-transition scale-out">
@@ -142,9 +139,8 @@
             <div class="col s2"></div> <!-- DUMMY -->
 
             <!-- Feedback Div -->
-            <div style="margin-top: 50px;" class="col s12">
+            <div class="col s12">
               {{> Template.dynamic template=randomQuestion }}
-              <button style="margin-top: 50px;" id="endSession" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
             </div>
 
           </div>
@@ -251,7 +247,8 @@
     </div>
 
     <div class="leftCornerFixedButtonDiv centered">
-      <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> AVSLUTA </button></a>
+      <!-- TODO: Add popup that doublechecks that the user agrees to lose any and all progress/rewards -->
+      <a href="{{backBtnHref}}"><button class="webOrange btn-large waves-effect waves-light hoverable"> Lämna Session </button></a>
     </div>
 
 

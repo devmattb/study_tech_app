@@ -1,4 +1,5 @@
 {
+  "name": "planerande1",
   "courseType": ["Språk", "Kunskapsämne"],
   "examinationType": ["Muntlig Redovisning", "Muntlig Redovisning"],
   "phase": [1,1],

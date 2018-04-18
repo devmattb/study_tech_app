@@ -1,4 +1,5 @@
 {
+  "name": "övningsprov1",
   "courseType": ["Språk", "Kunskapsämne"],
   "examinationType": ["Skriftligt Prov", "Skriftligt Prov"],
   "phase": [3,3],

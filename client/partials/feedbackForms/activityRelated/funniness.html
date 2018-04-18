@@ -1,16 +1,15 @@
 <template name="funniness">
 
   <h5><b> Bedöm denna aktivitet: </b> </h5>
-
+  <br><br>
   <div class="col s2"></div><!-- DUMMY -->
   <div class="row col s8">
-    <form class="col s12">
+    <form id="funniness" class="col s12">
 
-      <p class="range-field">
-        <label for="question">Hur rolig var aktiviteten, på skala 1-10?</label>
-        <input type="range" id="question" min="0" max="10" value="0"/>
-      </p>
+      <label for="question">Hur rolig var aktiviteten, på skala 1-10?</label>
+      <input type="range" id="question" name="question" min="1" max="10"/>
 
+      <button style="margin-top:20px;" id="endSession" type="submit" role="submit" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
     </form>
   </div>
   <div class="col s2"></div><!-- DUMMY -->

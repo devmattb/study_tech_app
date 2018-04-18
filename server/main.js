@@ -34,6 +34,26 @@ Meteor.startup(() => {
   }
 
   /**
+  *   Make sure all our feedback questions exist in the database:
+  **/
+  var templateNames = [
+    "funniness.json", "learningQuality.json", "amountOfSessions.json", "pauses.json", "tooLong.json"
+  ];
+  var numFBQuestions = FeedbackQuestions.find().count();
+
+  if ( templateNames.length > numFBQuestions ) {
+    // Clean out the entire database:
+    FeedbackQuestions.remove({});
+
+    // Insert the updated activity files:
+    for(var i = 0; i < templateNames.length; i++) {
+        // Read the contents of this file, and insert it to our activities database.
+        var fileContents = JSON.parse(Assets.getText('feedbackQuestions/'+templateNames[i]));
+        FeedbackQuestions.insert(fileContents);
+    }
+  }
+
+  /**
   *   Define global Meteor functions that will be used throughout the entire program.
   **/
   Meteor.methods({

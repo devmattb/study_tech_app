@@ -191,20 +191,18 @@ Template.studySession.helpers({
   },
 
   randomQuestion: function() {
-    var randNum = getRandNum(0,4);
+    var randNum = getRandNum(0,3);
     if (randNum == 0) {
       return "funniness";
     } else if (randNum == 1) {
       return "learningQuality";
     } else if (randNum == 2) {
-      return "amountOfSessions";
+      return "tooLong";
     } else if (randNum == 3) {
       return "pauses";
-    } else if (randNum == 4) {
-      return "tooLong";
     }
+    // TODO: If last study session, return "amountOfSessions"
   },
-
 
 });
 
@@ -324,19 +322,6 @@ Template.studySession.events({
   Session.set("paused", false);
   Session.set("ended", false);
   nextCyclePrep();
-},
-
-"click #endSession":function(event){
-  Session.set("ended", false);
-  Session.set("paused", false);
-  Session.set("cyclesDone", 0);
-  step=1;
-  stopTimer();
-  FlowRouter.go("home");
-
-  // TODO: Destroy Study Session?
-  // TODO: Notify parents that student studied?
-  // TODO: etc..
 },
 
 });

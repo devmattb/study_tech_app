@@ -1,16 +1,31 @@
 <template name="tooLong">
 
   <h5><b> Bedöm Passlängd: </b> </h5>
+  <br><br>
 
   <div class="col s2"></div><!-- DUMMY -->
   <div class="row col s8">
-    <form class="col s12">
+    <h1>      {{yes}}</h1>
+    <form id="tooLong" class="col s12">
 
-      <p class="range-field">
-        <label for="question">Var detta ett för långt pass?</label>
-        <input type="range" id="question" min="0" max="10" value="0"/>
-      </p>
+      <label for="question">Var detta ett för långt pass?</label>
+      <select id="question" name="question">
+        <option value="" disabled selected>Välj Alternativ</option>
+        <option value="true">Ja</option>
+        <option value="false">Nej</option>
+      </select>
 
+      <div id="q2Div" class="hidden">
+        <label for="question2">Hur långt hade du velat att det var?</label>
+        <select id="question2" name="question2">
+          <option value="" disabled selected>Välj Alternativ</option>
+          <option value="0.5">30 minuter</option>
+          <option value="1.0">1 timme</option>
+          <option value="1.5">1 timme och 30 minuter</option>
+        </select>
+      </div>
+
+      <button style="margin-top:20px;" id="endSession" type="submit" role="submit" class="btn waves-effect waves-light webOrange">Avsluta Session</button>
     </form>
   </div>
   <div class="col s2"></div><!-- DUMMY -->
