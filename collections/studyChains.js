@@ -11,14 +11,9 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-StudyChain = new Mongo.Collection('StudyChain');
+StudyChains = new Mongo.Collection('StudyChains');
 let schema = new SimpleSchema({
-
-  'connectedUserId': {
-    type: String, // Array of String(s)
-    label: 'Links to the feedback question',
-  },
-
+  
   'courseName': {
     type: String, // Array of String(s)
     label: 'A feedback answer.',
@@ -28,6 +23,11 @@ let schema = new SimpleSchema({
     type: String, // Array of String(s)
     label: 'The course name of the activity that feedback was given on.',
     optional: true
+  },
+
+  'deadline': {
+    type: String,
+    label: 'How many units (pages/words/etc) do we wish to have per session?'
   },
 
   'unitsPerSession': {
@@ -70,4 +70,4 @@ let schema = new SimpleSchema({
 
 });
 
-StudyChain.attachSchema( schema );
+StudyChains.attachSchema( schema );

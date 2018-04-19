@@ -153,8 +153,8 @@
                 <!-- Start -->
                 <div id="startDiv" class="col s12 scale-transition">
                   <div style="margin: 30px;">
-                    <h5> <b id="introText">Nu är det dags för lite {{type}}!</b> <br><br><br> <span style="font-family:Passion One; font-size: 35px;"> Är du redo?</span> </h5>
-                    <h5 id="continueText" class="hidden" > <b>Det är dags att fortsätta med {{type}}!</b> <br><br> Är du redo? </h5>
+                    <h5> <b id="introText">Nu är det dags för lite {{courseName}}!</b> <br><br><br> <span style="font-family:Passion One; font-size: 35px;"> Är du redo?</span> </h5>
+                    <h5 id="continueText" class="hidden" > <b>Det är dags att fortsätta med {{courseName}}!</b> <br><br> Är du redo? </h5>
                   </div>
                   <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
                 </div>
@@ -230,7 +230,7 @@
                       <div class="col s12">
                       <!-- MEASUREMENT + BUTTONS -->
                       {{#if pageMeasurement}}
-                        <p><b>Antal sidor denna Session:</b> {{amount}} </p>
+                        <p><b>Antal sidor denna Session:</b> {{unitsPerSession}} </p>
                       {{/if}}
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="prevStep"><i class="fas fa-arrow-left"></i>&nbsp; Tillbaka</button>
                       <button style="margin: 10px;" class="btn waves-effect waves-light webOrange" id="nextStep">Nästa &nbsp;<i class="fas fa-arrow-right"></i></button>

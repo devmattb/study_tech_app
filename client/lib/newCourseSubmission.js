@@ -414,7 +414,42 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
   if (distancePerStudySession < 1) {
     distancePerStudySession = 1;  // Make sure we have atleast one days break between them.
   }
-  //alert(numStudySessions+" "+ numAvailableDays +" " +studySessionsPerDay);
+
+
+  /**
+  *   Before creating all the studySessions, we need to
+  *   create the connected studyChain
+  **/
+  /**
+  *   Creation of the JSON object that is to be inserted.
+  **/
+  let studychain = {
+    'courseName': courseName,
+    'examinationType':exType,
+    'deadline': deadline,
+    'unitsPerSession': pagesPerSession,
+  };
+
+  var studyChainId;
+
+  /**
+  *   Insertion of the current doc. Report any and all errors.
+  **/
+  StudyChains.insert(
+    studychain,
+    function(error, studychain_id) {
+      if ( error ) {
+        console.log ( error ); //info about what went wrong
+        Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
+        return; // Stop exec
+      } else {
+        // Everything went smoothly...
+        // Make note of the studychain id, that is to be inserted
+        // in all the studysessions.
+        studyChainId = studychain_id;
+      }
+    }
+  );
 
   for ( var i = 0; i < numStudySessions; i++ ) {
 
@@ -451,30 +486,22 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
       /**
       *   We now know the date is okay.
       **/
-      type = courseName; // Set the course name
       title = courseName+' '+ startHours +':00-'+ endHours+':00';
 
       var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
       var end = start;
 
-      // TODO Add logic to handle descIdArray and study-phases.
-
       /**
       *   Creation of the JSON object that is to be inserted.
       **/
       let doc = {
-        'connectedUserId': connectedUserId, // e.g: qHfJWYf4uSgQ7CuMD
+        'connectedStudyChainId': studyChainId, // e.g: qHfJWYf4uSgQ7CuMD
+        'connectedUserId': connectedUserId,
         'htmlDescriptionId': descIdArray[i],
         'title': title,
         'start': start+" "+startHours+":00:00",
-        'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00        which is feb 2nd 22:00, 2017
-        'type': type,
-        'examinationType':exType,
-        'deadline': deadline,
-        'editable':false,
-        'pagesPerSession': pagesPerSession,
+        'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00 which is feb 2nd 22:00, 2017
         'url': "DUMMY_URL" // Updated after insert.
-        // End of eventArray
       };
 
       /**
@@ -495,10 +522,12 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
             **/
             var uniqueUrl = Meteor.absoluteUrl("studySession/"+doc_id, {});
             doc.url = uniqueUrl; // Update doc with new url
+            doc.connectedStudyChainId = studyChainId;
             Meteor.call("eventUpsert", doc_id, doc);
           }
         }
       );
+
 
       // If we added more than one study session this day.
       if ( j > 1 ) {

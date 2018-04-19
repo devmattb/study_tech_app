@@ -110,7 +110,7 @@ String.prototype.replaceAll = function(search, replacement) {
 *   This function helps populate the content on the page "studySession",
 *   The "studySession" page is used to display information about
 *   specific scheduled study sessions to the user.
-*   TODO: Optimize how we grab the details of the calendar events.
+*   TODO: OPTIMIZE how we grab the details of the calendar events below:
 **/
 Template.studySession.helpers({
 
@@ -141,10 +141,11 @@ Template.studySession.helpers({
   },
 
   // Displays the course name.
-  type: function (){
+  courseName: function (){
     var studySessionId = FlowRouter.getParam('_id');
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    return studySessionObj.type;
+    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    return studyChainObj.courseName;
   },
 
   backBtnHref: function(){
@@ -174,16 +175,18 @@ Template.studySession.helpers({
     return Session.get("t");
   },
 
-  amount: function () {
+  unitsPerSession: function () {
     var studySessionId = FlowRouter.getParam('_id');
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    return studySessionObj.pagesPerSession;
+    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    return studyChainObj.unitsPerSession;
   },
 
   pageMeasurement: function () {
     var studySessionId = FlowRouter.getParam('_id');
     const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    if ( studySessionObj.examinationType === "Glosor" ) {
+    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    if ( studyChainObj.examinationType === "Glosor" ) {
       return false;
     } else {
       return true;

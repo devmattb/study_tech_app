@@ -42,8 +42,9 @@ function initCal(timeSpan) {
       height: 450,
       // Get events from DB
       events( start, end, timezone, callback ) {
-        var eventsId = Meteor.userId();
-        let data = CalEvents.find({connectedUserId: eventsId}).fetch().map( ( event ) => {
+        var userId = Meteor.userId();
+        // OPTIMIZE: Put connectedUserId in a studyChain object, and fetch from there...
+        let data = CalEvents.find({connectedUserId: userId}).fetch().map( ( event ) => {
           event.editable = !isPast( event.start );
           return event;
         });
@@ -54,24 +55,25 @@ function initCal(timeSpan) {
       },
       // Render events
       eventRender( event, element ) {
-
-      // TODO: Add subject/study tech symbol to html event.
-      //if (event.type == "Math") { }
+        // Find the icon to the event:
+        const studyChain = StudyChains.findOne({_id: event.connectedStudyChainId});
+        // Create the content of the event:
         element.find( '.fc-content' ).html(
           `
            <h4 class="white-text center">${ event.title }<br><br>
-           <small style="font-size: 18px;" ><i class="${event.icon}"></i></small>
+           <small style="font-size: 18px;" ><i class="${studyChain.icon}"></i></small>
            </h4>
           `
-        )
+        );
         // Set the class that controls the events color based on what course name it has!
-        element.addClass(event.type.toLowerCase())
+        element.addClass(studyChain.courseName.toLowerCase())
       }
   });
 
   Tracker.autorun( () => {
-    var eventsId =  Meteor.userId();
-    CalEvents.find({connectedUserId: eventsId}).fetch();
+    // OPTIMIZE: Put connectedUserId in a studyChain object, and fetch from there...
+    var userId =  Meteor.userId();
+    CalEvents.find({connectedUserId: userId}).fetch();
     $( '.schedule' ).fullCalendar( 'refetchEvents' );
   });
 }

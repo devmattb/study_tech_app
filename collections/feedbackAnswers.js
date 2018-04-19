@@ -14,14 +14,20 @@ import SimpleSchema from 'simpl-schema';
 FeedbackAnswers = new Mongo.Collection('FeedbackAnswers');
 let schema = new SimpleSchema({
 
-  'connectedQuestionId': {
+  'feedbackTemplateName': {
     type: String, // Array of String(s)
-    label: 'Links to the feedback question',
+    label: 'The template of the feedback question',
   },
 
   'answer': {
     type: String, // Array of String(s)
     label: 'A feedback answer.',
+  },
+
+  'answer2': {
+    type: String, // Array of String(s)
+    label: 'A feedback answer.',
+    optional: true
   },
 
   'courseName': {
