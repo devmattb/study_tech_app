@@ -14,7 +14,7 @@ if (Meteor.isClient) {
         'Required Field': 'Fältet är tomt!',
         'usernameOrEmail': "Användarnamn eller Email",
         'passwordAgain': "Bekräfta Lösenord",
-        'emailResetLink': "Återställ Lösenord",
+        'emailResetLink': "Återställ",
         error: {
             accounts: {
                 'Login forbidden': 'Vi hittade inget konto med de givna detaljerna!',
@@ -68,8 +68,8 @@ AccountsTemplates.configure({
       title: {
         changePwd: "Byt Lösenord",
         enrollAccount: "Skriv upp dig",
-        forgotPwd: "Återställ Lösenord",
-        resetPwd: "Återställ Lösenord",
+        forgotPwd: "Återställ",
+        resetPwd: "Återställ",
         signIn: "Logga in",
         signUp: "Skapa konto",
         verifyEmail: "Verifiera Email",
