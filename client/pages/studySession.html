@@ -77,10 +77,7 @@
     <!-- GUI To view a study session: -->
     <div id="gui" style="margin-top: 50px;" class="row col s12 scale-transition scale-out">
         <div id="guiBody" class="row">
-          <!-- Feedback Div -->
-          <div class="col s12">
-            {{> Template.dynamic template=randomQuestion }}
-          </div>
+
           {{#if paused}}
             <!-- Pause -->
             <div id="pauseDiv" class="col s12 scale-transition scale-out">
@@ -139,8 +136,11 @@
             <div class="col s2"></div> <!-- DUMMY -->
 
             <!-- Feedback Div -->
-            <div class="col s12">
-              {{> Template.dynamic template=randomQuestion }}
+            <div id="feedbackQuestion1" class="col s12 scale-transition">
+              {{> Template.dynamic template=randomQuestions.[0] }}
+            </div>
+            <div id="feedbackQuestion2" class="col s12 scale-transition scale-out hidden">
+              {{> Template.dynamic template=randomQuestions.[1] }}
             </div>
 
           </div>

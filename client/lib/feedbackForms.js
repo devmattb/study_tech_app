@@ -8,6 +8,7 @@ function exit(){
   Session.set("ended", false);
   Session.set("paused", false);
   Session.set("cyclesDone", 0);
+  Session.set("feedbackStep", 1); // reset step too.
   FlowRouter.go("home");
   // TODO: Destroy Study Session?
   // TODO: Notify parents that student studied?
@@ -55,13 +56,31 @@ function submitFeedback(event, templateName, numParams, doubleQuestion) {
         if ( error ) {
           console.log ( error ); //info about what went wrong
           return; // Stop exec
-        } else {
-          // Everything went smoothly...
-          Materialize.toast('Tack för din feedback!', 4000, "green");
         }
     });
-    // Feedback recorded! Exit study session!
-    exit();
+    // Feedback recorded!
+    // Check if we got more questions to get answers too.
+    var step = Session.get("feedbackStep");
+    if (step == 1) {
+
+      // Hide this question:
+      $("#feedbackQuestion1").addClass("scale-out");
+      setTimeout(function(){
+        $("#feedbackQuestion1").addClass("hidden");
+        // Go to next feedback step:
+        $("#feedbackQuestion2").removeClass("hidden");
+        Session.set("feedbackStep", step+1);
+      },300);
+
+      // Show next question:
+      setTimeout(function(){
+        $("#feedbackQuestion2").removeClass("scale-out");
+      },400);
+
+    } else {
+      // Exit study session!
+      exit();
+    }
   } else {
     // User failed to answer all questions.
     Materialize.toast('Svara på frågan för att gå vidare!', 4000, "red");
@@ -171,4 +190,14 @@ Template.tooLong.events({
       $("#q2Div").addClass("hidden");
     }
   },
+});
+
+// Sets a global template variable:
+Template.registerHelper( 'btnText', ( ) => {
+  var step = Session.get("feedbackStep");
+  if ( step == 1 ) {
+    return "Nästa";
+  } else {
+    return "Avsluta Session"
+  }
 });

@@ -84,13 +84,45 @@ function updateStepIndicators(s){
   $(".stepIndicator:nth-child("+s+")").addClass("activeStep");
 }
 
-function getRandNum(min,max){
+/**
+*   Returns an array of two uniquely generated numbers between the max and min number.
+*   @param max is the max number.
+*   @param min is the min number.
+**/
+function get2RandNum(min,max){
+  var arr = []
+  while(arr.length < 2){
+      var randomnumber = Math.floor(Math.random()*(max - min + 1)) + min;
+      // If this number already exists in the array, skip to next loop, we don't want to add a non-unique number.
+      if(arr.indexOf(randomnumber) > -1) continue;
+      arr[arr.length] = randomnumber;
+  }
+  return arr;
+}
+/**
+*   Translates an array of numbers to a group of template strings
+*   from our feedbackForms folder.
+**/
+function getQuestionTemplateNames(randNumArr){
   /**
   *   NOTE: You could make this more scalable by
   *   searching through the file tree and counting
   *   the numer of files in the partials/feedbackForms folder.
   **/
-  return Math.floor(Random.fraction() * (max - min + 1)) + min;
+  var namesArr = [];
+  for (var i = 0; i < randNumArr.length; i++) {
+    // TODO: If last study session, return "amountOfSessions"
+    if (randNumArr[i] == 0) {
+      namesArr.push("funniness");
+    } else if (randNumArr[i] == 1) {
+      namesArr.push("learningQuality");
+    } else if (randNumArr[i] == 2) {
+      namesArr.push("tooLong");
+    } else if (randNumArr[i] == 3) {
+      namesArr.push("pauses");
+    }
+  }
+  return namesArr;
 }
 
 /**
@@ -193,18 +225,8 @@ Template.studySession.helpers({
     }
   },
 
-  randomQuestion: function() {
-    var randNum = getRandNum(0,3);
-    if (randNum == 0) {
-      return "funniness";
-    } else if (randNum == 1) {
-      return "learningQuality";
-    } else if (randNum == 2) {
-      return "tooLong";
-    } else if (randNum == 3) {
-      return "pauses";
-    }
-    // TODO: If last study session, return "amountOfSessions"
+  randomQuestions: function() {
+    return getQuestionTemplateNames(get2RandNum(0,3));
   },
 
 });

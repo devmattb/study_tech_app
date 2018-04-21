@@ -187,5 +187,7 @@ Template.studySession.rendered = function(){
   // Timer variables:
   Session.set("paused", false);
   Session.set("cyclesDone", 0);
+  // Feedback variables:
+  Session.set("feedbackStep", 1);
 
 };
