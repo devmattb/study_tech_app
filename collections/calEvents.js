@@ -37,7 +37,7 @@ let EventsSchema = new SimpleSchema({
 
   'connectedUserId': {
     type: String,
-    label: 'The ID (in Activities) to the HTML code for the description of this event!',
+    label: 'The connected user ID.',
   },
 
   // An object holding all event with their info.

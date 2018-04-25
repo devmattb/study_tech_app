@@ -337,27 +337,25 @@ function checkDates(preliminaryDateObj) {
       forbiddenDatesArr.push(new Date(data.start)); // Add a Date Objects to our forbiddenTimesArr.
   });
 
-  console.log(forbiddenDatesArr)
-
   /**
   *   Look for DateTime collisions.
   **/
   for ( var i = 0; i < forbiddenDatesArr.length; i++ ) {
-
+    // Compare the date differences and make sure they don't collide.
     var dateDiffMillisec = preliminaryDateObj-forbiddenDatesArr[i];
-    console.log("DATE DIFF ms: "+dateDiffMillisec);
-
     if( dateDiffMillisec == 0 ) { // No date difference. Reschedule.
+        var newDateObj;
         if ( preliminaryDateObj.getHours() <= 20 ) {
           // As long as we don't go past 20.00 as start time, add 2 hours to our interval.
-          preliminaryDateObj.addHours(2);
+          newDateObj = preliminaryDateObj.addHours(2);
         } else {
-          // We've exceeded 20.00. Go to the next day.
-          preliminaryDateObj.addDays(1);
+          // We've exceeded 20.00. Go to the next day. Start at 16.00
+          newDateObj = preliminaryDateObj.addDays(2);
+          newDateObj = newDateObj.addHours(-4);
         }
+
         // Recursive call
-        console.log("Again!");
-        checkDates(preliminaryDateObj);
+        return checkDates(newDateObj);
       }
 
     }
@@ -454,8 +452,10 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
   for ( var i = 0; i < numStudySessions; i++ ) {
 
     if ( i > 0 ) { // Schedule with our desired distance between study sessions.
+      // Have the maximum distance between study sessions.
       startFromDay = startFromDay.addDays(distancePerStudySession);
     } else {
+      // Don't start today.
       startFromDay = startFromDay.addDays(1);
     }
 
@@ -511,6 +511,7 @@ function createStudySessions(courseName, exType, descIdArray, numStudySessions, 
         doc,
         function(error, doc_id) {
           if ( error ) {
+            console.log(descIdArray[i]);
             console.log ( error ); //info about what went wrong
             Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
             return; // Stop exec
