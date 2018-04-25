@@ -35,22 +35,22 @@ function submitFeedback(event, templateName, numParams, doubleQuestion) {
 
   // TODO OPTIMIZE: This sequence happens in this document and a lot in studySession.js
   var studySessionId = FlowRouter.getParam('_id');
-  const studySessionObj = CalEvents.findOne({_id:studySessionId});
-  const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
-  const activityObj = Activities.findOne({_id:studySessionObj.htmlDescriptionId});
+  const studySessionObj = StudySession.findOne({_id:studySessionId});
+  const StudyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
+  const activityObj = ActivityDescription.findOne({_id:studySessionObj.htmlDescriptionId});
   // Add fields to our document if the data we want is more
   // specified than just an answer.
   if (numParams == 2 ) {
-    doc.courseName = studyChainObj.courseName;
+    doc.courseName = StudyChainObj.courseName;
   } else if (numParams == 3 ) {
-    doc.courseName = studyChainObj.courseName;
+    doc.courseName = StudyChainObj.courseName;
     doc.activityName = activityObj.name;
   }
 
   // Make sure the user has answered all questions before proceeding.
   if ((answer && !doubleQuestion) || (answer && answer2)) {
 
-    FeedbackAnswers.insert(
+    FeedbackAnswer.insert(
       doc,
       function(error, doc_id) {
         if ( error ) {

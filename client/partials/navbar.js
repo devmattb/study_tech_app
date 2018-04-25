@@ -4,21 +4,21 @@ Template.navbar.events({
   *   Contact Modal
   **/
   'click .openContact': function(event){
-    $('#contactModal').modal('open');
+    $('#contact').modal('open');
   },
 
   /**
   *   User Agreement Modal
   **/
   'click .openTerms': function(event){
-    $('#termsModal').modal('open');
+    $('#terms').modal('open');
   },
 
   /**
   *   Integrity Modal
   **/
   'click .TODO': function(event){
-    $('#integrityModal').modal('open');
+    $('#integrity').modal('open');
   },
 
   /**

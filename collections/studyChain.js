@@ -11,9 +11,9 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-StudyChains = new Mongo.Collection('StudyChains');
+StudyChain = new Mongo.Collection('studyChain');
 let schema = new SimpleSchema({
-  
+
   'courseName': {
     type: String, // Array of String(s)
     label: 'A feedback answer.',
@@ -70,4 +70,4 @@ let schema = new SimpleSchema({
 
 });
 
-StudyChains.attachSchema( schema );
+StudyChain.attachSchema( schema );

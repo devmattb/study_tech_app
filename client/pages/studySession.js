@@ -4,6 +4,7 @@
 *   Slutvillkor efter en studiesession är inte klara. diskutera med partners.
 *
 **/
+import {pageInit} from "../lib/exports/pageInit"
 
 /**
 *   TIMER: Get the remaining time:
@@ -138,6 +139,39 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+Date.prototype.addMinutes = function(m) {
+   this.setTime(this.getTime() + (m*60*1000));
+   return this;
+}
+
+var timeinterval;
+Template.studySession.onRendered(function(){
+  pageInit();
+  /**
+  *   PRELOADER OVERRIDE
+  **/
+  setTimeout(function(){  $("#preloader").fadeOut("slow");}, 700);
+  setTimeout(function(){
+    // Show GUI and create stepIndicators:
+    $("#gui").removeClass("scale-out");
+    var numSteps = $(".descItem").length;
+    for(var i = 0; i < numSteps; i++) {
+      if ( i == 0 ) {
+        $("#stepIndicators").append('<div class="stepIndicator activeStep"></div>');
+      } else {
+        $("#stepIndicators").append('<div class="stepIndicator"></div>');
+      }
+    }
+  }, 1000);
+
+  // Timer variables:
+  Session.set("paused", false);
+  Session.set("cyclesDone", 0);
+  // Feedback variables:
+  Session.set("feedbackStep", 1);
+
+});
+
 /**
 *   This function helps populate the content on the page "studySession",
 *   The "studySession" page is used to display information about
@@ -150,10 +184,10 @@ Template.studySession.helpers({
   description: function(){
     // Find this particular study session
     var studySessionId = FlowRouter.getParam('_id');
-    const studySessionObj = CalEvents.findOne({_id:studySessionId});
+    const studySessionObj = StudySession.findOne({_id:studySessionId});
 
     // The study session always holds the id to the activity description:
-    const activityObj = Activities.findOne({_id:studySessionObj.htmlDescriptionId});
+    const activityObj = ActivityDescription.findOne({_id:studySessionObj.htmlDescriptionId});
 
     /**
     *   Manipulate the description:
@@ -168,15 +202,15 @@ Template.studySession.helpers({
   title: function() {
     // Find this particular study session
     var studySessionId = FlowRouter.getParam('_id');
-    const studySessionObj = CalEvents.findOne({_id:studySessionId});
+    const studySessionObj = StudySession.findOne({_id:studySessionId});
     return studySessionObj.title;
   },
 
   // Displays the course name.
   courseName: function (){
     var studySessionId = FlowRouter.getParam('_id');
-    const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    const studySessionObj = StudySession.findOne({_id:studySessionId});
+    const studyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
     return studyChainObj.courseName;
   },
 
@@ -209,15 +243,15 @@ Template.studySession.helpers({
 
   unitsPerSession: function () {
     var studySessionId = FlowRouter.getParam('_id');
-    const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    const studySessionObj = StudySession.findOne({_id:studySessionId});
+    const studyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
     return studyChainObj.unitsPerSession;
   },
 
   pageMeasurement: function () {
     var studySessionId = FlowRouter.getParam('_id');
-    const studySessionObj = CalEvents.findOne({_id:studySessionId});
-    const studyChainObj = StudyChains.findOne({_id:studySessionObj.connectedStudyChainId});
+    const studySessionObj = StudySession.findOne({_id:studySessionId});
+    const studyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
     if ( studyChainObj.examinationType === "Glosor" ) {
       return false;
     } else {

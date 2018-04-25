@@ -11,7 +11,7 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-FeedbackAnswers = new Mongo.Collection('FeedbackAnswers');
+FeedbackAnswer = new Mongo.Collection('feedbackAnswer');
 let schema = new SimpleSchema({
 
   'feedbackTemplateName': {
@@ -44,4 +44,4 @@ let schema = new SimpleSchema({
 
 });
 
-FeedbackAnswers.attachSchema( schema );
+FeedbackAnswer.attachSchema( schema );

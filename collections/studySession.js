@@ -11,7 +11,7 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-CalEvents = new Mongo.Collection( 'CalEvents' );
+StudySession = new Mongo.Collection( 'studySession' );
 
 // NOTE: Add when launching, security reasons...
 // CalEvents.allow({
@@ -68,4 +68,4 @@ let EventsSchema = new SimpleSchema({
 
 });
 
-CalEvents.attachSchema( EventsSchema );
+StudySession.attachSchema( EventsSchema );

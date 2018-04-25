@@ -1,3 +1,8 @@
+
+/**
+*   Initiate Server
+**/
+
 import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
@@ -18,18 +23,18 @@ Meteor.startup(() => {
     "planerande1.json", "presentationsdesign1.json",
     "sammanfattning1.json", "sammanfattning2.json", "skriv1.json",
     "övning1.json", "övningsprov1.json"];
-  var amountOfFilesInDB = Activities.find().count();
+  var amountOfFilesInDB = ActivityDescription.find().count();
 
   // If we have more files in our activityDesc folder than in in our database, we need to update our DB.
   if ( fileNames.length > amountOfFilesInDB ) {
     // Clean out the entire database:
-    Activities.remove({});
+    ActivityDescription.remove({});
 
     // Insert the updated activity files:
     for(var i = 0; i < fileNames.length; i++) {
         // Read the contents of this file, and insert it to our activities database.
         var fileContents = JSON.parse(Assets.getText('activityDescriptions/'+fileNames[i]));
-        Activities.insert(fileContents);
+        ActivityDescription.insert(fileContents);
     }
   }
 
@@ -39,74 +44,61 @@ Meteor.startup(() => {
   var templateNames = [
     "funniness.json", "learningQuality.json", "amountOfSessions.json", "pauses.json", "tooLong.json"
   ];
-  var numFBQuestions = FeedbackQuestions.find().count();
+  var numFBQuestions = FeedbackQuestion.find().count();
 
   if ( templateNames.length > numFBQuestions ) {
     // Clean out the entire database:
-    FeedbackQuestions.remove({});
+    FeedbackQuestion.remove({});
 
     // Insert the updated activity files:
     for(var i = 0; i < templateNames.length; i++) {
         // Read the contents of this file, and insert it to our activities database.
-        var fileContents = JSON.parse(Assets.getText('feedbackQuestions/'+templateNames[i]));
-        FeedbackQuestions.insert(fileContents);
+        var fileContents = JSON.parse(Assets.getText('feedbackQuestion/'+templateNames[i]));
+        FeedbackQuestion.insert(fileContents);
     }
   }
-
-  /**
-  *   Define global Meteor functions that will be used throughout the entire program.
-  **/
-  Meteor.methods({
-
-      /**
-      *  Updates account collection. (DEPRICATED)
-      **/
-      accountUpsert: function( id, doc ) {
-       Accounts.upsert( id, doc,
-        function(err, res) { // Handle errors
-          if(err) {
-            console.log("ERROR in UPSERT: " + err);
-            Materialize.toast('Something went wrong. Developers have been notified.', 4000, "red");
-          }
-        }
-       );
-     },
-
-     /**
-     *  Updates event collection.
-     **/
-     eventUpsert: function( id, doc ) {
-      CalEvents.upsert({_id: id}, {$set:doc},
-       function(err, res) { // Handle errors
-         if(err) {
-           console.log("ERROR in UPSERT: " + err);
-           Materialize.toast('Something went wrong.', 4000, "red");
-         }
-       }
-      );
-    },
-
-    /**
-    *   Used in Timer for each study session.
-    **/
-    'getCurrentTime': function (){
-      return Date.parse(new Date());
-    },
-
- });
 
  /**
  *    Database Security, Allows and denies clients to doe certain operations to the database:
  **/
- CalEvents.allow({
+ StudySession.allow({
    insert() { return true; },
    update() { return true; },
  });
 
  /**
+ *   Define global meteor functions
+ **/
+ Meteor.methods({
+
+  /**
+  *   Gets the current time left in a studysession.
+  **/
+  'getCurrentTime': function (){
+    return Date.parse(new Date());
+  },
+
+  /**
+  *  Updates the StudySession collection.
+  *  @param id is the id of the JSON object that is to be updated.
+  *  @param doc is a JSON object with the parameters that wish to be updated.
+  **/
+  upsertStudySession: function( id, doc ) {
+   StudySession.upsert({_id: id}, {$set:doc},
+    function(err, res) { // Handle errors
+      if(err) {
+        console.log("ERROR in UPSERT: " + err);
+        Materialize.toast('Något gick fel!', 4000, "red");
+      }
+    }
+   );
+  },
+
+ });
+
+ /**
  *   Setting up Social Media Service Configurations for logins.
  **/
-
  // Facebook
  ServiceConfiguration.configurations.upsert(
    { service: 'facebook' },
@@ -132,6 +124,6 @@ Meteor.startup(() => {
    }
  );
 
- //Meteor.publish( 'CalEvents', function() { return CalEvents.find(); } );
+ //Meteor.publish( 'StudySession', function() { return StudySession.find(); } );
 
 });
