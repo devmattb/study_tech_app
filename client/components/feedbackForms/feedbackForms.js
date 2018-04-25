@@ -1,6 +1,4 @@
-/**
-*   Frequently Used Functions
-**/
+// TODO: BUG WHEN NOT FILLING IN LAST QUESTION. USER IS ABLE TO PROCEED EVEN THOUGH FIELD IS EMPTY...
 
 // Exits Session State:
 function exit(){

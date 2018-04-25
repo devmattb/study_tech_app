@@ -4,7 +4,6 @@ import {getMinimumNumSesh} from "./getMinimumNumSesh"
 import {getActivityDescList} from "./getActivityDescList"
 import {createStudySessions} from "./createStudySessions"
 
-
 /**
 *   theMMRAlgorithm():
 *   Takes all the calculations and puts them together to schedule the student.
