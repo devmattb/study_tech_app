@@ -9,6 +9,7 @@ import {pageInit} from "../lib/exports/pageInit"
 import {addMinutes} from "../lib/exports/dateFunctions/addMinutes"
 import {replaceAll} from "../lib/exports/replaceAll"
 import {getRandNumList} from "../lib/exports/getRandNumList"
+import {scaleSwitch} from "../lib/exports/scaleSwitch"
 
 // Specific functions for this page.
 import {getQuestionTemplateNames} from "../lib/exports/studySession/getQuestionTemplateNames"
@@ -154,39 +155,26 @@ Template.studySession.events({
 *   All written in chronological order.
 **/
 "click #startCycle":function(event) {
-
-  $("#startDiv").addClass("scale-out");
-  setTimeout(function(){
-    $("#startDiv").addClass("hidden");
-  },200)
-  setTimeout(function(){
-    $("#startCycleDiv").removeClass("scale-out");
-  }, 300);
+  // Scale out "startDiv" and scale in "startCycleDiv"
+  scaleSwitch("#startDiv", "#startCycleDiv");
 },
 
 "click #showPreparations":function(event) {
-
-  $("#repetitionDiv").addClass("scale-out");
-  setTimeout(function(){
-    $("#repetitionDiv").addClass("hidden");
-  },200)
-  setTimeout(function(){
-    $("#preparationsDiv").removeClass("scale-out");
-  }, 300);
+  // Scale out "repetitionDiv" and scale in "preparationsDiv"
+  scaleSwitch("#repetitionDiv", "#preparationsDiv");
 },
 
 "click #startActivity":function(event) {
-
+  // Initiate timer with 25 minutes on the clock.
   initTimer(25);
 
-  $("#startCycleDiv").addClass("scale-out");
+  // Scale out "startCycleDiv" and scale in "activityDiv"
+  scaleSwitch("#startCycleDiv", "#activityDiv");
   setTimeout(function(){
-    $("#startCycleDiv").addClass("hidden");
-  },200)
-  setTimeout(function(){
-    $("#activityDiv").removeClass("scale-out");
+    // Scale in current instruction.
     $(".descItem:nth-child("+step+")").removeClass("scale-out");
-  }, 550);
+  }, 300);
+
 },
 
 /**
@@ -201,6 +189,7 @@ Template.studySession.events({
     if (step != numSteps) {
       step++;
       $(".descItem:nth-child("+step+")").removeClass("scale-out");
+      // Set the next step as the active step:
       updateStepIndicators(step);
     } else {
       // Student is done with entire study session!
@@ -237,16 +226,12 @@ Template.studySession.events({
 *   Enter Pause State
 **/
 "click #endActivity":function(event){
-  $("#endActivityDiv").addClass("scale-out");
-  setTimeout(function(){
-    $("#endActivityDiv").addClass("hidden");
-  },200)
+  scaleSwitch("#endActivityDiv", "#pauseDiv");
   setTimeout(function(){
     Session.set("paused", true);
     Session.set("ended", false);
     initTimer(10);
   }, 250);
-  setTimeout(function(){$("#pauseDiv").removeClass("scale-out");},400);
 },
 
 /**

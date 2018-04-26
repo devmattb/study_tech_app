@@ -8,5 +8,6 @@ Template.calendar.onCreated( () => {
 
 Template.calendar.onRendered(function(){
       pageInit();
-      initCal("agendaWeek, month");
+      // If we wish to include month: "agendaWeek, month"
+      initCal("agendaWeek");
 });
