@@ -13,6 +13,7 @@ import "../../ui/pages/login.js"
 import "../../ui/pages/addAssignment.js"
 import "../../ui/pages/calendar.js"
 import "../../ui/pages/studySession.js"
+import "../../ui/pages/feedbackPage.js"
 
 /**
 *   checkLoggedIn() function:
@@ -72,6 +73,14 @@ FlowRouter.route('/studySession/:_id', {
 
       BlazeLayout.render('studySession');
       checkLoggedIn();
+    }
+});
+
+FlowRouter.route('/feedbackPage', {
+    name: 'feedbackPage', //Reference name
+    action() {  //What actually happens.
+        BlazeLayout.render('feedbackPage'); //Render
+        checkLoggedIn();
     }
 });
 
