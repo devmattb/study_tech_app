@@ -8,6 +8,13 @@ import "./studySession.html";
 import "../components/header.js"
 import "../components/preloader.js"
 
+import "../components/feedbackForms/activityRelated/funniness.js"
+import "../components/feedbackForms/activityRelated/learningQuality.js"
+import "../components/feedbackForms/schedulingRelated/amountOfSessions.js"
+import "../components/feedbackForms/schedulingRelated/pauses.js"
+import "../components/feedbackForms/schedulingRelated/tooLong.js"
+import "../components/feedbackForms/userRelated/performance.js"
+
 // General function imports.
 import {pageInit} from "../../api/pageInit"
 import {addMinutes} from "../../api/dateFunctions"

@@ -1,4 +1,5 @@
-import '../dateFunctions';
+import {addHours} from '../dateFunctions.js';
+import {addDays} from '../dateFunctions.js';
 
 /**
 *   TODO: Optimize when and correct time collision handling...

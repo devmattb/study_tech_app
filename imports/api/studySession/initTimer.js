@@ -1,4 +1,4 @@
-import '../dateFunctions';
+import {addMinutes} from '../dateFunctions.js';
 import {timerVariables} from "./timerVariables"
 import {getTimeRemaining} from "./getTimeRemaining"
 import {stopTimer} from "./stopTimer"
