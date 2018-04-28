@@ -49,7 +49,7 @@ Meteor.startup(() => {
     // Insert the updated activity files:
     for(var i = 0; i < templateNames.length; i++) {
         // Read the contents of this file, and insert it to our activities database.
-        var fileContents = JSON.parse(Assets.getText('feedbackQuestion/'+templateNames[i]));
+        var fileContents = JSON.parse(Assets.getText('feedbackQuestions/'+templateNames[i]));
         FeedbackQuestion.insert(fileContents);
     }
   }
