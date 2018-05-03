@@ -9,6 +9,10 @@ export function pageInit() {
     $("#preloader").fadeOut("slow");
     $("body").fadeIn("slow");
 
+    // Page height init:
+    $("#coverPageDiv").css("height",  $( window ).height());
+
+
     /**
     *      NAV INITIALIZATION
     **/
