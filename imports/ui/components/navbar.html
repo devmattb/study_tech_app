@@ -19,11 +19,14 @@
       {{>integrityModal}}
 
       <!-- MATERIALIZE NAVBAR -->
+      <div class="navbar-fixed">
       <nav role="navigation">
         <div class="nav-wrapper blueGradient z-depth-3">
           <a href="/" class="brand-logo hide-on-med-and-down white-text" style="font-family:Passion One"> &nbsp;&nbsp; <i style="font-size: 16px!important; " class="fas fa-book red-text text-darken-1"></i>&nbsp; STUDYGUIDE</a>
           <a href="/" class="brand-logo hide-on-large-only white-text" style="font-family:Passion One"> <i style="font-size: 16px!important;" class="fas fa-book red-text text-darken-1"></i>&nbsp; STUDYGUIDE</a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+          <!-- DESKTOP MENU -->
           <ul class="right hide-on-med-and-down">
 
             <li><a href="/">IDAG</a></li>
@@ -36,19 +39,24 @@
             <li><a class="waves-effect waves-light logout">LOGGA UT</a></li>
 
           </ul>
-          <ul class="side-nav" id="mobile-demo">
 
-            <li style="margin-top: 10px;"><a href="/"><i class="blue-text text-darken-4 fa fa-home" aria-hidden="true"></i>&nbsp; IDAG</a></li>
-            <li><a href="addAssignment"><i class="blue-text text-darken-4 fa fa-plus-square" aria-hidden="true"></i>&nbsp; LÄGG TILL UPPGIFT </a></li>
-            <li><a href="calendar"><i class="blue-text text-darken-4 far fa-calendar-alt" aria-hidden="true"></i>&nbsp; ÖVERSIKT</a></li>
-            <!--li><a href="profile"><i class="blue-text text-darken-4 fas fa-user-circle" aria-hidden="true"></i>&nbsp; PROFIL</a></li-->
-            <!--li><a href="themes"><i class="blue-text text-darken-4 fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; SHOP</a></li-->
-            <li><a href="#contact" class="openContact waves-effect waves-light"><i class="blue-text text-darken-4 fa fa-envelope" aria-hidden="true"></i>&nbsp; KONTAKT</a></li>
-            <!-- <li><a href="#terms" class="openTerms waves-effect waves-light"><i class="blue-text text-darken-4 fas fa-handshake" aria-hidden="true"></i>&nbsp; VILLKOR</a></li> -->
-            <li><a class="waves-effect waves-light logout"><i class="blue-text text-darken-4 fas fa-sign-out-alt" aria-hidden="true"></i>&nbsp; LOGGA UT</a></li>
-
-          </ul>
         </div>
       </nav>
+
+    </div>
+
+    <!-- MOBILE MENU -->
+    <ul class="side-nav" id="mobile-demo">
+
+      <li style="margin-top: 10px;"><a href="/"><i class="blue-text text-darken-4 fa fa-home" aria-hidden="true"></i>&nbsp; IDAG</a></li>
+      <li><a href="addAssignment"><i class="blue-text text-darken-4 fa fa-plus-square" aria-hidden="true"></i>&nbsp; LÄGG TILL UPPGIFT </a></li>
+      <li><a href="calendar"><i class="blue-text text-darken-4 far fa-calendar-alt" aria-hidden="true"></i>&nbsp; ÖVERSIKT</a></li>
+      <!--li><a href="profile"><i class="blue-text text-darken-4 fas fa-user-circle" aria-hidden="true"></i>&nbsp; PROFIL</a></li-->
+      <!--li><a href="themes"><i class="blue-text text-darken-4 fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; SHOP</a></li-->
+      <li><a href="#contact" class="openContact waves-effect waves-light"><i class="blue-text text-darken-4 fa fa-envelope" aria-hidden="true"></i>&nbsp; KONTAKT</a></li>
+      <!-- <li><a href="#terms" class="openTerms waves-effect waves-light"><i class="blue-text text-darken-4 fas fa-handshake" aria-hidden="true"></i>&nbsp; VILLKOR</a></li> -->
+      <li><a class="waves-effect waves-light logout"><i class="blue-text text-darken-4 fas fa-sign-out-alt" aria-hidden="true"></i>&nbsp; LOGGA UT</a></li>
+
+    </ul>
 
   </template>

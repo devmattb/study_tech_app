@@ -179,15 +179,15 @@ label { font-size: 18px!important;}
     z-index: -1;
 }*/
 
-nav ul li a{
+nav ul li a, .side-nav li a {
     font-size: 20px!important;
 }
 
-nav .fa {
+nav .fa, .side-nav li a  {
     font-size: 22px!important;
 }
 
-nav ul li a i {
+nav ul li a i, .side-nav li a i {
     font-size: 10px!important;
 }
 
@@ -195,7 +195,7 @@ button, .btn {
   font-size: 20px!important;
 }
 
-p, button, .btn, nav li a  {
+p, button, .btn, nav li a, .side-nav li a  {
     font-family: "Passion One"!important;
 }
 

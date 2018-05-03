@@ -38,7 +38,11 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/login', {
     name: 'login', //Reference name
-    action() {  //What actually happens.
+    action() {
+        // If the user is logged in, reroute the user to our home page.
+        if(Meteor.userId()){
+          FlowRouter.go("home");
+        }
         BlazeLayout.render('login'); //Render
     }
 });
