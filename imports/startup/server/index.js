@@ -8,11 +8,42 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
 
  /**
- *    Database Security, Allows and denies clients to doe certain operations to the database:
+ *    Database Security, Allows clients to do certain operations to the specific collections:
  **/
  StudySession.allow({
-   insert() { return true; },
-   update() { return true; },
+   insert: function (userId, doc) {
+    if (userId && doc.userId === userId) {
+      return true;
+    }
+   },
+   update: function (userId, doc) {
+     if (userId && doc.userId === userId) {
+       return true;
+     }
+   },
+   remove: function (userId, doc) {
+    if (userId && doc.userId === userId) {
+      return true;
+    }
+   },
+ });
+
+ StudyChain.allow({
+   insert: function (userId, doc) {
+     if (userId && doc.userId === userId) {
+       return true;
+     }
+   },
+   update: function (userId, doc) {
+      if (userId && doc.userId === userId) {
+       return true;
+      }
+   },
+   remove: function (userId, doc) {
+    if (userId && doc.userId === userId) {
+      return true;
+    }
+   },
  });
 
  /**
