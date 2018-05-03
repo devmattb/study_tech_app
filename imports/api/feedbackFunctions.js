@@ -49,14 +49,7 @@ export function submitFeedback(event, templateName, numParams, doubleQuestion) {
   // Make sure the user has answered all questions before proceeding.
   if ((answer && !doubleQuestion) || (answer && answer2)) {
 
-    FeedbackAnswer.insert(
-      doc,
-      function(error, doc_id) {
-        if ( error ) {
-          console.log ( error ); //info about what went wrong
-          return; // Stop exec
-        }
-    });
+    Meteor.call("FeedbackAnswer.insert", doc);
     // Feedback recorded!
     // Check if we got more questions to get answers too.
     var step = Session.get("feedbackStep");

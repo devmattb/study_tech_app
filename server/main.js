@@ -62,6 +62,7 @@ FeedbackAnswer.deny({
 /**
 *   Define global meteor functions
 **/
+var studyChainId; // Used to connect studySessions and studyChains.
 Meteor.methods({
 
 /**
@@ -72,11 +73,18 @@ Meteor.methods({
 },
 
 /**
+*   Gets the current studyChainId
+**/
+'getStudyChainId': function (){
+  return studyChainId;
+},
+
+/**
 *  Inserts in to the StudySession collection with a chained upsert.
 *  @param doc is a JSON object with the parameters that wish to be updated.
 *  @param studyChainId is the connected studychain id to this studysession.
 **/
-"StudySession.insert": function(doc, studyChainId) {
+"StudySession.insert": function(doc) {
   StudySession.insert(
     doc,
     function(error, doc_id) {
@@ -94,7 +102,7 @@ Meteor.methods({
         *   This makes each study session uniquely clickable with dynamic info.
         **/
         doc.url = Meteor.absoluteUrl("studySession/"+doc_id, {}); // Update doc with new unique url
-        doc.connectedStudyChainId = studyChainId; // Update to connected studychain id.
+        doc.connectedStudyChainId = Meteor.call("getStudyChainId"); // Update to connected studychain id.
         Meteor.call("StudySession.upsert", doc_id, doc);
       }
     }
@@ -133,6 +141,17 @@ Meteor.methods({
       }
     }
   );
+},
+
+"FeedbackAnswer.insert": function(doc) {
+  FeedbackAnswer.insert(
+    doc,
+    function(error, doc_id) {
+      if ( error ) {
+        console.log ( error ); //info about what went wrong
+        return; // Stop exec
+      }
+  });
 },
 
 });

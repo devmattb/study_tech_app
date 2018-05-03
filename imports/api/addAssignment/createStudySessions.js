@@ -65,26 +65,11 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
     'unitsPerSession': pagesPerSession,
   };
 
-  var studyChainId;
-
   /**
   *   Insertion of the current doc. Report any and all errors.
   **/
-  StudyChain.insert(
-    studyChain,
-    function(error, studyChain_id) {
-      if ( error ) {
-        console.log ( error ); //info about what went wrong
-        Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
-        return; // Stop exec
-      } else {
-        // Everything went smoothly...
-        // Make note of the StudyChain id, that is to be inserted
-        // in all the studysessions.
-        studyChainId = studyChain_id;
-      }
-    }
-  );
+  Meteor.call("StudyChain.insert", studyChain);
+
 
   for ( var i = 0; i < numStudySessions; i++ ) {
 
@@ -132,7 +117,7 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
       *   Creation of the JSON object that is to be inserted.
       **/
       let doc = {
-        'connectedStudyChainId': studyChainId, // e.g: qHfJWYf4uSgQ7CuMD
+        'connectedStudyChainId': "DUMMY_ID", // e.g: qHfJWYf4uSgQ7CuMD
         'connectedUserId': Meteor.userId(),
         'htmlDescriptionId': descIdArray[i],
         'title': title,
@@ -146,7 +131,7 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
       *   Needs to be deferred for studyChainId to be set before insertion of studysessions.
       **/
       Meteor.setTimeout(function(){
-        Meteor.call("StudySession.insert", doc, studyChainId);
+        Meteor.call("StudySession.insert", doc);
       }, 0);
 
       // If we added more than one study session this day.
