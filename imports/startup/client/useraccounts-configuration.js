@@ -102,7 +102,7 @@ AccountsTemplates.configure({
       resendVerificationEmailLink_pre: "Fick du inget verifieringsmail?",
       resendVerificationEmailLink_link: "Skicka igen",
       resendVerificationEmailLink_suff: "",
-      sep: "Eller logga in med:",
+      sep: "", //Eller logga in med: removed during alpha
       signInLink_pre: "Har du redan ett konto?",
       signInLink_link: "Logga in",
       signInLink_suff: "",
