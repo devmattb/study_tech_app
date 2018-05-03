@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
 
-
   /**
   *   Make sure the database has all our activites inserted in to it:
   *

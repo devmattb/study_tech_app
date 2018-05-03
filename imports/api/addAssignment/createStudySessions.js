@@ -142,30 +142,12 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
       };
 
       /**
-      *   Insertion of the current doc. Report any and all errors.
+      *   Insertion of the current doc.
+      *   Needs to be deferred for studyChainId to be set before insertion of studysessions.
       **/
-      StudySession.insert(
-        doc,
-        function(error, doc_id) {
-          if ( error ) {
-            console.log(descIdArray[i]);
-            console.log ( error ); //info about what went wrong
-            Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
-            return; // Stop exec
-          } else {
-            // Everything went smoothly...
-            /**
-            *   UPDATE meetings url to its id.
-            *   This makes each study session uniquely clickable.
-            **/
-            var uniqueUrl = Meteor.absoluteUrl("studySession/"+doc_id, {});
-            doc.url = uniqueUrl; // Update doc with new url
-            doc.connectedStudyChainId = studyChainId;
-            Meteor.call("upsertStudySession", doc_id, doc);
-          }
-        }
-      );
-
+      Meteor.setTimeout(function(){
+        Meteor.call("StudySession.insert", doc, studyChainId);
+      }, 0);
 
       // If we added more than one study session this day.
       if ( j > 1 ) {
