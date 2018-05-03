@@ -2,7 +2,7 @@
 
 MAC/LINUX:
 
-DEPLOY_HOSTNAME=eu-west-1.galaxy-deploy.meteor.com meteor deploy studycompass.eu.meteorapp.com --settings settings.json
+DEPLOY_HOSTNAME=eu-west-1.galaxy-deploy.meteor.com meteor deploy studyguide.eu.meteorapp.com --settings settings.json
 
 
 
@@ -10,4 +10,7 @@ DEPLOY_HOSTNAME=eu-west-1.galaxy-deploy.meteor.com meteor deploy studycompass.eu
 WINDOWS:
 
 set DEPLOY_HOSTNAME=eu-west-1.galaxy.meteor.com
-meteor deploy studycompass.eu.meteorapp.com --settings settings.json
+meteor deploy studyguide.eu.meteorapp.com --settings settings.json
+
+link to app:
+https://eu-west-1.galaxy.meteor.com/app/studyguide.eu.meteorapp.com/versions
