@@ -1,4 +1,5 @@
 import {daysBetween} from '../dateFunctions';
+import {getNextWorkDay} from '../dateFunctions';
 import {calcNumStudySessions} from "./calcNumStudySessions"
 import {getMinimumNumSesh} from "./getMinimumNumSesh"
 import {getActivityDescList} from "./getActivityDescList"
@@ -27,7 +28,13 @@ import {createStudySessions} from "./createStudySessions"
 export function theMMRAlgorithm(deadline, courseName, courseType, examinationType, ambitionLevel, schoolGrade, studyScopeLevel, studyScope) {
 
     // Start by calculating the two most important variables to create study sess
-    var numAvailableDays = daysBetween(new Date(), deadline);
+    var today = new Date();
+    var numAvailableDays = 0;
+    // count non-weekend days
+    while (daysBetween(today,deadline) > 0) {
+      today = getNextWorkDay(today);
+      numAvailableDays++;
+    }
     var numStudySessions = calcNumStudySessions(examinationType,ambitionLevel,schoolGrade,studyScopeLevel,numAvailableDays);
 
     /**

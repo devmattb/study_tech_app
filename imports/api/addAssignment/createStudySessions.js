@@ -1,4 +1,7 @@
 import {addDays} from '../dateFunctions';
+import {getNextWorkDay} from '../dateFunctions'
+import {getPrevWorkDay} from '../dateFunctions'
+import {daysBetween} from '../dateFunctions'
 import {checkDates} from "./checkDates"
 import {formatDayOrMonth} from "./formatDayOrMonth"
 
@@ -24,23 +27,21 @@ import {formatDayOrMonth} from "./formatDayOrMonth"
 **/
 export function createStudySessions(courseName, exType, descIdArray, numStudySessions, numAvailableDays, deadline, pagesPerSession) {
 
-  numAvailableDays -= 1; // Don't study the last day.
-
   /**
   *    Variables that are to be altered by the algorithm...
   **/
   var title, type, startDate, endDate;
 
   /**
-  *    Get the time of the events that are already scheduled, so we do not schedule
-  *    over these. Also, get the forbidden schedule times.
+  *    Set a random work day start date.
   **/
-  var startFromDay = new Date();
+  var maxRandNum = Math.ceil(numAvailableDays/4);
+  var randAddDayNum = Math.floor(Math.random()*(maxRandNum - 1 + 1)) + 1;
+  var startFromDay = getNextWorkDay(addDays(new Date(), randAddDayNum));
 
   /**
-  *   Create all events!
+  *   Some more calculations before creating events.
   **/
-
   var studySessionsPerDay = Math.round(numStudySessions/numAvailableDays);
   var distancePerStudySession = Math.floor(numAvailableDays/numStudySessions);
   if ( studySessionsPerDay < 1 ) {
@@ -50,13 +51,9 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
     distancePerStudySession = 1;  // Make sure we have atleast one days break between them.
   }
 
-
   /**
   *   Before creating all the studySessions, we need to
   *   create the connected StudyChain
-  **/
-  /**
-  *   Creation of the JSON object that is to be inserted.
   **/
   let studyChain = {
     'courseName': courseName,
@@ -70,15 +67,17 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
   **/
   Meteor.call("StudyChain.insert", studyChain);
 
-
   for ( var i = 0; i < numStudySessions; i++ ) {
 
     if ( i > 0 ) { // Schedule with our desired distance between study sessions.
       // Have the maximum distance between study sessions.
-      startFromDay = addDays(startFromDay, distancePerStudySession);
-    } else {
-      // Don't start today.
-      startFromDay = addDays(startFromDay, 1);
+      startFromDay = getNextWorkDay(addDays(startFromDay, distancePerStudySession));
+
+      // Safeguard in case we for some reason wind up after the deadline.
+      // if ( daysBetween(startFromDay, deadline) < 0 ) {
+      //   console.log("PAST DEADLINE");
+      //   startFromDay = getPrevWorkDay(startFromDay);
+      // }
     }
 
     for ( var j = 1; j <= studySessionsPerDay; j++ ) {

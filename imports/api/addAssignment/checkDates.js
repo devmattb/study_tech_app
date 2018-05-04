@@ -1,5 +1,6 @@
 import {addHours} from '../dateFunctions.js';
-import {addDays} from '../dateFunctions.js';
+import {getNextWorkDay} from '../dateFunctions.js';
+
 
 /**
 *   TODO: Optimize when and correct time collision handling...
@@ -37,8 +38,8 @@ export function checkDates(preliminaryDateObj) {
           newDateObj = addHours(preliminaryDateObj,2);
         } else {
           // We've exceeded 20.00. Go to the next day. Start at 16.00
-          newDateObj = addDays(preliminaryDateObj,2);
-          newDateObj = addHours(preliminaryDateObj, -4);
+          newDateObj = getNextWorkDay(preliminaryDateObj);
+          newDateObj = addHours(newDateObj, -4);
         }
 
         // Recursive call

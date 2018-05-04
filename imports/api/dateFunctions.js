@@ -64,3 +64,31 @@ export function daysBetween(date1, date2) {
   var diff = Date.daysBetween(date1, date2);
   return diff;
 }
+
+/**
+*  Gets the next non-weekend day:
+*  @param date is the given date that needs to be changed to the next work day.
+**/
+export function getNextWorkDay(date) {
+  // Copy date so don't affect original
+  date = new Date(+date);
+  // Add days until get not Sat or Sun
+  do {
+    date.setDate(date.getDate() + 1);
+  } while (!(date.getDay() % 6))
+  return date;
+}
+
+/**
+*  Gets the previoud non-weekend day:
+*  @param date is the given date that needs to be changed to the next work day.
+**/
+export function getPrevWorkDay(date) {
+  // Copy date so don't affect original
+  date = new Date(+date);
+  // Add days until get not Sat or Sun
+  do {
+    date.setDate(date.getDate() - 1);
+  } while (!(date.getDay() % 6))
+  return date;
+}
