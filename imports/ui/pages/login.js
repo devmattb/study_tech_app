@@ -4,7 +4,13 @@ import "../components/preloader.js"
 import "./login.html";
 import '../components/overrides/overrides.js';
 
-import {pageInit} from "../../api/pageInit"
+import {pageInit} from "../../api/functions/pageInit"
+import {subscriptions} from "../../api/functions/subscriptions"
+
+Template.login.onCreated( () => {
+  let template = Template.instance();
+  subscriptions(template);
+});
 
 Template.login.onRendered(function(){
     pageInit();

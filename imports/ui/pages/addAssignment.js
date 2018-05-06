@@ -5,16 +5,19 @@ import "./addAssignment.html"
 import "../components/addAssignmentForms/examinationOptionsTemplates.js";
 import "../components/addAssignmentForms/omfattningOptionsTemplates.js";
 
-import {pageInit} from "../../api/pageInit"
-import {initCal} from "../../api/initCal"
-import {theMMRAlgorithm} from "../../api/addAssignment/theMMRAlgorithm"
-import {getCourseType} from "../../api/addAssignment/getCourseType"
+import {pageInit} from "../../api/functions/pageInit"
+import {initCal} from "../../api/functions/initCal"
+import {theMMRAlgorithm} from "../../api/functions/addAssignment/theMMRAlgorithm"
+import {getCourseType} from "../../api/functions/addAssignment/getCourseType"
+import {subscriptions} from "../../api/functions/subscriptions"
 
 Template.addAssignment.onCreated(function(){
   // Course variables. Regulates examinationType options.
   this.examinationTypeTemplate = new ReactiveVar("noCourseType");
   // examinationType variables. Regulates studyScope options.
   this.omfattningTypeTemplate = new ReactiveVar();
+  let template = Template.instance();
+  subscriptions(template);
 });
 
 Template.addAssignment.onRendered(function(){

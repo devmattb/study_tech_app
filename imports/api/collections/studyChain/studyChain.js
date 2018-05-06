@@ -1,26 +1,24 @@
-/***
-*
-*   Created: 18 April 2019
-*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
-*   Copyright 2018 Matt Bergstrom
-*   Statement:
-*   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
-*
-***/
-
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
+/***
+*   Creates the collection studyChain and attaches a simple schema to it.
+***/
 StudyChain = new Mongo.Collection('studyChain');
 let schema = new SimpleSchema({
+  // TODO/OPTIMIZE: Only have the userId in this collection and not in studySession.
+  'connectedUserId': {
+    type: String,
+    label: 'The connected user ID.',
+  },
 
   'courseName': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'A feedback answer.',
   },
 
   'examinationType': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'The course name of the activity that feedback was given on.',
     optional: true
   },
@@ -70,4 +68,4 @@ let schema = new SimpleSchema({
 
 });
 
-StudyChain.attachSchema( schema );
+StudyChain.attachSchema(schema);

@@ -1,6 +1,6 @@
 import "./learningQuality.html";
 
-import {submitFeedback} from "../../../../api/feedbackFunctions";
+import {submitFeedback} from "../../../../api/functions/feedbackFunctions";
 
 Template.learningQuality.onCreated(function(){
   // Update select.

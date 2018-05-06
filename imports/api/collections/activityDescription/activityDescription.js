@@ -1,16 +1,9 @@
-/***
-*
-*   Created: 03 December 2017
-*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
-*   Copyright 2017 Matt Bergstrom
-*   Statement:
-*   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
-*
-***/
-
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
+/***
+*   Creates the collection studySession and attaches a simple schema to it.
+***/
 ActivityDescription = new Mongo.Collection( 'activityDescription' );
 // TODO: Make anonymous Arrays work with SimpleSchema.
 // let CourseSchema = new SimpleSchema({

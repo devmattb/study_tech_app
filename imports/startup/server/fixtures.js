@@ -2,6 +2,7 @@
 *   Upload documents to DB on startup.
 **/
 import { Meteor } from 'meteor/meteor';
+import "../../api/api.js";
 
 Meteor.startup(() => {
 
@@ -31,7 +32,7 @@ Meteor.startup(() => {
     for(var i = 0; i < fileNames.length; i++) {
         // Read the contents of this file, and insert it to our activities database.
         var fileContents = JSON.parse(Assets.getText('activityDescriptions/'+fileNames[i]));
-        ActivityDescription.insert(fileContents);
+        Meteor.call("ActivityDescription.insert", fileContents);
     }
   }
 
@@ -51,7 +52,7 @@ Meteor.startup(() => {
     for(var i = 0; i < templateNames.length; i++) {
         // Read the contents of this file, and insert it to our activities database.
         var fileContents = JSON.parse(Assets.getText('feedbackQuestions/'+templateNames[i]));
-        FeedbackQuestion.insert(fileContents);
+        Meteor.call("FeedbackQuestion.insert", fileContents);
     }
   }
 

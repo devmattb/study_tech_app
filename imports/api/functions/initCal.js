@@ -1,3 +1,8 @@
+import {Mongo} from "meteor/mongo"
+import "../collections/studySession/studySession.js"
+import "../collections/studyChain/studyChain.js"
+// TODO: Remove imports and convert collection calls in to Meteor.methods.
+
 /**
 *   Initiates the calendar and enables it to fetch events realtime.
 *   @param timeSpan The time span is used to give us all available timespan buttons.

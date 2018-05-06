@@ -4,12 +4,13 @@ import "../components/preloader.js"
 
 import "./home.html"
 
-import {pageInit} from "../../api/pageInit"
-import {initCal} from "../../api/initCal"
+import {pageInit} from "../../api/functions/pageInit"
+import {initCal} from "../../api/functions/initCal"
+import {subscriptions} from "../../api/functions/subscriptions"
 
 Template.home.onCreated( () => {
   let template = Template.instance();
-  template.subscribe( 'StudySession' );
+  subscriptions(template);
 });
 
 Template.home.onRendered(function(){

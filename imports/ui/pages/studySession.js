@@ -16,19 +16,25 @@ import "../components/feedbackForms/schedulingRelated/tooLong.js"
 import "../components/feedbackForms/userRelated/performance.js"
 
 // General function imports.
-import {pageInit} from "../../api/pageInit"
-import {addMinutes} from "../../api/dateFunctions"
-import {replaceAll} from "../../api/replaceAll"
-import {getRandNumList} from "../../api/getRandNumList"
-import {scaleSwitch} from "../../api/scaleSwitch"
+import {pageInit} from "../../api/functions/pageInit"
+import {addMinutes} from "../../api/functions/dateFunctions"
+import {replaceAll} from "../../api/functions/replaceAll"
+import {getRandNumList} from "../../api/functions/getRandNumList"
+import {scaleSwitch} from "../../api/functions/scaleSwitch"
 
 // Specific functions for this page.
-import {getQuestionTemplateNames} from "../../api/studySession/getQuestionTemplateNames"
-import {initTimer} from "../../api/studySession/initTimer"
-import {stopTimer} from "../../api/studySession/stopTimer"
-import {nextCyclePrep} from "../../api/studySession/nextCyclePrep"
-import {updateStepIndicators} from "../../api/studySession/updateStepIndicators"
-import {getSSObjects} from "../../api/studySession/getSSObjects"
+import {getQuestionTemplateNames} from "../../api/functions/studySession/getQuestionTemplateNames"
+import {initTimer} from "../../api/functions/studySession/initTimer"
+import {stopTimer} from "../../api/functions/studySession/stopTimer"
+import {nextCyclePrep} from "../../api/functions/studySession/nextCyclePrep"
+import {updateStepIndicators} from "../../api/functions/studySession/updateStepIndicators"
+import {getSSObjects} from "../../api/functions/studySession/getSSObjects"
+import {subscriptions} from "../../api/functions/subscriptions"
+
+Template.studySession.onCreated( () => {
+  let template = Template.instance();
+  subscriptions(template);
+});
 
 
 Template.studySession.onRendered(function(){
@@ -72,17 +78,19 @@ Template.studySession.helpers({
     // Get an array with a studySessionObj and a studyChainObj based of current URL id.
     var ssObjArr = getSSObjects();
     var studySessionObj = ssObjArr[0];
+    if (studySessionObj) {
+      // The study session always holds the id to the activity description:
+      const activityObj = ActivityDescription.findOne({_id:studySessionObj.htmlDescriptionId});
 
-    // The study session always holds the id to the activity description:
-    const activityObj = ActivityDescription.findOne({_id:studySessionObj.htmlDescriptionId});
-
-    /**
-    *   Manipulate the description:
-    ***/
-    var dbDesc = activityObj.desc;
-    var showableDesc = replaceAll(dbDesc, '<li>', '<li style="max-width: 75%;" class="descItem scale-transition scale-out">');
-
-    return showableDesc; // Returns the HTML code for this activity description.
+      /**
+      *   Manipulate the description:
+      ***/
+      if (activityObj) {
+        var dbDesc = activityObj.desc;
+        var showableDesc = replaceAll(dbDesc, '<li>', '<li style="max-width: 75%;" class="descItem scale-transition scale-out">');
+        return showableDesc; // Returns the HTML code for this activity description.
+      }
+    }
   },
 
   // Displays the descripton of the activity:
@@ -90,7 +98,9 @@ Template.studySession.helpers({
     // Get an array with a studySessionObj and a studyChainObj based of current URL id.
     var ssObjArr = getSSObjects();
     var studySessionObj = ssObjArr[0];
-    return studySessionObj.title;
+    if (studySessionObj) {
+      return studySessionObj.title;
+    }
   },
 
   // Displays the course name.
@@ -98,7 +108,9 @@ Template.studySession.helpers({
     // Get an array with a studySessionObj and a studyChainObj based of current URL id.
     var ssObjArr = getSSObjects();
     var studyChainObj = ssObjArr[1];
-    return studyChainObj.courseName;
+    if (studyChainObj) {
+      return studyChainObj.courseName;
+    }
   },
 
   backBtnHref: function(){
@@ -108,8 +120,10 @@ Template.studySession.helpers({
   // Below are three variables used in the timer functionality:
   ended:function () {
     if (!Session.get("paused")) {
-      console.log(Session.get("t").total <= 0);
-      return Session.get("ended");
+      if (Session.get("t")) {
+        console.log(Session.get("t").total <= 0);
+        return Session.get("ended");
+      }
     } else {
       return false;
     }
@@ -132,17 +146,21 @@ Template.studySession.helpers({
     // Get an array with a studySessionObj and a studyChainObj based of current URL id.
     var ssObjArr = getSSObjects();
     var studyChainObj = ssObjArr[1];
-    return studyChainObj.unitsPerSession;
+    if (studyChainObj) {
+      return studyChainObj.unitsPerSession;
+    }
   },
 
   pageMeasurement: function () {
     // Get an array with a studySessionObj and a studyChainObj based of current URL id.
     var ssObjArr = getSSObjects();
     var studyChainObj = ssObjArr[1];
-    if ( studyChainObj.examinationType === "Glosor" ) {
-      return false;
-    } else {
-      return true;
+    if (studyChainObj) {
+      if ( studyChainObj.examinationType === "Glosor" ) {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
 

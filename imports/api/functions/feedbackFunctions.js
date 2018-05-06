@@ -22,6 +22,7 @@ export function submitFeedback(event, templateName, numParams, doubleQuestion) {
   var answer2;
 
   var doc = {
+    'connectedUserId': Meteor.userId(),
     'feedbackTemplateName': templateName,
     'answer': answer
   }
@@ -32,11 +33,12 @@ export function submitFeedback(event, templateName, numParams, doubleQuestion) {
     doc.answer2 = answer2;
   }
 
-  // TODO OPTIMIZE: This sequence happens in this document and a lot in studySession.js
+  // Getting information of interest before feedback submission.
   var studySessionId = FlowRouter.getParam('_id');
   const studySessionObj = StudySession.findOne({_id:studySessionId});
   const StudyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
   const activityObj = ActivityDescription.findOne({_id:studySessionObj.htmlDescriptionId});
+
   // Add fields to our document if the data we want is more
   // specified than just an answer.
   if (numParams == 2 ) {

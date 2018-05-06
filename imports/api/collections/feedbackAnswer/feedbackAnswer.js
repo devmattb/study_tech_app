@@ -14,30 +14,35 @@ import SimpleSchema from 'simpl-schema';
 FeedbackAnswer = new Mongo.Collection('feedbackAnswer');
 let schema = new SimpleSchema({
 
+  'connectedUserId': {
+    type: String,
+    label: 'The connected user ID.',
+  },
+
   'feedbackTemplateName': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'The template of the feedback question',
   },
 
   'answer': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'A feedback answer.',
   },
 
   'answer2': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'A feedback answer.',
     optional: true
   },
 
   'courseName': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'The course name of the activity that feedback was given on.',
     optional: true
   },
 
   'activityName': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'The activity name.',
     optional: true
   },

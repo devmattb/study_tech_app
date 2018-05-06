@@ -56,6 +56,8 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
   *   create the connected StudyChain
   **/
   let studyChain = {
+    // TODO/OPTIMIZE Make sure this field is only in the studyChain collection objects:
+    'connectedUserId': Meteor.userId(), 
     'courseName': courseName,
     'examinationType':exType,
     'deadline': deadline,

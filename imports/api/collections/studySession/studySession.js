@@ -1,32 +1,11 @@
-/***
-*
-*   Created: 03 December 2017
-*   @author Matt Bergstrom, A.K.A devmattb or Mattias Bergström.
-*   Copyright 2017 Matt Bergstrom
-*   Statement:
-*   None of this code is to be copied or used without my (Matt Bergstrom's) permission.
-*
-***/
-
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
+/***
+*   Creates the collection studySession and attaches a simple schema to it.
+***/
 StudySession = new Mongo.Collection( 'studySession' );
-
-// NOTE: Add when launching, security reasons...
-// CalEvents.allow({
-//   insert: () => false,
-//   update: () => false,
-//   remove: () => false
-// });
-//
-// CalEvents.deny({
-//   insert: () => true,
-//   update: () => true,
-//   remove: () => true
-// });
-
-let EventsSchema = new SimpleSchema({
+let studySessionSchema = new SimpleSchema({
 
   // All common info between events in the same chain are stored in study chain objects.
   'connectedStudyChainId': {
@@ -68,4 +47,4 @@ let EventsSchema = new SimpleSchema({
 
 });
 
-StudySession.attachSchema( EventsSchema );
+StudySession.attachSchema(studySessionSchema);

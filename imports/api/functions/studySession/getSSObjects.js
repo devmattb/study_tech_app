@@ -6,7 +6,9 @@
 **/
 export function getSSObjects() {
   var studySessionId = FlowRouter.getParam('_id');
-  const studySessionObj = StudySession.findOne({_id:studySessionId});
-  const studyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
+  var studySessionObj = StudySession.findOne({_id:studySessionId});
+  if (studySessionObj) {
+    var studyChainObj = StudyChain.findOne({_id:studySessionObj.connectedStudyChainId});
+  }
   return [studySessionObj, studyChainObj];
 }

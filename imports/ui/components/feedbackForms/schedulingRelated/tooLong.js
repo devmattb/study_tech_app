@@ -1,6 +1,6 @@
 import "./tooLong.html";
 
-import {submitFeedback} from "../../../../api/feedbackFunctions";
+import {submitFeedback} from "../../../../api/functions/feedbackFunctions";
 
 Template.tooLong.onCreated(function(){
   // Update select.

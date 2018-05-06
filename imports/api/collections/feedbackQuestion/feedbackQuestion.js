@@ -15,12 +15,12 @@ FeedbackQuestion = new Mongo.Collection('feedbackQuestion');
 let schema = new SimpleSchema({
 
   'question': {
-    type: String, // Array of String(s)
+    type: String,
     label: 'A feedback question.',
   },
 
   'templateName': {
-    type: String, // Array of String(s)
+    type: String, 
     label: 'The feedback template this question is related to.',
   },
 

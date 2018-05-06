@@ -1,6 +1,6 @@
 import './pauses.html';
 
-import {submitFeedback} from "../../../../api/feedbackFunctions";
+import {submitFeedback} from "../../../../api/functions/feedbackFunctions";
 
 Template.pauses.onCreated(function(){
   // Update select.

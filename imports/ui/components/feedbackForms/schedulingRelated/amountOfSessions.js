@@ -1,6 +1,6 @@
 import './amountOfSessions.html';
 
-import {submitFeedback} from "../../../../api/feedbackFunctions";
+import {submitFeedback} from "../../../../api/functions/feedbackFunctions";
 
 Template.amountOfSessions.onCreated(function(){
   // Update select.

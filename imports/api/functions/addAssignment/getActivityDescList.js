@@ -1,3 +1,4 @@
+import "../../collections/activityDescription/activityDescription.js"; // TODO: Make server call instead.
 /**
 *   Depending on course and examination type, gets the connected description!
 **/

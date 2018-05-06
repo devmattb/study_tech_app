@@ -1,7 +1,6 @@
 import './routes.js';
 import './useraccounts-configuration.js';
 
-
 // Sets a global template variable for feedback questions:
 Template.registerHelper( 'btnText', ( ) => {
   var step = Session.get("feedbackStep");
@@ -11,3 +10,5 @@ Template.registerHelper( 'btnText', ( ) => {
     return "Avsluta Session"
   }
 });
+
+// All

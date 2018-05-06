@@ -3,12 +3,13 @@ import "../components/navbar.js"
 import "../components/preloader.js"
 import "./calendar.html";
 
-import {pageInit} from "../../api/pageInit"
-import {initCal} from "../../api/initCal"
+import {pageInit} from "../../api/functions/pageInit"
+import {initCal} from "../../api/functions/initCal"
+import {subscriptions} from "../../api/functions/subscriptions"
 
 Template.calendar.onCreated( () => {
   let template = Template.instance();
-  template.subscribe( 'StudySession' );
+  subscriptions(template);
 });
 
 Template.calendar.onRendered(function(){

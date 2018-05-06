@@ -1,6 +1,6 @@
 import {addHours} from '../dateFunctions.js';
 import {getNextWorkDay} from '../dateFunctions.js';
-
+import "../../collections/studySession/studySession.js"; // TODO: Make server call instead.
 
 /**
 *   TODO: Optimize when and correct time collision handling...
@@ -20,7 +20,7 @@ export function checkDates(preliminaryDateObj) {
   **/
   var connectedUserId = Meteor.userId();
   var forbiddenDatesArr = new Array();
-  var forbiddenDatesCollection = StudySession.find({connectedUserId, connectedUserId});
+  var forbiddenDatesCollection = StudySession.find({connectedUserId: connectedUserId});
   forbiddenDatesCollection.forEach(function(data){
       forbiddenDatesArr.push(new Date(data.start)); // Add a Date Objects to our forbiddenTimesArr.
   });

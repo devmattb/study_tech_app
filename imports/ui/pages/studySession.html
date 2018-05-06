@@ -140,8 +140,19 @@
                 <!-- Start -->
                 <div id="startDiv" class="col s12 scale-transition">
                   <div style="margin: 30px;">
-                    <h5> <b id="introText">Nu är det dags för lite {{courseName}}!</b> <br><br><br> <span style="font-family:Passion One; font-size: 35px;"> Är du redo?</span> </h5>
-                    <h5 id="continueText" class="hidden" > <b>Det är dags att fortsätta med {{courseName}}!</b> <br><br> Är du redo? </h5>
+                    <h5>
+                      <b id="introText">Nu är det dags för lite
+                        {{#if courseName}}
+                          {{courseName}}!
+                        {{/if}}
+                      </b>
+                    <br><br><br> <span style="font-family:Passion One; font-size: 35px;"> Är du redo?</span> </h5>
+                    <h5 id="continueText" class="hidden" >
+                      <b>Det är dags att fortsätta med
+                        {{#if courseName}}
+                          {{courseName}}!
+                        {{/if}}!
+                      </b> <br><br> Är du redo? </h5>
                   </div>
                   <button id="startCycle" class="btn webOrange waves-effect waves-light">Starta!</button>
                 </div>
@@ -201,7 +212,9 @@
                     <!-- Activity Description -->
                     <div class="col s1"></div> <!-- DUMMY -->
                     <div class="col s8 center-align row" id="description">
-                      {{{description}}}
+                      {{#if description}}
+                        {{{description}}}
+                      {{/if}}
                     </div>
                     <div class="col s3"></div> <!-- DUMMY -->
 
@@ -210,7 +223,9 @@
                       <!-- STEP INDICATORS -->
                       <div class="col s3"></div> <!-- DUMMY -->
                       <div id="stepIndicators" class="col s6">
-                        {{steps}}
+                        {{#if steps}}
+                          {{steps}}
+                        {{/if}}
                       </div>
                       <div class="col s3"></div> <!-- DUMMY -->
 
