@@ -5,4 +5,5 @@ export function subscriptions(template) {
   template.subscribe('activityDescription');
   template.subscribe('feedbackQuestion');
   template.subscribe('feedbackAnswer');
+  template.subscribe('test');
 }

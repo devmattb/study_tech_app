@@ -1,3 +1,3 @@
-Meteor.publish('activityDescription', function activityDescriptionPublication() {
+Meteor.publish('activityDescription', function() {
   return ActivityDescription.find();
 });
