@@ -1,4 +1,6 @@
 {
   "templateName": "funniness",
-  "question": "Hur rolig var aktiviteten, på skala 1-10?"
+  "question": "Hur rolig var aktiviteten, på skala 1-10?",
+  "activityRecorded": true,
+  "courseRecorded": true
 }

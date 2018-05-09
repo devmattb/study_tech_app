@@ -14,14 +14,22 @@ Template.feedbackPage.onRendered(function(){
 
 Template.feedbackPage.helpers({
 
+  // All questions
+  feedbackQuestion: function(){
+    return FeedbackQuestion.find();
+  },
+
   // All answers
-  feedback: function(){
-    // The study session always holds the id to the activity description:
-    //const feedbackObj = Meteor.call("FeedbackAnswer.find",{});
-    //console.log(feedbackObj);
-    //return feedbackObj; // Returns the HTML code for this activity description.
-    var bla = FeedbackQuestion.find();
-    return ActivityDescription.find();
+  feedbackAnswer: function(){
+    return FeedbackAnswer.find();
+  },
+
+  // Checks if two strings are Equal.
+  isEqual: function(v1,v2) {
+    if(v1 === v2) {
+      return true;
+    }
+    return false;
   },
 
 });

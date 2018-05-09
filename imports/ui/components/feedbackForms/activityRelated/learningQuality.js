@@ -12,6 +12,6 @@ Template.learningQuality.events({
   "submit #learningQuality": function(e){
     // 3 Params: Answer, activityName, CourseName.
     // Not a double question.
-    submitFeedback(e, "funniness", 3, false);
+    submitFeedback(e, "learningQuality", 3, false);
   },
 });

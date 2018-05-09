@@ -1,4 +1,5 @@
 {
   "templateName": "amountOfSessions",
-  "question": "Hur upplevde du det antal pass som schemalades för denna deadline?"
+  "question": "Hur upplevde du det antal pass som schemalades för denna deadline?",
+  "courseRecorded": true
 }

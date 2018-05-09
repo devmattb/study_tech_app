@@ -12,6 +12,6 @@ Template.pauses.events({
   "submit #pauses": function(e){
     // 1 Param: Answer.
     // Not a double question.
-    submitFeedback(e, "funniness", 1, false);
+    submitFeedback(e, "pauses", 1, false);
   },
 });

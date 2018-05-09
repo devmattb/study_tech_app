@@ -4,14 +4,94 @@
   {{>preloader}}
   {{>navbar}}
 
+  <style>
+
+    .feedbackTable {
+      margin: 50px!important;
+    }
+
+    th {
+      font-size: 18px;
+      font-weight: 900;
+      font-family: Roboto!important;
+    }
+
+    td {
+      height: 70px;
+    }
+
+    td:hover {
+      cursor:pointer;
+    }
+
+  </style>
+
   <div class="row">
     <div class="col s12">
-      <h1> BLA {{feedbackObj}} </h1>
-      {{#each feedbackObj}}
 
-        <h1 class="black-text">Hej</h1>
+    <br><br>
+    <h1 class="black-text center">Feedback Data:</h1>
+
+    <!-- For each feedback question, produce a table -->
+    <div class="col s1"></div><!-- DUMMY -->
+    <div class="col s10">
+    {{#each feedbackQuestion}}
+
+        <div id="{{templateName}}" class="feedbackTable">
+          <table class="striped highlight">
+            <thead>
+              <tr>
+                  <th>{{question}}</th>
+                  {{#if question2}}
+                    <th>{{question2}}</th>
+                  {{else}}
+                    <th></th>
+                  {{/if}}
+                  {{#if activityRecorded}}
+                    <th>Aktivitets ID</th>
+                  {{else}}
+                    <th></th>
+                  {{/if}}
+                  {{#if courseRecorded}}
+                    <th>Ämne</th>
+                  {{else}}
+                    <th></th>
+                  {{/if}}
+              </tr>
+            </thead>
+            <tbody>
+
+                <!-- For each feedback answer to this question, produce a row -->
+                {{#each feedbackAnswer}}
+                  {{#if isEqual ../templateName feedbackTemplateName}}
+                    <tr>
+                      <td>{{answer}}</td>
+                      {{#if feebackQuestion2}}
+                        <td>{{answer2}}</td>
+                      {{else}}
+                        <td></td>
+                      {{/if}}
+                      {{#if activityName}}
+                        <td>{{activityName}}</td>
+                      {{else}}
+                        <td></td>
+                      {{/if}}
+                      {{#if courseName}}
+                        <td>{{courseName}}</td>
+                      {{else}}
+                        <td></td>
+                      {{/if}}
+                    </tr>
+                  {{/if}}
+                {{/each}}
+
+            </tbody>
+          </table>
+        </div>
 
       {{/each}}
+      </div>
+      <div class="col s1"></div><!-- DUMMY -->
 
     </div>
   </div>

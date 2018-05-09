@@ -4,9 +4,9 @@ Meteor.methods({
 
   // Inserts a document in to the feedbackQuestion collection.
   "FeedbackQuestion.insert": function(doc) {
-    StudyChain.insert(
+    FeedbackQuestion.insert(
       doc,
-      function(error, studyChain_id) {
+      function(error, res_id) {
         if ( error ) {
           console.log ( error ); //info about what went wrong
           Materialize.toast('Något gick fel... Försök igen!', 4000, "red");

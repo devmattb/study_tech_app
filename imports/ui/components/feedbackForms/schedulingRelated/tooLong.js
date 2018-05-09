@@ -21,11 +21,11 @@ Template.tooLong.events({
     if (tooLong === "true") {
       // 3 Params: Answer, activityName, CourseName.
       // Double Question!
-      submitFeedback(e, "funniness", 3, true);
+      submitFeedback(e, "tooLong", 3, true);
     } else {
       // 3 Params: Answer, activityName, CourseName.
       // Not a double question.
-      submitFeedback(e, "funniness", 3, false);
+      submitFeedback(e, "tooLong", 3, false);
     }
   },
   /**

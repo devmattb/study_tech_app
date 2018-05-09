@@ -1,4 +1,6 @@
 {
   "templateName": "learningQuality",
-  "question": "Hur lärorikt tycker du passet var?"
+  "question": "Hur lärorikt tycker du passet var?",
+  "activityRecorded": true,
+  "courseRecorded": true
 }

@@ -16,13 +16,31 @@ let schema = new SimpleSchema({
 
   'question': {
     type: String,
-    label: 'A feedback question.',
+    label: 'Question 1'
   },
 
   'templateName': {
-    type: String, 
-    label: 'The feedback template this question is related to.',
+    type: String,
+    label: 'The feedback template this question is related to.'
   },
+
+  'question2': {
+    type: String,
+    label: 'Question 2',
+    optional: true
+  },
+
+  'activityRecorded': {
+    type: Boolean,
+    label: 'Do we record the activity in this question?',
+    optional: true
+  },
+
+  'courseRecorded': {
+    type: Boolean,
+    label: 'Do we record the courseName in this question?',
+    optional: true
+  }
 
 });
 

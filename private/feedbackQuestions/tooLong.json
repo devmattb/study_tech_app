@@ -1,4 +1,7 @@
 {
   "templateName": "tooLong",
-  "question": "Var detta ett för långt pass?"
+  "question": "Var detta ett för långt pass?",
+  "question2": "Hur långt hade du velat att det var?",
+  "activityRecorded": true,
+  "courseRecorded": true
 }

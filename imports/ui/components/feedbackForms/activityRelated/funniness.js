@@ -1,6 +1,6 @@
 import "./funniness.html";
 
-import {submitFeedback} from "../../../../api/functions/feedbackFunctions";
+import {} from "../../../../api/functions/feedbackFunctions";
 
 Template.funniness.onCreated(function(){
   // Update select.
