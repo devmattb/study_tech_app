@@ -33,7 +33,7 @@ export function checkDates(preliminaryDateObj) {
     var dateDiffMillisec = preliminaryDateObj-forbiddenDatesArr[i];
     if( dateDiffMillisec == 0 ) { // No date difference. Reschedule.
         var newDateObj;
-        if ( preliminaryDateObj.getHours() <= 20 ) {
+        if ( preliminaryDateObj.getHours() < 20 ) {
           // As long as we don't go past 20.00 as start time, add 2 hours to our interval.
           newDateObj = addHours(preliminaryDateObj,2);
         } else {

@@ -1,4 +1,5 @@
 import {addDays} from '../dateFunctions';
+import {addHours} from '../dateFunctions.js';
 import {getNextWorkDay} from '../dateFunctions'
 import {getPrevWorkDay} from '../dateFunctions'
 import {daysBetween} from '../dateFunctions'
@@ -28,16 +29,23 @@ import {formatDayOrMonth} from "./formatDayOrMonth"
 export function createStudySessions(courseName, exType, descIdArray, numStudySessions, numAvailableDays, deadline, pagesPerSession) {
 
   /**
-  *    Variables that are to be altered by the algorithm...
-  **/
-  var title, type, startDate, endDate;
-
-  /**
   *    Set a random work day start date.
   **/
   var maxRandNum = Math.ceil(numAvailableDays/4);
   var randAddDayNum = Math.floor(Math.random()*(maxRandNum - 1 + 1)) + 1;
+
+  /**
+  *     Set preliminary event time.
+  *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine Learning/Data Analytics..?
+  **/
+  // Create a date object with a randomized start day (within reasonable range of today)
+  // with the time at 16:
   var startFromDay = getNextWorkDay(addDays(new Date(), randAddDayNum));
+  startFromDay = new Date(startFromDay.setHours(16));
+  // Format this date object minutes/seconds/milliseconds to 16:00:00:00
+  var formatSFD = new Date(new Date(startFromDay).setMinutes(0,0,0));
+  // Get this date in preferred string format:
+  var startFromDayFormatted = moment(formatSFD).format('YYYY-MM-DD HH:mm:ss');
 
   /**
   *   Some more calculations before creating events.
@@ -50,6 +58,8 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
   if (distancePerStudySession < 1) {
     distancePerStudySession = 1;  // Make sure we have atleast one days break between them.
   }
+  console.log("studySessionsPerDay " + studySessionsPerDay);
+  console.log("distancePerStudySession "+distancePerStudySession);
 
   /**
   *   Before creating all the studySessions, we need to
@@ -73,46 +83,36 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
 
     if ( i > 0 ) { // Schedule with our desired distance between study sessions.
       // Have the maximum distance between study sessions.
-      startFromDay = getNextWorkDay(addDays(startFromDay, distancePerStudySession));
-
+      formatSFD = getNextWorkDay(addDays(formatSFD, distancePerStudySession));
+      console.log("formatSFD " + formatSFD);
       // Safeguard in case we for some reason wind up after the deadline.
-      // if ( daysBetween(startFromDay, deadline) < 0 ) {
+      // if ( daysBetween(formatSFD, deadline) < 0 ) {
       //   console.log("PAST DEADLINE");
-      //   startFromDay = getPrevWorkDay(startFromDay);
+      //   formatSFD = getPrevWorkDay(formatSFD);
       // }
     }
 
     for ( var j = 1; j <= studySessionsPerDay; j++ ) {
 
-      /**
-      *     Set preliminary event. Check if it's alright afterwards.
-      *     TODO: Start at 22 if they like to study late, 18 if they like to study early. Machine Learning/Data Analytics..?
-      **/
-
-      // Create a new DateTime Date object.
-      var preliminaryDateObj = new Date(""+startFromDay.getFullYear()
-      +"-"+formatDayOrMonth(startFromDay.getMonth()+1)
-      +"-"+formatDayOrMonth(startFromDay.getDate())
-      + " 16:00:00");
-
       // Fix this date if it is scheduled illegally: NOTE: We start at 16-18 statically.
       // NOTE: If the date is okay, we will return first Date object.
       var currentDateObj;
-      currentDateObj = checkDates(preliminaryDateObj);
-
-      var startHours = currentDateObj.getHours();
-      var endHours = currentDateObj.getHours()+2;
-      var startDay = formatDayOrMonth(parseInt(currentDateObj.getDate()));
-      var startMonth = formatDayOrMonth(parseInt(currentDateObj.getMonth())+1); // Month indexing starts at 0.
-      var startYear = currentDateObj.getFullYear();
+      // Recursively check that this date is ok:
+      currentDateObj = checkDates(formatSFD);
 
       /**
       *   We now know the date is okay.
+      *   Format the date object in to a preferred string:
       **/
-      title = courseName+' '+ startHours +':00-'+ endHours+':00';
+      var startDate = new Date(currentDateObj);
+      var startHours = startDate.getHours();
+      var start = moment(startDate).format('YYYY-MM-DD HH:mm:ss');
+      var endDate = addHours(startDate,2); // End 2 hours after start.
+      var endHours = endDate.getHours();
+      var end = moment(endDate).format('YYYY-MM-DD HH:mm:ss');
 
-      var start = startYear+"-"+startMonth+"-"+startDay; // start and end have the same date, but not the same time.
-      var end = start;
+      // Set the title of the event:
+      var title = courseName+' '+ startHours +':00-'+ endHours +':00';
 
       /**
       *   Creation of the JSON object that is to be inserted.
@@ -122,8 +122,8 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
         'connectedUserId': Meteor.userId(),
         'htmlDescriptionId': descIdArray[i],
         'title': title,
-        'start': start+" "+startHours+":00:00",
-        'end': end+" "+endHours+":00:00", // e.g 2017-02-01 22:00:00 which is feb 2nd 22:00, 2017
+        'start': start,
+        'end': end, // e.g 2017-02-01 22:00:00 which is feb 2nd 22:00, 2017
         'url': "DUMMY_URL" // Updated after insert.
       };
 
