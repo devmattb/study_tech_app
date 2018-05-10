@@ -36,9 +36,7 @@ Meteor.methods({
       doc,
       function(error, doc_id) {
         if ( error ) {
-          console.log(descIdArray[i]);
           console.log ( error ); //info about what went wrong
-          Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
           return; // Stop exec
         } else {
           // Everything went smoothly...

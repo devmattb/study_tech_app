@@ -18,7 +18,7 @@ import {formatDayOrMonth} from "./formatDayOrMonth"
 *   This function will determine when the student will be
 *   scheduled and how he/she will be instructed to study.
 *
-*   @param desc is the description string grabbed from our database. It is the general tip description for the exType.
+*   @param descIdArray is the array of studysession instructions, in the correct order.
 *   @param numStudySessions is the measurement for the examination. Which could mean the amount of pages, exercises or words required for the examination.
 *   @param numAvailableDays is the number of days until the deadline is reached.
 *   @param deadline is the users deadline.
@@ -57,7 +57,7 @@ export function createStudySessions(courseName, exType, descIdArray, numStudySes
   **/
   let studyChain = {
     // TODO/OPTIMIZE Make sure this field is only in the studyChain collection objects:
-    'connectedUserId': Meteor.userId(), 
+    'connectedUserId': Meteor.userId(),
     'courseName': courseName,
     'examinationType':exType,
     'deadline': deadline,
