@@ -70,14 +70,14 @@ AccountsTemplates.configure({
         enrollAccount: "Skriv upp dig",
         forgotPwd: "Återställ",
         resetPwd: "Återställ",
-        signIn: "Login",
-        signUp: "Skapa!",
+        signIn: "Logga In",
+        signUp: "Skapa Konto",
         verifyEmail: "Verifiera Email",
       },
 
       button: {
-        signUp: "Skapa!",
-        signIn: "Login",
+        signUp: "Skapa Konto",
+        signIn: "Logga In",
       },
 
       errors: {
