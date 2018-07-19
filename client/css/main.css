@@ -300,3 +300,12 @@ ol {
   padding-right:0px!important;
   padding-left:0px!important;
 }
+
+.keywordContainer {
+  border-radius: 5px;
+  padding: 12px!important;
+  margin: 5px;
+  position: relative;
+  left: 0px;
+  transition: 0.3s;
+}
