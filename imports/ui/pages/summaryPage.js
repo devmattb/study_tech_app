@@ -1,9 +1,9 @@
-import "../components/header.js"
-import "../components/navbar.js"
-import "../components/preloader.js"
-import "../components/summaryComponents/keyword.js"
+import "../components/header.js";
+import "../components/navbar.js";
+import "../components/preloader.js";
+import "../components/summaryComponents/keyword.js";
 import "./summaryPage.html";
-
+import "../components/modals/keywordModal.js";
 
 import {pageInit} from "../../api/functions/pageInit"
 import {subscriptions} from "../../api/functions/subscriptions"
