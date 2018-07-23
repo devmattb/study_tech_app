@@ -14,8 +14,9 @@ function addKeyword() {
   var keywords = Session.get("keywords");
   // Add to the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")+1);
+  Session.set("currentIndex", Session.get("currentIndex")+1);
   keywords["keys"][Session.get("numKeywords")] = {
-    index: Session.get("numKeywords"),
+    index: Session.get("currentIndex"),
     keywordValue: "",
     keywordDescription: "",
   }
@@ -29,14 +30,22 @@ function removeKeyword(index) {
 
   // Create a new keywords object, that replaces the old one.
   var newKeywords = {"keys":[]};
-  Session.set("numKeywords", Session.get("numKeywords")-1);
-  for (var i = 0; i <= Session.get("numKeywords")+1; i++) {
-    if (i != index) {
+  for (var i = 0; i <= Session.get("numKeywords"); i++) {
+    if (i < index) {
       // We want to keep this cell. Copy it!
       newKeywords["keys"][i] = keywords["keys"][i];
-      console.log(i);
+    } else if (i > index) {
+      // Skip cell no. "index"
+      newKeywords["keys"][i-1] = keywords["keys"][i];
     }
   }
+  // If user deleted the latest keyword cell, decrement currentIndex. Otherwise, don't.
+  if (index == Session.get("numKeywords")) {
+    Session.set("currentIndex", Session.get("currentIndex")-1);
+  }
+
+  // We have now removed one keyword.
+  Session.set("numKeywords", Session.get("numKeywords")-1);
   // Save the new "keywords" json object in the session variable.
   Session.set("keywords", newKeywords);
 }
@@ -51,6 +60,7 @@ Template.summaryPage.onRendered(function(){
   // Init number of displayed keywords
   if (!Session.get("numKeywords")) {
     Session.set("numKeywords", -1);
+    Session.set("currentIndex", -1);
     Session.set("keywords", {"keys":[]});
   }
 });
