@@ -16,14 +16,14 @@ Template.body.events({
     const keywordDescription = target.keywordDescription.value;
 
     var keywords = Session.get("keywords");
-    // TODO
-    // var selectedKeywordIndex = Session.get("numKeywords");
+    var selectedKeywordIndex = Session.get("numKeywords");
     keywords["keys"][selectedKeywordIndex] = {
       index: selectedKeywordIndex,
       keywordValue: keywordValue,
       keywordDescription: keywordDescription,
     }
-    Sessions.set("keywords", keywords);
+    Session.set("keywords", keywords);
+
     console.log(keywordValue+" "+keywordDescription);
 
     // Insert a task into the collection

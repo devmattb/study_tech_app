@@ -3,7 +3,7 @@ import "../components/navbar.js";
 import "../components/preloader.js";
 import "../components/summaryComponents/keyword.js";
 import "./summaryPage.html";
-import "../components/modals/keywordModal.js";
+import "../components/summaryComponents/keywordModal.js";
 import "../components/summaryComponents/keyword.js";
 
 import {pageInit} from "../../api/functions/pageInit"
