@@ -16,7 +16,9 @@
           <div class="col s12 left">
             <h5>NYCKELORD:</h5>
           </div>
-          {{>keyword}}
+          {{#each keywords.keys}}
+            {{>keyword}}
+          {{/each}}
         </div>
         <div class="col s12">
           <button id="addKeywordContainerBtn" class="btn-floating btn-large waves-effect waves-light red right">
