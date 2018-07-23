@@ -26,13 +26,20 @@ function addKeyword() {
 function removeKeyword(index) {
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
-  // Delete latest keyword from the current "keywords" json object.
-  Session.set("numKeywords", Session.get("numKeywords")-1);
-  delete keywords["keys"][index];
-  // Save the new "keywords" json object in the session variable.
-  Session.set("keywords", keywords);
-}
 
+  // Create a new keywords object, that replaces the old one.
+  var newKeywords = {"keys":[]};
+  Session.set("numKeywords", Session.get("numKeywords")-1);
+  for (var i = 0; i <= Session.get("numKeywords")+1; i++) {
+    if (i != index) {
+      // We want to keep this cell. Copy it!
+      newKeywords["keys"][i] = keywords["keys"][i];
+      console.log(i);
+    }
+  }
+  // Save the new "keywords" json object in the session variable.
+  Session.set("keywords", newKeywords);
+}
 
 Template.summaryPage.onCreated( () => {
   let template = Template.instance();
@@ -66,17 +73,9 @@ Template.summaryPage.events({
 
   "click #addKeywordContainerBtn":function(event) {
     addKeyword();
-    // keywordCounter++;
-    // var keywordHtml = `
-    //   <div class="keywordContainer red col s12 white-text">
-    //     <span id="keywordTxt" class="left">TEST`+keywordCounter+`</span>
-    //     <span class="right deleteKeywordContainer"><i style="font-size: 16px;" class="fa fa-times"></i></span>
-    //   </div>`;
-    // $("#keywordBox").append(keywordHtml)
   },
 
   "click .deleteKeywordContainer":function(event) {
-    console.log(event.target.getAttribute("data-index"));
     removeKeyword(event.target.getAttribute("data-index"));
   },
 
