@@ -17,7 +17,7 @@
             <h5>NYCKELORD:</h5>
           </div>
           {{#each keywords.keys}}
-            {{>keyword}}
+            {{>keyword index=this.index keywordValue=this.keywordValue keywordDescription=this.keywordDescription}}
           {{/each}}
         </div>
         <div class="col s12">

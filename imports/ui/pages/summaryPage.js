@@ -23,12 +23,12 @@ function addKeyword() {
   Session.set("keywords", keywords);
 }
 
-function removeKeyword() {
+function removeKeyword(index) {
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
   // Delete latest keyword from the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")-1);
-  delete keywords["keys"][Session.get("numKeywords")];
+  delete keywords["keys"][index];
   // Save the new "keywords" json object in the session variable.
   Session.set("keywords", keywords);
 }
@@ -43,7 +43,7 @@ Template.summaryPage.onRendered(function(){
   pageInit();
   // Init number of displayed keywords
   if (!Session.get("numKeywords")) {
-    Session.set("numKeywords", 1);
+    Session.set("numKeywords", -1);
     Session.set("keywords", {"keys":[]});
   }
 });
@@ -76,7 +76,8 @@ Template.summaryPage.events({
   },
 
   "click .deleteKeywordContainer":function(event) {
-    removeKeyword();
+    console.log(event.target.getAttribute("data-index"));
+    removeKeyword(event.target.getAttribute("data-index"));
   },
 
 });
