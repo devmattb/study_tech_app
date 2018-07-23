@@ -12,6 +12,9 @@ export function pageInit() {
     // Page height init:
     $("#coverPageDiv").css("height",  $( window ).height());
 
+    //text-input textarea
+
+
 
     /**
     *      NAV INITIALIZATION
