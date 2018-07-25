@@ -15,10 +15,12 @@ Template.body.events({
     const keywordValue = target.keywordValue.value;
     const keywordDescription = target.keywordDescription.value;
 
+
+    var activeKeyWord = Session.get("activeKeyWord");
     var keywords = Session.get("keywords");
-    var selectedKeywordIndex = Session.get("numKeywords");
-    keywords["keys"][selectedKeywordIndex] = {
-      index: selectedKeywordIndex,
+    // var selectedKeywordIndex = Session.get("numKeywords");
+    keywords["keys"][activeKeyWord] = {
+      index: activeKeyWord,
       keywordValue: keywordValue,
       keywordDescription: keywordDescription,
     }
@@ -27,13 +29,15 @@ Template.body.events({
     console.log(keywordValue+" "+keywordDescription);
 
     // Insert a task into the collection
-    // Tasks.insert({
-    //   text,
-    //   createdAt: new Date(), // current time
-    // });
+
 
     // Clear form
     target.keywordValue.value = '';
     target.keywordDescription.value = '';
+
+    // test code
+    console.log(this);
+
+
   },
 });

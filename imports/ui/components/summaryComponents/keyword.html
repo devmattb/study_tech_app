@@ -1,7 +1,16 @@
 <template name="keyword">
-  <div class="keywordContainer red col s12 white-text scale-out scale-transition">
-      <span id="keywordTxt" class="left">{{index}} {{keywordValue}}</span>
+  <div class="row scale-out scale-transition keywordContainer red white-text ">
+    <div class="col s4">
+        <span id="keywordTxt" class="left">{{keywordValue}}           {{keywordDescription}}</span>
+    </div>
+
+    <div class="col s4 center-align">
+      <span><a data-index="{{index}}" id="edit-keyword-content" class="waves-effect waves-light btn modal-trigger" href="#modal1">{{index}}</a></span>
+    </div>
+
+    <div class="col s4">
       <span class="deleteKeywordContainer right"><i data-index="{{index}}" style="font-size: 16px;" class="fa fa-times"></i></span>
-      <span><a class="center-align waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a></span>
+    </div>
+
   </div>
 </template>
