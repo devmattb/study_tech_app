@@ -14,8 +14,9 @@ function addKeyword() {
   var keywords = Session.get("keywords");
   // Add to the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")+1);
+  Session.set("currentIndex", Session.get("currentIndex")+1);
   keywords["keys"][Session.get("numKeywords")] = {
-    index: Session.get("numKeywords"),
+    index: Session.get("currentIndex"),
     keywordValue: "",
     keywordDescription: "",
   }
@@ -26,13 +27,28 @@ function addKeyword() {
 function removeKeyword(index) {
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
-  // Delete latest keyword from the current "keywords" json object.
-  Session.set("numKeywords", Session.get("numKeywords")-1);
-  delete keywords["keys"][index];
-  // Save the new "keywords" json object in the session variable.
-  Session.set("keywords", keywords);
-}
 
+  // Create a new keywords object, that replaces the old one.
+  var newKeywords = {"keys":[]};
+  for (var i = 0; i <= Session.get("numKeywords"); i++) {
+    if (i < index) {
+      // We want to keep this cell. Copy it!
+      newKeywords["keys"][i] = keywords["keys"][i];
+    } else if (i > index) {
+      // Skip cell no. "index"
+      newKeywords["keys"][i-1] = keywords["keys"][i];
+    }
+  }
+  // If user deleted the latest keyword cell, decrement currentIndex. Otherwise, don't.
+  if (index == Session.get("numKeywords")) {
+    Session.set("currentIndex", Session.get("currentIndex")-1);
+  }
+
+  // We have now removed one keyword.
+  Session.set("numKeywords", Session.get("numKeywords")-1);
+  // Save the new "keywords" json object in the session variable.
+  Session.set("keywords", newKeywords);
+}
 
 Template.summaryPage.onCreated( () => {
   let template = Template.instance();
@@ -44,6 +60,7 @@ Template.summaryPage.onRendered(function(){
   // Init number of displayed keywords
   if (!Session.get("numKeywords")) {
     Session.set("numKeywords", -1);
+    Session.set("currentIndex", -1);
     Session.set("keywords", {"keys":[]});
   }
 });
@@ -66,17 +83,9 @@ Template.summaryPage.events({
 
   "click #addKeywordContainerBtn":function(event) {
     addKeyword();
-    // keywordCounter++;
-    // var keywordHtml = `
-    //   <div class="keywordContainer red col s12 white-text">
-    //     <span id="keywordTxt" class="left">TEST`+keywordCounter+`</span>
-    //     <span class="right deleteKeywordContainer"><i style="font-size: 16px;" class="fa fa-times"></i></span>
-    //   </div>`;
-    // $("#keywordBox").append(keywordHtml)
   },
 
   "click .deleteKeywordContainer":function(event) {
-    console.log(event.target.getAttribute("data-index"));
     removeKeyword(event.target.getAttribute("data-index"));
   },
 
