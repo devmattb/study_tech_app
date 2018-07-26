@@ -9,6 +9,12 @@ import "../components/summaryComponents/keyword.js";
 import {pageInit} from "../../api/functions/pageInit"
 import {subscriptions} from "../../api/functions/subscriptions"
 
+function editKeywordContent(){
+  $("#keywordModal").modal('open');
+  currentIndex = Session.get("currentIndex");
+  Session.set("activeKeyword", currentIndex);
+}
+
 function addKeyword() {
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
@@ -83,6 +89,7 @@ Template.summaryPage.events({
 
   "click #addKeywordContainerBtn":function(event) {
     addKeyword();
+    editKeywordContent();
   },
 
   "click .deleteKeywordContainer":function(event) {

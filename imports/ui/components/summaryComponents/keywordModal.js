@@ -16,11 +16,11 @@ Template.body.events({
     const keywordDescription = target.keywordDescription.value;
 
 
-    var activeKeyWord = Session.get("activeKeyWord");
+    var activeKeyword = Session.get("activeKeyword");
     var keywords = Session.get("keywords");
     // var selectedKeywordIndex = Session.get("numKeywords");
-    keywords["keys"][activeKeyWord] = {
-      index: activeKeyWord,
+    keywords["keys"][activeKeyword] = {
+      index: activeKeyword,
       keywordValue: keywordValue,
       keywordDescription: keywordDescription,
     }

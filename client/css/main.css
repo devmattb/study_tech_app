@@ -138,6 +138,12 @@ label { font-size: 18px!important;}
   padding: 15px;
 }
 
+.keyword-modal-close-btn{
+  padding: 5px;
+  margin: 10px;
+  margin-top: 0px;
+}
+
 #preloader {
 
     position: fixed;

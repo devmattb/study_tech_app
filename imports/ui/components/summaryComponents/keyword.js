@@ -8,7 +8,7 @@ Template.keyword.onRendered(function(){
 Template.keyword.events({
   'click #edit-keyword-content': function(event){
     thisIndex = event.target.getAttribute("data-index");
-    Session.set("activeKeyWord", thisIndex);
-    console.log(Session.get("activeKeyWord"));
+    Session.set("activeKeyword", thisIndex);
+    console.log(Session.get("activeKeyword"));
   },
 });
