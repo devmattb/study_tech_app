@@ -315,3 +315,19 @@ ol {
   left: 0px;
   transition: 0.3s;
 }
+
+
+/***
+* summaryPage CSS
+****/
+#addKeywordContainerBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  border: 1px solid red;
+}
+
+#summaryPage {
+  /* Prevents keyword scale-ins from creating X-Axis slide bar.*/
+  overflow-x:hidden;
+}

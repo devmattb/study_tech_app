@@ -6,6 +6,13 @@ Template.keywordModal.onRendered(function(){
 });
 
 Template.body.events({
+
+  // Close the modal through gray overlay:
+  'click .modal-overlay':function(){
+    // Scale in all hidden keywords.
+    Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
+  },
+
   'submit .new-keyword'(event) {
     // Prevent default browser form submit
     event.preventDefault();
@@ -14,7 +21,6 @@ Template.body.events({
     const target = event.target;
     const keywordValue = target.keywordValue.value;
     const keywordDescription = target.keywordDescription.value;
-
 
     var activeKeyword = Session.get("activeKeyword");
     var keywords = Session.get("keywords");
@@ -38,6 +44,8 @@ Template.body.events({
     // test code
     console.log(this);
 
+    // Scale in all hidden keywords.
+    Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
 
   },
 });

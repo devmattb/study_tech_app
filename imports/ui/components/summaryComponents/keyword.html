@@ -1,25 +1,11 @@
 <template name="keyword">
-  {{index}}
-  <div class="row scale-out scale-transition keywordContainer red white-text">
-
-    <!-- <div class="col s4">
-        <span id="keywordTxt" class="left">{{keywordValue}}           {{keywordDescription}}</span>
-    </div>
-
-    <div class="col s4 center-align">
-      <span><a data-index="{{index}}" id="edit-keyword-content" class="waves-effect waves-light btn modal-trigger" href="#keywordModal">{{index}}</a></span>
-    </div>
-
-    <div class="col s4">
-      <span class="deleteKeywordContainer right"><i data-index="{{index}}" style="font-size: 16px;" class="fa fa-times"></i></span>
-    </div> -->
-
+  <div class="row scale-out scale-transition keywordContainer red white-text" data-index="{{index}}">
        <div class="col s12">
          <div class="card blue-grey darken-1">
            <div class="card-content activator">
              <div class="row">
                <div class="col s10 card-title activator grey-text text-darken-4">
-                 <div class="left activator flow-text">{{keywordValue}}</div>
+                 <div class="left activator flow-text">{{index}} {{keywordValue}}</div>
                </div>
                <div class="col s2" style="display: block;">
                  <span class="deleteKeywordContainer right"><i data-index="{{index}}" style="font-size: 16px;" class="fa fa-times"></i></span>
@@ -35,8 +21,6 @@
             <div class="right"><span class="card-title grey-text text-darken-4"><i class="fa fa-window-close" aria-hidden="true"></i></span></div>
 
              <p class="black-text flow-text">{{keywordDescription}}</p>
-
-
            </div>
          </div>
        </div>
