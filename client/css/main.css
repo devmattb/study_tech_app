@@ -307,19 +307,25 @@ ol {
   padding-left:0px!important;
 }
 
-.keywordContainer {
-  border-radius: 5px;
-  padding: 12px!important;
-  margin: 5px;
-  position: relative;
-  left: 0px;
-  transition: 0.3s;
-}
-
-
 /***
 * summaryPage CSS
 ****/
+
+.keywordContainer {
+  margin: -5px;
+}
+
+.keywordContainer .card {
+  border-radius: 5px;
+}
+
+.keywordContainer .card-title, .keywordContainer .card-title div {
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  font-family: "Roboto", sans-serif!important;
+}
+
 #addKeywordContainerBtn {
   position: fixed;
   bottom: 25px;
