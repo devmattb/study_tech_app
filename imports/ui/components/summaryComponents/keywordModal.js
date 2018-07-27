@@ -1,6 +1,8 @@
 import "./keywordModal.html";
 import {pageInit} from "../../../api/functions/pageInit";
 
+import {addKeyword} from "../../../api/functions/summaryPage/addKeyword";
+
 Template.keywordModal.onRendered(function(){
   pageInit();
 });
@@ -9,8 +11,14 @@ Template.body.events({
 
   // Close the modal through gray overlay:
   'click .modal-overlay':function(){
-    // Scale in all hidden keywords.
-    Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
+    // TODO: Only create a new keyword if the form details aren't set.
+    if (true) {
+      // Create empty keyword:
+      addKeyword(Session.get("currentIndex"), "", "");
+      // Scale in the new keyword.
+      Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
+    }
+
   },
 
   'submit .new-keyword'(event) {
@@ -22,19 +30,22 @@ Template.body.events({
     const keywordValue = target.keywordValue.value;
     const keywordDescription = target.keywordDescription.value;
 
-    var activeKeyword = Session.get("activeKeyword");
-    var keywords = Session.get("keywords");
+    var indexVal = Session.get("activeKeyword");
+    addKeyword(indexVal, keywordValue, keywordDescription);
+
+    // NOTE: Old/Unusable? Did I miss something?
+    // var keywords = Session.get("keywords");
     // var selectedKeywordIndex = Session.get("numKeywords");
-    keywords["keys"][activeKeyword] = {
-      index: activeKeyword,
-      keywordValue: keywordValue,
-      keywordDescription: keywordDescription,
-    }
-    Session.set("keywords", keywords);
+    // keywords["keys"][activeKeyword] = {
+    //   index: activeKeyword,
+    //   keywordValue: keywordValue,
+    //   keywordDescription: keywordDescription,
+    // }
+    // Session.set("keywords", keywords);
+    //
+    // console.log(keywordValue+" "+keywordDescription);
 
-    console.log(keywordValue+" "+keywordDescription);
-
-    // Insert a task into the collection
+    // TODO: Insert a task into the collection
 
 
     // Clear form
