@@ -2,6 +2,7 @@ import "./keywordModal.html";
 import {pageInit} from "../../../api/functions/pageInit";
 
 import {addKeyword} from "../../../api/functions/summaryPage/addKeyword";
+import {editKeyword} from "../../../api/functions/summaryPage/editKeyword";
 
 Template.keywordModal.onRendered(function(){
   pageInit();
