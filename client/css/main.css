@@ -212,7 +212,7 @@ p, button, .btn, nav li a, .side-nav li a  {
 }
 
 h5,h4,h3,h2,h1  {
-  text-transform: capitalize;
+  text-transform: uppercase;
   letter-spacing: 1.5px;
   font-family: "Oswald"!important;
   font-weight: 300;
@@ -328,12 +328,16 @@ ol {
 
 #addKeywordContainerBtn {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  border: 1px solid red;
+  bottom: 20px;
+  right: 30px;
+  border: 1px solid #fff!important;
+  transition: 0.2s;
+  color: #fb8c00!important;
 }
 
 #summaryPage {
   /* Prevents keyword scale-ins from creating X-Axis slide bar.*/
   overflow-x:hidden;
+  height: 100%;
+  width: 100%;
 }

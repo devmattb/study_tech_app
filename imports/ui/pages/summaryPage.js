@@ -26,6 +26,13 @@ Template.summaryPage.onRendered(function(){
     Session.set("currentIndex", -1);
     Session.set("keywords", {"keys":[]});
   }
+    // Set height to 100%
+  $("#summaryPage").css('height', $(window).height());
+
+  $(window).resize(function() {
+    //resize just happened, makes sure fullpage is always fullpage.
+    $("#summaryPage").css('height', $(window).height());
+  });
 });
 
 Template.summaryPage.helpers({
