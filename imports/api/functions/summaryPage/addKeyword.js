@@ -5,7 +5,7 @@ export function addKeyword(indexVal, keyVal, keyDesc) {
   // Add to the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")+1);
   Session.set("currentIndex", Session.get("currentIndex")+1);
-  keywords["keys"][Session.get("currentIndex")] = {
+  keywords["keys"][Session.get("numKeywords")] = {
     index: Session.get("currentIndex"),
     keywordValue: keyVal,
     keywordDescription: keyDesc,

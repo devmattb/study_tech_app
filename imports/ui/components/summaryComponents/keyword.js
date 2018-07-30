@@ -1,4 +1,5 @@
 import "./keyword.html";
+import {removeKeyword} from "../../../api/functions/summaryPage/removeKeyword";
 
 Template.keyword.onRendered(function(){
   // Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
@@ -6,6 +7,12 @@ Template.keyword.onRendered(function(){
 
 
 Template.keyword.events({
+
+  "click .fa-times":function(event) {
+    event.preventDefault();
+    removeKeyword(event.target.getAttribute("data-index"));
+  },
+
   'click .fa-edit':function(){
     // We're editing an existing keyword.
     $("#submit-keyword-btn").attr("data-editing", true);

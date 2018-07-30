@@ -8,8 +8,7 @@ import "../components/summaryComponents/keyword.js";
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
-import {addKeyword} from "../../api/functions/summaryPage/addKeyword";
-import {removeKeyword} from "../../api/functions/summaryPage/removeKeyword";
+
 
 function editKeywordContent(){
   $("#keywordModal").modal('open');
@@ -52,10 +51,6 @@ Template.summaryPage.events({
     // We're creating a new keyword:
     $("#submit-keyword-btn").attr("data-editing", false);
     editKeywordContent();
-  },
-
-  "click .deleteKeywordContainer":function(event) {
-    removeKeyword(event.target.getAttribute("data-index"));
   },
 
 });

@@ -1,7 +1,7 @@
 export function removeKeyword(index) {
 
   // Animate deletion:
-  $(".keywordContainer[data-index="+index+"]" ).addClass("scale-out");
+  // $(".keywordContainer[data-index="+index+"]").addClass("scale-out");
 
   // Delay the actual delete 300ms (let animation run):
   window.setTimeout(function(){
@@ -10,15 +10,15 @@ export function removeKeyword(index) {
 
     // Create a new keywords object, that replaces the old one.
     var newKeywords = {"keys":[]};
-    for (var i = 0; i <= Session.get("numKeywords"); i++) {
-      if (i < index) {
-        // We want to keep this cell. Copy it!
-        newKeywords["keys"][i] = keywords["keys"][i];
-      } else if (i > index) {
-        // Skip cell no. "index"
-        newKeywords["keys"][i-1] = keywords["keys"][i];
+    // Copy all cells, but the cell that the user wants to delete.
+    var cellno = 0;
+    jQuery.each(keywords["keys"], function(i, val) {
+      if ( keywords["keys"][i].index != index ) {
+        newKeywords["keys"][cellno] = keywords["keys"][i];
+        cellno++;
       }
-    }
+    });
+
 
     // If user deleted the latest keyword cell, decrement currentIndex. Otherwise, don't.
     if (index == Session.get("numKeywords")) {
