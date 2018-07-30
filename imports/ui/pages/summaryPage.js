@@ -1,6 +1,3 @@
-import "../components/header.js";
-import "../components/navbar.js";
-import "../components/preloader.js";
 import "../components/summaryComponents/keyword.js";
 import "./summaryPage.html";
 import "../components/summaryComponents/keywordModal.js";

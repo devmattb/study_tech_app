@@ -5,16 +5,18 @@
            <div class="card-content activator">
              <div class="row">
                <div class="col s10 card-title activator text-darken-4">
+                 <!-- TODO: Ta bort index -->
                  <div class="left activator flow-text">{{index}} {{keywordValue}}</div>
                </div>
                <div class="col s2" style="display: block;">
                  <span class=" right"><i data-index="{{index}}" style="font-size: 16px;" class="deleteKeywordContainer fa fa-times"></i></span>
                </div>
              </div>
-
-             <div class="right" style="font-size: 20px;">
-               <a id="edit-keyword-content" class="waves-effect waves-light modal-trigger" href="#keywordModal"><i data-index="{{index}}" class="fa fa-edit"></i></a>
-             </div>
+            <div class="card-action">
+                 <a style="font-size: 30px; position: relative; right: -55px; top: -10px;" class="right waves-effect waves-light modal-trigger" href="#keywordModal">
+                   <i id="edit-keyword-content" data-index="{{index}}" class="fa fa-edit white-text"></i>
+                 </a>
+            </div>
            </div>
 
            <div class="card-reveal">

@@ -1,10 +1,8 @@
 export function addKeyword(indexVal, keyVal, keyDesc) {
-  console.log("adding a keyword");
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
   // Add to the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")+1);
-  Session.set("currentIndex", Session.get("currentIndex")+1);
   keywords["keys"][Session.get("numKeywords")] = {
     index: Session.get("currentIndex"),
     keywordValue: keyVal,

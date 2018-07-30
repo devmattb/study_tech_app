@@ -10,21 +10,6 @@ Template.keywordModal.onRendered(function(){
 
 Template.body.events({
 
-  // Close the modal through gray overlay:
-  // 'click .modal-overlay':function(){
-  //   // TODO: Only create a new keyword if the form details aren't set.
-  //   if (true) {
-  //     // Create empty keyword:
-  //     addKeyword(Session.get("currentIndex"), "", "");
-  //     // Scale in the new keyword.
-  //     Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
-  //   }
-  //
-  // },
-
-
-
-
   'submit .new-keyword'(event) {
     // Prevent default browser form submit
     event.preventDefault();
@@ -38,24 +23,14 @@ Template.body.events({
     var editing = event.target.submit.getAttribute("data-editing") === "true";
     console.log(editing);
 
+    // Edit a keyword or create a new keyword?
     if (editing) {
       console.log(editing, "is editing");
       editKeyword(indexVal, keywordValue, keywordDescription);
     } else{
-      addKeyword(indexVal, keywordValue, keywordDescription);
+      Session.set("currentIndex", Session.get("currentIndex")+1);
+      addKeyword(Session.get("currentIndex"), keywordValue, keywordDescription);
     }
-
-    // NOTE: Old/Unusable? Did I miss something?
-    // var keywords = Session.get("keywords");
-    // var selectedKeywordIndex = Session.get("numKeywords");
-    // keywords["keys"][activeKeyword] = {
-    //   index: activeKeyword,
-    //   keywordValue: keywordValue,
-    //   keywordDescription: keywordDescription,
-    // }
-    // Session.set("keywords", keywords);
-    //
-    // console.log(keywordValue+" "+keywordDescription);
 
     // TODO: Insert a task into the collection
 
@@ -63,9 +38,6 @@ Template.body.events({
     // Clear form
     target.keywordValue.value = '';
     target.keywordDescription.value = '';
-
-    // test code
-    console.log(this);
 
     // Scale in all hidden keywords.
     Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);

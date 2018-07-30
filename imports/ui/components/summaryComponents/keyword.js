@@ -8,7 +8,7 @@ Template.keyword.onRendered(function(){
 
 Template.keyword.events({
 
-  "click .fa-times":function(event) {
+  "click .deleteKeywordContainer":function(event) {
     event.preventDefault();
     removeKeyword(event.target.getAttribute("data-index"));
   },
