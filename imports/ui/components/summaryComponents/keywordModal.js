@@ -2,6 +2,7 @@ import "./keywordModal.html";
 import {pageInit} from "../../../api/functions/pageInit";
 
 import {addKeyword} from "../../../api/functions/summaryPage/addKeyword";
+import {editKeyword} from "../../../api/functions/summaryPage/editKeyword";
 
 Template.keywordModal.onRendered(function(){
   pageInit();
@@ -21,6 +22,9 @@ Template.body.events({
   //
   // },
 
+
+
+
   'submit .new-keyword'(event) {
     // Prevent default browser form submit
     event.preventDefault();
@@ -31,7 +35,15 @@ Template.body.events({
     const keywordDescription = target.keywordDescription.value;
 
     var indexVal = Session.get("activeKeyword");
-    addKeyword(indexVal, keywordValue, keywordDescription);
+    var editing = event.target.submit.getAttribute("data-editing") === "true";
+    console.log(editing);
+
+    if (editing) {
+      console.log(editing, "is editing");
+      editKeyword(indexVal, keywordValue, keywordDescription);
+    } else{
+      addKeyword(indexVal, keywordValue, keywordDescription);
+    }
 
     // NOTE: Old/Unusable? Did I miss something?
     // var keywords = Session.get("keywords");

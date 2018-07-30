@@ -26,8 +26,8 @@ Template.summaryPage.onRendered(function(){
   pageInit();
   // Init number of displayed keywords
   if (!Session.get("numKeywords")) {
-    Session.set("numKeywords", 0);
-    Session.set("currentIndex", 0);
+    Session.set("numKeywords", -1);
+    Session.set("currentIndex", -1);
     Session.set("keywords", {"keys":[]});
   }
 });
@@ -49,6 +49,8 @@ var keywordCounter = 0;
 Template.summaryPage.events({
 
   "click #addKeywordContainerBtn":function(event) {
+    // We're creating a new keyword:
+    $("#submit-keyword-btn").attr("data-editing", false);
     editKeywordContent();
   },
 
