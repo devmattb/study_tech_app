@@ -49,6 +49,8 @@ var keywordCounter = 0;
 Template.summaryPage.events({
 
   "click #addKeywordContainerBtn":function(event) {
+    // We're creating a new keyword:
+    $(".new-keyword").setAttribute("data-editing", false);
     editKeywordContent();
   },
 

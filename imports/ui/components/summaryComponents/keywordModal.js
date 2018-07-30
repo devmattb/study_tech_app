@@ -10,16 +10,22 @@ Template.keywordModal.onRendered(function(){
 Template.body.events({
 
   // Close the modal through gray overlay:
-  'click .modal-overlay':function(){
-    // TODO: Only create a new keyword if the form details aren't set.
-    if (true) {
-      // Create empty keyword:
-      addKeyword(Session.get("currentIndex"), "", "");
-      // Scale in the new keyword.
-      Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
-    }
+  // 'click .modal-overlay':function(){
+  //   // TODO: Only create a new keyword if the form details aren't set.
+  //   if (true) {
+  //     // Create empty keyword:
+  //     addKeyword(Session.get("currentIndex"), "", "");
+  //     // Scale in the new keyword.
+  //     Meteor.defer(function(){$(".keywordContainer").removeClass("scale-out");},500);
+  //   }
+  //
+  // },
 
-  },
+  'click .edit-keyword-content':function(){
+    // We're editing an existing keyword.
+    $(".new-keyword").setAttribute("data-editing", true);
+   },
+
 
   'submit .new-keyword'(event) {
     // Prevent default browser form submit
@@ -31,7 +37,13 @@ Template.body.events({
     const keywordDescription = target.keywordDescription.value;
 
     var indexVal = Session.get("activeKeyword");
-    addKeyword(indexVal, keywordValue, keywordDescription);
+    var editing = event.target.getAttribute("data-editing");
+    console.log(editing);
+    if (editing) {
+      editKeyword(indexVal, keywordValue, keywordDescription);
+    } else {
+      addKeyword(indexVal, keywordValue, keywordDescription);
+    }
 
     // NOTE: Old/Unusable? Did I miss something?
     // var keywords = Session.get("keywords");
