@@ -13,7 +13,8 @@ Template.keyword.events({
     removeKeyword(event.target.getAttribute("data-index"));
   },
 
-  'click .fa-edit':function(){
+  'click .fa-edit':function(event){
+    event.preventDefault();
     // We're editing an existing keyword.
     $("#submit-keyword-btn").attr("data-editing", true);
    },
