@@ -2,9 +2,11 @@ import "../components/summaryComponents/keyword.js";
 import "./summaryPage.html";
 import "../components/summaryComponents/keywordModal.js";
 import "../components/summaryComponents/keyword.js";
+import "../components/summaryComponents/endSessionModal.js";
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
+
 
 
 function editKeywordContent(){
@@ -55,6 +57,10 @@ Template.summaryPage.events({
     // We're creating a new keyword:
     $("#submit-keyword-btn").attr("data-editing", false);
     editKeywordContent();
+  },
+
+  "click #submitSummaryPageSession": function(event){
+
   },
 
 });

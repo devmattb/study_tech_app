@@ -3,6 +3,7 @@ import {pageInit} from "../../../api/functions/pageInit";
 
 import {addKeyword} from "../../../api/functions/summaryPage/addKeyword";
 import {editKeyword} from "../../../api/functions/summaryPage/editKeyword";
+import {generateRandomeHashCode} from "../../../api/functions/generateRandomeHashCode";
 
 Template.keywordModal.onRendered(function(){
   pageInit();
@@ -19,17 +20,20 @@ Template.body.events({
     const keywordValue = target.keywordValue.value;
     const keywordDescription = target.keywordDescription.value;
 
-    var indexVal = Session.get("activeKeyword");
+    var hashCode = Session.get("activeKeyword");
     var editing = event.target.submit.getAttribute("data-editing") === "true";
     console.log(editing);
 
     // Edit a keyword or create a new keyword?
     if (editing) {
       console.log(editing, "is editing");
-      editKeyword(indexVal, keywordValue, keywordDescription);
-    } else{
-      Session.set("currentIndex", Session.get("currentIndex")+1);
-      addKeyword(Session.get("currentIndex"), keywordValue, keywordDescription);
+      editKeyword(hashCode, keywordValue, keywordDescription);
+    }
+      else
+      //  a new keyword template is being created
+    {
+      var hashCode = generateRandomeHashCode();
+      addKeyword(hashCode, keywordValue, keywordDescription);
     }
 
     // TODO: Insert a task into the collection

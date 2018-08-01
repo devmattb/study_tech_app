@@ -14,15 +14,20 @@ let schema = new SimpleSchema({
     optional: true
   },
 
-  'keyword': {
+  'keywordValue': {
     type: String,
     label: 'The name of this keyword.',
   },
 
-  'text': {
+  'keywordDescription': {
     type: String,
     label: 'The text of this keyword.',
   },
+
+  'hashCode' : {
+    type: String,
+    label: "unique id for each keyword",
+  }
 
 });
 

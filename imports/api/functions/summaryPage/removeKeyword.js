@@ -1,7 +1,7 @@
-export function removeKeyword(index) {
+export function removeKeyword(hashCode) {
 
   // Animate deletion:
-  // $(".keywordContainer[data-index="+index+"]").addClass("scale-out");
+  // $(".keywordContainer[data-hashCode="+hashCode+"]").addClass("scale-out");
 
   // Delay the actual delete 300ms (let animation run):
   window.setTimeout(function(){
@@ -13,17 +13,12 @@ export function removeKeyword(index) {
     // Copy all cells, but the cell that the user wants to delete.
     var cellno = 0;
     jQuery.each(keywords["keys"], function(i, val) {
-      if ( keywords["keys"][i].index != index ) {
+      if ( keywords["keys"][i].hashCode !== hashCode ) {
         newKeywords["keys"][cellno] = keywords["keys"][i];
         cellno++;
       }
     });
 
-
-    // If user deleted the latest keyword cell, decrement currentIndex. Otherwise, don't.
-    if (index == Session.get("numKeywords")) {
-      Session.set("currentIndex", Session.get("currentIndex")-1);
-    }
     console.log(newKeywords);
     // We have now removed one keyword.
     Session.set("numKeywords", Session.get("numKeywords")-1);

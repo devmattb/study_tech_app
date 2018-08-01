@@ -335,6 +335,14 @@ ol {
   color: #fb8c00!important;
 }
 
+#submitSummaryPageSession{
+  position: fixed;
+  bottom: 20px;
+  right:47.5%;
+  border: 1px solid #fff!important;
+  transition: 0.2s;
+}
+
 #summaryPage {
   /* Prevents keyword scale-ins from creating X-Axis slide bar.*/
   overflow-x:hidden;

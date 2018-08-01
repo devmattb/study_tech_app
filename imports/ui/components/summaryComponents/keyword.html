@@ -1,20 +1,20 @@
 <template name="keyword">
-  <div class="row scale-out scale-transition keywordContainer white-text" data-index="{{index}}">
+  <div class="row scale-out scale-transition keywordContainer white-text" data-hashCode="{{hashCode}}">
        <div class="col s12">
          <div class="card webOrange z-depth-2">
            <div class="card-content activator">
              <div class="row">
                <div class="col s10 card-title activator text-darken-4">
-                 <!-- TODO: Ta bort index -->
-                 <div class="left activator flow-text">{{index}} {{keywordValue}}</div>
+                 <!-- TODO: Ta bort hashCode -->
+                 <div class="left activator flow-text">{{keywordValue}}</div>
                </div>
                <div class="col s2" style="display: block;">
-                 <span class=" right"><i data-index="{{index}}" style="font-size: 16px;" class="deleteKeywordContainer fa fa-times"></i></span>
+                 <span class=" right"><i data-hashCode="{{hashCode}}" style="font-size: 16px;" class="deleteKeywordContainer fa fa-times"></i></span>
                </div>
              </div>
             <div class="card-action">
                  <a style="font-size: 30px; position: relative; right: -55px; top: -10px;" class="right waves-effect waves-light modal-trigger" href="#keywordModal">
-                   <i id="edit-keyword-content" data-index="{{index}}" class="fa fa-edit white-text"></i>
+                   <i id="edit-keyword-content" data-hashCode="{{hashCode}}" class="fa fa-edit white-text"></i>
                  </a>
             </div>
            </div>

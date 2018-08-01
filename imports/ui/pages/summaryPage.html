@@ -4,6 +4,7 @@
 
   <div id="summaryPage" class="blueGradient white-text">
     {{>keywordModal}}
+    {{>endSessionModal}}
 
     <div class="container">
       <div class="row">
@@ -19,10 +20,11 @@
 
           <div id="keywordBox" style="margin-top: 20px;" class="row col s12">
             {{#each keywords.keys}}
-              {{>keyword index=this.index keywordValue=this.keywordValue keywordDescription=this.keywordDescription}}
+              {{>keyword hashCode=this.hashCode keywordValue=this.keywordValue keywordDescription=this.keywordDescription}}
             {{/each}}
           </div>
           <div class="col s12">
+            <button id="submitSummaryPageSession" class="white-text btn-large waves-effect waves-light webOrange center z-depth-3 modal-trigger" href="#endSessionModal">Klar</button>
             <button id="addKeywordContainerBtn" class="btn-floating btn-large waves-effect waves-light webOrange right z-depth-3">
               <i class="fa fa-plus"></i>
             </button>

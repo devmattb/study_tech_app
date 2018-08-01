@@ -1,10 +1,18 @@
-export function editKeyword(indexVal, keyVal, keyDesc) {
+export function editKeyword(hashCodeVal, keyVal, keyDesc) {
   // Get the current "keywords" json object.
   var keywords = Session.get("keywords");
-  indexVal = parseInt(indexVal); // Make sure index is a number.
   // Add to the current "keywords" json object.
-  keywords["keys"][indexVal] = {
-    index: indexVal,
+
+  var cellNumber = 0;
+  jQuery.each(keywords["keys"], function(i, val) {
+    if ( keywords["keys"][i].hashCode === hashCodeVal ) {
+      cellNumber = i;
+    }
+  });
+
+
+  keywords["keys"][cellNumber] = {
+    hashCode: hashCodeVal,
     keywordValue: keyVal,
     keywordDescription: keyDesc,
   }

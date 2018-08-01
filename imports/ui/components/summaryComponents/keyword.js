@@ -10,7 +10,7 @@ Template.keyword.events({
 
   "click .deleteKeywordContainer":function(event) {
     event.preventDefault();
-    removeKeyword(event.target.getAttribute("data-index"));
+    removeKeyword(event.target.getAttribute("data-hashCode"));
   },
 
   'click .fa-edit':function(event){
@@ -21,7 +21,7 @@ Template.keyword.events({
 
   'click #edit-keyword-content': function(event){
     event.preventDefault();
-    var thisIndex = event.target.getAttribute("data-index");
+    var thisIndex = event.target.getAttribute("data-hashCode");
     Session.set("activeKeyword", thisIndex);
     console.log(Session.get("activeKeyword"));
   }
