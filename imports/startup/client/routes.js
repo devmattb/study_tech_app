@@ -16,6 +16,7 @@ import "../../ui/pages/studySession.js"
 import "../../ui/pages/feedbackPage.js"
 import "../../ui/pages/summaryPage.js"
 import "../../ui/pages/flashcardsPage.js"
+import "../../ui/pages/flashcardsGamePage.js"
 
 /**
 *   checkLoggedIn() function:
@@ -102,6 +103,14 @@ FlowRouter.route('/flashcardsPage', {
     name: 'flashcardsPage', //Reference name
     action() {  //What actually happens.
         BlazeLayout.render('flashcardsPage'); //Render
+        checkLoggedIn();
+    }
+});
+
+FlowRouter.route('/flashcardsGamePage', {
+    name: 'flashcardsGamePage', //Reference name
+    action() {  //What actually happens.
+        BlazeLayout.render('flashcardsGamePage'); //Render
         checkLoggedIn();
     }
 });
