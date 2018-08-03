@@ -12,11 +12,11 @@ Template.flashcardsPage.onRendered(function(){
   pageInit();
 
   // Set height to 100%
-  $("#flashcardsPage").css('height', $(window).height());
+  $("#flashcardsPage").css('min-height', $(window).height());
 
   $(window).resize(function() {
     //resize just happened, makes sure fullpage is always fullpage.
-    $("#flashcardsPage").css('height', $(window).height());
+    $("#flashcardsPage").css('min-height', $(window).height());
   });
 });
 
@@ -31,10 +31,17 @@ Template.flashcardsPage.helpers({
 
 Template.flashcardsPage.events({
 
-  // "click #addKeywordContainerBtn":function(event) {
-  //   // We're creating a new keyword:
-  //   $("#submit-keyword-btn").attr("data-editing", false);
-  //   editKeywordContent();
-  // },
+  "click #flashcard-game-read":function(event) {
+    // route to read-game-page
+    console.log("hej");
+  },
+  "click #flashcard-game-practice":function(event) {
+    // route to read-game-page
+    console.log("hej");
+  },
+  "click #flashcard-game-test":function(event) {
+    // route to read-game-page
+    console.log("hej");
+  },
 
 });

@@ -144,6 +144,16 @@ label { font-size: 18px!important;}
   margin-top: 0px;
 }
 
+.flashcard-overview-box{
+  cursor: pointer;
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  border: 20px solid #fb8c00; /* color */
+  padding: 25px;
+  margin: 25px;
+}
+
 #preloader {
 
     position: fixed;
