@@ -115,6 +115,14 @@ FlowRouter.route('/flashcardsGamePage', {
     }
 });
 
+FlowRouter.route('/flashcardPracticePage', {
+    name: 'flashcardPracticePage', //Reference name
+    action() {  //What actually happens.
+        BlazeLayout.render('flashcardPracticePage'); //Render
+        checkLoggedIn();
+    }
+});
+
 // FlowRouter.route('/timer', {
 //     name: 'timer', //Reference name
 //     action() {  //What actually happens.
