@@ -1,26 +1,26 @@
-import "./flashcardsGamePage.html";
+import "./flashcardsPage.html";
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
 
-Template.flashcardsGamePage.onCreated( () => {
+Template.flashcardsPage.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);
 });
 
-Template.flashcardsGamePage.onRendered(function(){
+Template.flashcardsPage.onRendered(function(){
   pageInit();
 
   // Set height to 100%
-  $("#flashcardsGamePage").css('height', $(window).height());
+  $("#flashcardsPage").css('height', $(window).height());
 
   $(window).resize(function() {
     //resize just happened, makes sure fullpage is always fullpage.
-    $("#flashcardsGamePage").css('height', $(window).height());
+    $("#flashcardsPage").css('height', $(window).height());
   });
 });
 
-Template.flashcardsGamePage.helpers({
+Template.flashcardsPage.helpers({
 
   // Keeps track of the number of keywords.
 //   numKeywords: function(){
@@ -29,7 +29,7 @@ Template.flashcardsGamePage.helpers({
 
 });
 
-Template.flashcardsGamePage.events({
+Template.flashcardsPage.events({
 
   // "click #addKeywordContainerBtn":function(event) {
   //   // We're creating a new keyword:

@@ -51,3 +51,4 @@ service-configuration
 useraccounts:flow-routing
 fourseven:scss
 appworkshop:materialize
+dsyko:jquery-ui-touch-punch
