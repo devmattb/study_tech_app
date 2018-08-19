@@ -3,6 +3,14 @@ import "./flashcardsGamePage.html";
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
 
+function changeToNextFlashcard(){
+
+}
+
+function changeToPreviousFlashcard(){
+
+}
+
 Template.flashcardsGamePage.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);
@@ -22,19 +30,30 @@ Template.flashcardsGamePage.onRendered(function(){
 
 Template.flashcardsGamePage.helpers({
 
-  // Keeps track of the number of keywords.
-//   numKeywords: function(){
-//     return Session.get("numKeywords");
-//   },
+  keywordValue: function(){
+    return "Keyword"
+  },
+
+  keywordDescription: function(){
+    return "Description"
+  },
 
 });
 
 Template.flashcardsGamePage.events({
 
-  // "click #addKeywordContainerBtn":function(event) {
-  //   // We're creating a new keyword:
-  //   $("#submit-keyword-btn").attr("data-editing", false);
-  //   editKeywordContent();
-  // },
+  "click #next-flashcard-btn": function(event) {
+    var div = $("#flashcard-learn");
+    div.slideUp(700);
+    changeToNextFlashcard();
+    div.slideDown(700);
+  },
+
+  "click #previous-flashcard-btn": function(event) {
+    var div = $("#flashcard-learn");
+    div.slideUp(700);
+    changeToPreviousFlashcard();
+    div.slideDown(700);
+  }
 
 });

@@ -39,7 +39,7 @@ Template.flashcardsPage.events({
   "click #flashcard-game-practice":function(event) {
     // route to read-game-page
 
-    FlowRouter.go("flashcardsGamePage");
+    FlowRouter.go("flashcardPracticePage");
   },
   "click #flashcard-game-test":function(event) {
     // route to read-game-page
