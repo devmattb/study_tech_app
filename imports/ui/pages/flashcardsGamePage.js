@@ -18,6 +18,14 @@ function swopToNextFlashcard(){
   setActiveKeyword();
 }
 
+function fadeOutFlashcardText(){
+  $(".flashcard-text").fadeOut(200);
+}
+
+function fadeInFlashcardText(){
+  $(".flashcard-text").fadeIn(500);
+}
+
 Template.flashcardsGamePage.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);
@@ -79,16 +87,23 @@ Template.flashcardsGamePage.events({
 
   "click #next-flashcard-btn": function(event) {
     var div = $("#flashcard-learn");
+    fadeOutFlashcardText();
     div.slideUp(700);
-    swopToNextFlashcard();
     div.slideDown(700);
+    setTimeout(function(){
+      swopToNextFlashcard();
+      fadeInFlashcardText();
+    }, 1200);
   },
 
   "click #previous-flashcard-btn": function(event) {
     var div = $("#flashcard-learn");
+    fadeOutFlashcardText();
     div.slideUp(700);
-    swopToPreviousFlashcard();
     div.slideDown(700);
+    setTimeout(function(){
+      swopToPreviousFlashcard();
+      fadeInFlashcardText();
+    }, 1200);
   }
-
 });
