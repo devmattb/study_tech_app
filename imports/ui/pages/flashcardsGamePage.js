@@ -4,6 +4,8 @@ import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
 
 var keywordQue;
+// TODO dummy content, swop for db content
+var dummyContent = {"keyword":[{"value": "Michael Jordan","description": "Played for the bulls, won 6 championships"},{"value": "Koby Bryant","description": "Played for the Lakers",},{"value": "Lebron James","description": "Played for the Miami heat",},{"value": "James Harden","description": "Played for the rockets",}]};
 function setActiveKeyword(){
   Session.set("activeFlashcardKeyword", Session.get("flashcardValues").keyword[keywordQue].value);
   Session.set("activeFlashcardDescription", Session.get("flashcardValues").keyword[keywordQue].description);
@@ -36,30 +38,9 @@ Template.flashcardsGamePage.onRendered(function(){
 
   // Init number of displayed keywords
   if (!Session.get("flashcardValues")) {
+    Session.set("certainCard", "");
+    Session.set("uncertainCard", "");
     keywordQue = 0;
-    // TODO dummy content, swop for db content
-
-    var dummyContent = {
-      "keyword":[
-        {
-          "value": "Michael Jordan",
-          "description": "Played for the bulls, won 6 championships"
-        },
-        {
-          "value": "Koby Bryant",
-          "description": "Played for the Lakers",
-        },
-        {
-          "value": "Lebron James",
-          "description": "Played for the Miami heat",
-        },
-        {
-          "value": "James Harden",
-          "description": "Played for the rockets",
-        }
-      ]
-    };
-
     Session.set("flashcardValues", dummyContent);
     setActiveKeyword();
   }
@@ -74,6 +55,14 @@ Template.flashcardsGamePage.onRendered(function(){
 
 Template.flashcardsGamePage.helpers({
 
+  certainCard: function(){
+    return Session.get("certainCard");
+  },
+
+  uncertainCard: function(){
+    return Session.get("uncertainCard");
+  },
+
   keywordValue: function(){
     return Session.get("activeFlashcardKeyword");
   },
@@ -86,6 +75,7 @@ Template.flashcardsGamePage.helpers({
 Template.flashcardsGamePage.events({
 
   "click #next-flashcard-btn": function(event) {
+    $(".card-title").click();
     var div = $("#flashcard-learn");
     fadeOutFlashcardText();
     div.slideUp(700);
@@ -93,7 +83,7 @@ Template.flashcardsGamePage.events({
     setTimeout(function(){
       swopToNextFlashcard();
       fadeInFlashcardText();
-    }, 1200);
+    }, 1000);
   },
 
   "click #previous-flashcard-btn": function(event) {
@@ -104,6 +94,6 @@ Template.flashcardsGamePage.events({
     setTimeout(function(){
       swopToPreviousFlashcard();
       fadeInFlashcardText();
-    }, 1200);
+    }, 1000);
   }
 });
