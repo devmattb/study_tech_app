@@ -23,6 +23,5 @@ Template.keyword.events({
     event.preventDefault();
     var thisIndex = event.target.getAttribute("data-hashCode");
     Session.set("activeKeyword", thisIndex);
-    console.log(Session.get("activeKeyword"));
   }
 });

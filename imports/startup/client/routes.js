@@ -17,6 +17,8 @@ import "../../ui/pages/feedbackPage.js"
 import "../../ui/pages/summaryPage.js"
 import "../../ui/pages/flashcardsPage.js"
 import "../../ui/pages/flashcardsGamePage.js"
+import "../../ui/pages/flashcardPracticePage.js"
+
 
 /**
 *   checkLoggedIn() function:
