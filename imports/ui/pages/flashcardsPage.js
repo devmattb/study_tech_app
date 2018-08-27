@@ -33,15 +33,18 @@ Template.flashcardsPage.events({
 
   "click #flashcard-game-read":function(event) {
     // route to read-game-page
-    console.log("hej");
+
+    FlowRouter.go("flashcardsGamePage");
   },
   "click #flashcard-game-practice":function(event) {
     // route to read-game-page
-    console.log("hej");
+
+    FlowRouter.go("flashcardPracticePage");
   },
   "click #flashcard-game-test":function(event) {
     // route to read-game-page
-    console.log("hej");
+
+    FlowRouter.go("flashcardsGamePage");
   },
 
 });
