@@ -9,6 +9,8 @@ Template.flashcardsPage.onCreated( () => {
 });
 
 Template.flashcardsPage.onRendered(function(){
+
+  
   pageInit();
 
   // Set height to 100%
@@ -18,6 +20,7 @@ Template.flashcardsPage.onRendered(function(){
     //resize just happened, makes sure fullpage is always fullpage.
     $("#flashcardsPage").css('height', $(window).height());
   });
+
 });
 
 Template.flashcardsPage.helpers({
