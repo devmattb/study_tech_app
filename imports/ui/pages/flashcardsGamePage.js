@@ -1,4 +1,5 @@
 import "./flashcardsGamePage.html";
+import "../components/DragDropTouch.js"
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
@@ -35,11 +36,13 @@ Template.flashcardsGamePage.onCreated( () => {
 
 Template.flashcardsGamePage.onRendered(function(){
   pageInit();
-
+  var emptyJsonArr = {"keyword":[{}]};
   // Init number of displayed keywords
   if (!Session.get("flashcardValues")) {
     Session.set("certainCard", "");
+    Session.set("certainValues", emptyJsonArr);
     Session.set("uncertainCard", "");
+    Session.set("uncertainValues", emptyJsonArr);
     keywordQue = 0;
     Session.set("flashcardValues", dummyContent);
     setActiveKeyword();
