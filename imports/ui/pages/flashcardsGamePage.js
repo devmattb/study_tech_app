@@ -20,9 +20,26 @@ function swopToNextFlashcard(){
   keywordQue += 1;
   setActiveKeyword();
 }
+
+function changeFlashcard(direction){
+  var div = $("#flashcard-learn");
+  fadeOutFlashcardText();
+  div.slideUp(700);
+  div.slideDown(700);
+  setTimeout(function(){
+    fadeInFlashcardText();
+    if(direction=="forward"){
+      swopToNextFlashcard();
+    }else{
+      swopToPreviousFlashcard();
+    }
+  }, 1000);
+}
+
 function fadeOutFlashcardText(){
   $(".flashcard-text").fadeOut(200);
 }
+
 function fadeInFlashcardText(){
   $(".flashcard-text").fadeIn(500);
 }
@@ -78,27 +95,29 @@ Template.flashcardsGamePage.helpers({
 Template.flashcardsGamePage.events({
 
   "click #next-flashcard-btn": function(event) {
-    $(".card-title").click();
-    var div = $("#flashcard-learn");
-    fadeOutFlashcardText();
-    div.slideUp(700);
-    div.slideDown(700);
-    setTimeout(function(){
-      fadeInFlashcardText();
-      swopToNextFlashcard();
-    }, 1000);
+    // $(".card-title").click();
+    // var div = $("#flashcard-learn");
+    // fadeOutFlashcardText();
+    // div.slideUp(700);
+    // div.slideDown(700);
+    // setTimeout(function(){
+    //   fadeInFlashcardText();
+    //   swopToNextFlashcard();
+    // }, 1000);
+    changeFlashcard("forward");
 
   },
 
   "click #previous-flashcard-btn": function(event) {
-    var div = $("#flashcard-learn");
-    fadeOutFlashcardText();
-    div.slideUp(700);
-    div.slideDown(700);
-    setTimeout(function(){
-      fadeInFlashcardText();
-      swopToPreviousFlashcard();
-    }, 1000);
+    // var div = $("#flashcard-learn");
+    // fadeOutFlashcardText();
+    // div.slideUp(700);
+    // div.slideDown(700);
+    // setTimeout(function(){
+    //   fadeInFlashcardText();
+    //   swopToPreviousFlashcard();
+    // }, 1000);
+    changeFlashcard("backward");
 
   }
 });
