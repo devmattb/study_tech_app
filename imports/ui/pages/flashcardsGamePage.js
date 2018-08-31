@@ -23,12 +23,13 @@ function swopToNextFlashcard(){
 }
 
 Template.flashcardsGamePage.onCreated( () => {
+
   let template = Template.instance();
   subscriptions(template);
 });
 
 Template.flashcardsPage.onRendered(function(){
-
+  console.log("rendered");
   pageInit();
   var emptyJsonArr = {"keyword":[{}]};
   // Init number of displayed keywords
@@ -39,6 +40,7 @@ Template.flashcardsPage.onRendered(function(){
     Session.set("uncertainValues", emptyJsonArr);
     keywordQue = 0;
     Session.set("flashcardValues", dummyContent);
+    console.log("kör");
     setActiveKeyword();
   }
 
