@@ -1,6 +1,5 @@
 import "./flashcardsGamePage.html";
 import "../components/DragDropTouch.js"
-import "../../api/functions/flashcardsPage/flashcardsAnimations"
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
@@ -21,6 +20,12 @@ function swopToNextFlashcard(){
   keywordQue += 1;
   setActiveKeyword();
 }
+function fadeOutFlashcardText(){
+  $(".flashcard-text").fadeOut(200);
+}
+function fadeInFlashcardText(){
+  $(".flashcard-text").fadeIn(500);
+}
 
 Template.flashcardsGamePage.onCreated( () => {
 
@@ -28,8 +33,7 @@ Template.flashcardsGamePage.onCreated( () => {
   subscriptions(template);
 });
 
-Template.flashcardsPage.onRendered(function(){
-  console.log("rendered");
+Template.flashcardsGamePage.onRendered(function(){
   pageInit();
   var emptyJsonArr = {"keyword":[{}]};
   // Init number of displayed keywords
@@ -40,7 +44,6 @@ Template.flashcardsPage.onRendered(function(){
     Session.set("uncertainValues", emptyJsonArr);
     keywordQue = 0;
     Session.set("flashcardValues", dummyContent);
-    console.log("kör");
     setActiveKeyword();
   }
 
@@ -53,7 +56,7 @@ Template.flashcardsPage.onRendered(function(){
 
 });
 
-Template.flashcardsPage.helpers({
+Template.flashcardsGamePage.helpers({
 
   certainCard: function(){
     return Session.get("certainCard");
@@ -72,18 +75,30 @@ Template.flashcardsPage.helpers({
 
 });
 
-Template.flashcardsPage.events({
+Template.flashcardsGamePage.events({
 
   "click #next-flashcard-btn": function(event) {
     $(".card-title").click();
     var div = $("#flashcard-learn");
-    changeFlashcard();
-    swopToNextFlashcard();
+    fadeOutFlashcardText();
+    div.slideUp(700);
+    div.slideDown(700);
+    setTimeout(function(){
+      fadeInFlashcardText();
+      swopToNextFlashcard();
+    }, 1000);
+
   },
 
   "click #previous-flashcard-btn": function(event) {
     var div = $("#flashcard-learn");
-    changeFlashcard();
-    swopToPreviousFlashcard();
+    fadeOutFlashcardText();
+    div.slideUp(700);
+    div.slideDown(700);
+    setTimeout(function(){
+      fadeInFlashcardText();
+      swopToPreviousFlashcard();
+    }, 1000);
+
   }
 });
