@@ -1,5 +1,6 @@
 import "./flashcardsGamePage.html";
 import "../components/DragDropTouch.js"
+import "../../api/functions/flashcardsPage/flashcardsAnimations"
 
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
@@ -21,21 +22,12 @@ function swopToNextFlashcard(){
   setActiveKeyword();
 }
 
-function fadeOutFlashcardText(){
-  $(".flashcard-text").fadeOut(200);
-}
-
-function fadeInFlashcardText(){
-  $(".flashcard-text").fadeIn(500);
-}
-
 Template.flashcardsGamePage.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);
 });
 
 Template.flashcardsPage.onRendered(function(){
-
 
   pageInit();
   var emptyJsonArr = {"keyword":[{}]};
@@ -83,23 +75,13 @@ Template.flashcardsPage.events({
   "click #next-flashcard-btn": function(event) {
     $(".card-title").click();
     var div = $("#flashcard-learn");
-    fadeOutFlashcardText();
-    div.slideUp(700);
-    div.slideDown(700);
-    setTimeout(function(){
-      swopToNextFlashcard();
-      fadeInFlashcardText();
-    }, 1000);
+    changeFlashcard();
+    swopToNextFlashcard();
   },
 
   "click #previous-flashcard-btn": function(event) {
     var div = $("#flashcard-learn");
-    fadeOutFlashcardText();
-    div.slideUp(700);
-    div.slideDown(700);
-    setTimeout(function(){
-      swopToPreviousFlashcard();
-      fadeInFlashcardText();
-    }, 1000);
+    changeFlashcard();
+    swopToPreviousFlashcard();
   }
 });

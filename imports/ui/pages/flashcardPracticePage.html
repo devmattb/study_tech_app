@@ -60,14 +60,16 @@
 
       <div class="row">
         <div class="col s12 white container" style="height: 250px;">
-            <form class="" style="margin-top: 100px;">
+            <form class="" style="margin-top: 50px;">
               <div class="input-field col s12">
-                <textarea id="textarea1" class="materialize-textarea black-text"></textarea>
+                <textarea id="textarea1" class="materialize-textarea black-text" style="overflow-y: auto; max-height: 85px;"></textarea>
                 <label for="textarea1">Svar</label>
-            </div>
-            <!-- <button name="submit" id="submit-answer-btn" class="white-text webOrange waves-effect waves-light btn-flat" type="submit">
-              <i class="fa fa-paper-plane" aria-hidden="true"></i>
-            </button> -->
+                <div class="row">
+                  <div class="col s2 offset-s5">
+                    <input type="submit" value="Submit" name="submit" id="submit-flashcard-answer-btn" class="white-text webOrange waves-effect waves-light btn-flat">
+                  </div>
+                </div>
+              </div>
           </form>
         </div>
       </div>
