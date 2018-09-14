@@ -2,7 +2,11 @@ import {Meteor} from "meteor/meteor";
 
 Meteor.methods({
 
-  // Insert a document in to the feedbackAnswer collection.
+  /**
+  *  Inserts a document "doc" in to the "feedbackAnswer" collection.
+  *
+  *  @param doc is a JSON object we wish to be inserted.
+  **/
   "FeedbackAnswer.insert": function(doc) {
     FeedbackAnswer.insert(
       doc,

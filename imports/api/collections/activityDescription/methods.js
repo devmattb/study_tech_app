@@ -1,6 +1,10 @@
 Meteor.methods({
 
-  // Inserts a document in to the activityDescription collection.
+  /**
+  *  Inserts a document "doc" in to the "activityDescription" collection.
+  *
+  *  @param doc is a JSON object we wish to be inserted.
+  **/
   "ActivityDescription.insert": function(doc) {
     ActivityDescription.insert(
       doc,

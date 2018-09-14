@@ -58,7 +58,12 @@ let keywordsSchema = new SimpleSchema({
   },
 
   'keywords': {
-      type: [keyword], // An array of the schema 'keyword'.
+      type: Array, // Defines an array.
+      label: "All keywords for a summary."
+  },
+
+  'keywords.$': {
+      type: keyword, // Defines each cell in the array as the schema "keyword"
       label: "All keywords for a summary."
   },
 

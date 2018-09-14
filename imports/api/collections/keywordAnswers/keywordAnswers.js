@@ -36,11 +36,15 @@ let keywordAnswersSchema = new SimpleSchema({
     optional: true
   },
 
-  // An array of answers to each keyword.
-  'keywordAnswers': {
-      type: [keywordAnswer], // An array of the schema 'keyword'.
-      label: "Answers to all keywords."
-  }
+  'keywordsAnswers': {
+      type: Array, // Defines an array.
+      label: "All keywords for a summary."
+  },
+
+  'keywordsAnswers.$': {
+      type: keywordAnswer, // Defines each cell in the array as the schema "keywordAnswer"
+      label: "All keywords for a summary."
+  },
 
 });
 

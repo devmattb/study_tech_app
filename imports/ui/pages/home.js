@@ -8,8 +8,6 @@ import {pageInit} from "../../api/functions/pageInit"
 import {initCal} from "../../api/functions/initCal"
 import {subscriptions} from "../../api/functions/subscriptions"
 
-
-
 Template.home.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);
