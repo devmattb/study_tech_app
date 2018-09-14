@@ -14,6 +14,9 @@ let studySessionSchema = new SimpleSchema({
     optional: true
   },
 
+  // TODO: Once we manage to rewrite the calendar-event-fetching function.
+  //       So that we can use the ID from the studyChain object,
+  //       then we can remove this.
   'connectedUserId': {
     type: String,
     label: 'The connected user ID.',
