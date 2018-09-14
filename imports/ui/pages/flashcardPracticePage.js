@@ -16,6 +16,10 @@ function allowToRevealAnswer(){
   }
 }
 
+Template.flashcardPracticePage.helpers({
+
+});
+
 Template.flashcardPracticePage.onCreated( () => {
   let template = Template.instance();
   subscriptions(template);

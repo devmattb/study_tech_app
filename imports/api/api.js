@@ -13,6 +13,8 @@ import "./collections/studyChain/server/publications.js"
 import "./collections/studySession/server/publications.js"
 import "./collections/summary/server/publications.js"
 import "./collections/keyword/server/publications.js"
+import "./collections/flashcardAnswer/server/publications.js"
+
 
 // Define all collection-specific methods:
 import "./collections/activityDescription/methods.js"
@@ -22,3 +24,4 @@ import "./collections/studyChain/methods.js"
 import "./collections/studySession/methods.js"
 import "./collections/summary/methods.js"
 import "./collections/keyword/methods.js"
+import "./collections/flashcardAnswer/methods.js"
