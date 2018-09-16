@@ -1,6 +1,19 @@
 /**
 *    Database Security, Allows clients to do certain operations to the specific collections:
 **/
+
+Keywords.allow({
+  insert: function() {
+    return true;
+  },
+  update: function() {
+    return true;
+  },
+  remove: function () {
+      return true;
+  },
+});
+
 //Allow all clients to perform any operation on their own studysession data.
 StudySession.allow({
  insert: function (userId, doc) {
