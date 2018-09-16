@@ -12,6 +12,7 @@ Meteor.methods({
 
   /**
   *  Updates the studySession collection.
+  *
   *  @param id is the id of the JSON object that is to be updated.
   *  @param doc is a JSON object with the parameters that wish to be updated.
   **/
@@ -27,9 +28,10 @@ Meteor.methods({
   },
 
   /**
-  *  Inserts in to the StudySession collection with a chained upsert.
-  *  @param doc is a JSON object with the parameters that wish to be updated.
-  *  @param studyChainId is the connected studychain id to this studysession.
+  *  Inserts in to the "studySession" collection (with a chained upsert!).
+  *
+  *  @param doc is a JSON object we wish to be inserted.
+  *  @param studyChainId is the connected studyChain id to this studySession.
   **/
   "StudySession.insert": function(doc) {
     StudySession.insert(
@@ -42,8 +44,8 @@ Meteor.methods({
           // Everything went smoothly...
           /**
           *   UPDATE
-          *   1. The studysession url with its id.
-          *   2. The studychain id to the connected studychain.
+          *   1. The studySession url with its id.
+          *   2. The studyChain id to the connected studyChain.
           *   This makes each study session uniquely clickable with dynamic info.
           **/
           doc.url = Meteor.absoluteUrl("studySession/"+doc_id, {}); // Update doc with new unique url

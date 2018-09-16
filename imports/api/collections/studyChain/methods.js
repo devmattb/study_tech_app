@@ -3,7 +3,11 @@ import {sharedVariables} from "../sharedVariables"
 
 Meteor.methods({
 
-  // Inserts a document in to the studyChain collection.
+  /**
+  *  Inserts a document "doc" in to the "studyChain" collection.
+  *
+  *  @param doc is a JSON object we wish to be inserted.
+  **/
   "StudyChain.insert": function(doc) {
     StudyChain.insert(
       doc,

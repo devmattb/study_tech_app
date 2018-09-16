@@ -3,6 +3,39 @@ import {sharedVariables} from "../sharedVariables"
 
 Meteor.methods({
 
+  /**
+  *  Inserts in to the "keywords" collection.
+  *
+  *  @param doc is a JSON object with the parameters that wish to be inserted.
+  **/
+  "Keywords.insert": function(doc) {
+    Keywords.insert(
+      doc,
+      function(error, keywords_id) {
+        if ( error ) {
+          console.log ( error + " with object " + keywords_id ); //info about what went wrong
+          Materialize.toast('Något gick fel... Försök igen!', 4000, "red");
+          return; // Stop exec
+        }
+      }
+    );
+  },
 
+  /**
+  *  Updates an object in the "keywords" collection.
+  *
+  *  @param id is the id of the JSON object that is to be updated.
+  *  @param doc is a JSON object with the parameters that wish to be updated.
+  **/
+  "Keywords.upsert": function( id, doc ) {
+   Keywords.upsert({_id: id}, {$set:doc},
+    function(err, objId) { // Handle errors
+      if(err) {
+        console.log("ERROR in UPSERT: " + err + " with object " + objId);
+        Materialize.toast('Något gick fel!', 4000, "red");
+      }
+    }
+   );
+  }
 
 });
