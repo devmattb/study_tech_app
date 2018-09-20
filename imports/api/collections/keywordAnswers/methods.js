@@ -1,12 +1,12 @@
-import {Meteor} from "meteor/meteor"
-import {sharedVariables} from "../sharedVariables"
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
 
   "test":function(){
     console.log("ABSjHDASK");
   },
-  
+
   /**
   *  Inserts a document "doc" in to the "keywordAnswers" collection.
   *

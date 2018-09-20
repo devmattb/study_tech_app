@@ -1,4 +1,5 @@
-import {Meteor} from "meteor/meteor"
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import {sharedVariables} from "../sharedVariables"
 
 Meteor.methods({
