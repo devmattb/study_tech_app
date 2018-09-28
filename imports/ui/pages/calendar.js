@@ -5,7 +5,7 @@ import "./calendar.html";
 
 import {pageInit} from "../../api/functions/pageInit"
 import {initCal} from "../../api/functions/initCal"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 Template.calendar.onCreated( () => {
   let template = Template.instance();

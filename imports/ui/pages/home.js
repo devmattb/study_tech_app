@@ -10,7 +10,7 @@ import "./home.html"
 // Import functions
 import {pageInit} from "../../api/functions/pageInit"
 import {initCal} from "../../api/functions/initCal"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 // TODO: Can't get server methods to work!!!!
 function test(){
@@ -22,7 +22,9 @@ function test(){
     'keywords': [{"keywordValue": "keywordVal1","keywordDescription": "summaryTxt1", "hashCode": "hash1"}],
     'pages': "51-55"
   }
-  Keywords.insert(exampleKeywordInput);
+
+  Meteor.call("Keywords.insert",exampleKeywordInput);
+  console.log("click");
 }
 
 Template.home.onCreated( () => {

@@ -1,7 +1,7 @@
 /**
 *    Database Security, Allows clients to do certain operations to the specific collections:
 **/
-
+//TODO
 Keywords.allow({
   insert: function() {
     return true;
@@ -10,7 +10,19 @@ Keywords.allow({
     return true;
   },
   remove: function () {
-      return true;
+    return true;
+  },
+});
+//TODO
+KeywordAnswers.allow({
+  insert: function() {
+    return true;
+  },
+  update: function() {
+    return true;
+  },
+  remove: function () {
+    return true;
   },
 });
 
@@ -70,7 +82,7 @@ FeedbackAnswer.deny({
 });
 
 // Deny sketchy operations on the feedbackQuestion collection.
-FeedbackQuestion.deny({
+FeedbackQuestion.deny({ 
   insert: function() {
     return true;
   },

@@ -1,7 +1,7 @@
 import "./flashcardPracticePage.html";
 
 import {pageInit} from "../../api/functions/pageInit";
-import {subscriptions} from "../../api/functions/subscriptions";
+import {subscriptions} from "../../api/subscriptions";
 
 var counter = 0;
 // TODO function to get amountOfReveals

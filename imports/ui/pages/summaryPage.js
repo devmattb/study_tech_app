@@ -5,7 +5,7 @@ import "../components/summaryComponents/keyword.js";
 import "../components/summaryComponents/endSessionModal.js";
 
 import {pageInit} from "../../api/functions/pageInit";
-import {subscriptions} from "../../api/functions/subscriptions";
+import {subscriptions} from "../../api/subscriptions";
 
 
 

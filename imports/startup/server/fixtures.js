@@ -52,6 +52,7 @@ Meteor.startup(() => {
         // Read the contents of this file, and insert it to our activities database.
         var fileContents = JSON.parse(Assets.getText('feedbackQuestions/'+templateNames[i]));
         Meteor.call("FeedbackQuestion.insert", fileContents);
+        Meteor.call("Keywords2.insert", {});
     }
   }
 
