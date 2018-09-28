@@ -1,26 +1,50 @@
 /**
 *    Database Security, Allows clients to do certain operations to the specific collections:
 **/
-//TODO
+
+// It's okay for users to add a group of keywords in a summary studysession.
 Keywords.allow({
-  insert: function() {
-    return true;
+
+  insert: function (userId, doc) {
+   if (userId && doc.userId === userId) {
+     return true;
+   }
   },
-  update: function() {
-    return true;
+
+  update: function (userId, doc) {
+   if (userId && doc.userId === userId) {
+     return true;
+   }
   },
+
+});
+
+// Don't let the users keywords be deleted by sketchy circumstances.
+Keywords.deny({
   remove: function () {
     return true;
   },
 });
-//TODO
+
+// It's okay for the user to insert and update their answers.
 KeywordAnswers.allow({
-  insert: function() {
-    return true;
+
+  insert: function (userId, doc) {
+   if (userId && doc.userId === userId) {
+     return true;
+   }
   },
-  update: function() {
-    return true;
+
+  update: function (userId, doc) {
+   if (userId && doc.userId === userId) {
+     return true;
+   }
   },
+
+});
+
+// Don't let the users answers be deleted by sketchy circumstances.
+KeywordAnswers.deny({
   remove: function () {
     return true;
   },
@@ -28,21 +52,25 @@ KeywordAnswers.allow({
 
 //Allow all clients to perform any operation on their own studysession data.
 StudySession.allow({
+
  insert: function (userId, doc) {
   if (userId && doc.userId === userId) {
     return true;
   }
  },
+
  update: function (userId, doc) {
    if (userId && doc.userId === userId) {
      return true;
    }
  },
+
  remove: function (userId, doc) {
   if (userId && doc.userId === userId) {
     return true;
   }
  },
+
 });
 
 // Allow all clients to perform any operation on their own studychain data.
@@ -82,7 +110,7 @@ FeedbackAnswer.deny({
 });
 
 // Deny sketchy operations on the feedbackQuestion collection.
-FeedbackQuestion.deny({ 
+FeedbackQuestion.deny({
   insert: function() {
     return true;
   },
@@ -103,6 +131,6 @@ Meteor.users.deny({
     return true;
   },
   remove: function () {
-      return true;
+    return true;
   },
 });
