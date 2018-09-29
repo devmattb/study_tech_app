@@ -3,12 +3,12 @@ import "./flashcardPracticePage.html";
 import {pageInit} from "../../api/functions/pageInit";
 import {subscriptions} from "../../api/functions/subscriptions";
 
-var counter = 0;
-var amountOfReveals = 10; // TODO function to get amountOfReveals
+var amountOfReveals = 0;
+var maxAmountOfReveals = 10; // TODO function to get maxAmountOfReveals
 function allowToRevealAnswer(){
-  counter++;
-  console.log(counter);
-  if(counter > amountOfReveals){
+  amountOfReveals++;
+  console.log(amountOfReveals);
+  if(amountOfReveals > maxAmountOfReveals){
     return false;
   }else{
     return true;
@@ -28,24 +28,7 @@ var testArray = [
   {keywordValue: "Mac and cheese", keywordDescription: "Cheese with macaroni, served warm", connectedKeywordHashCode: "4"},
   {keywordValue: "Coca cola", keywordDescription: "The world's most famous soft drink", connectedKeywordHashCode: "5"}
 ];
-function getMaxArrayIndex(){
-  return testArray.length - 1;
-}
-function setArrayIteration(){
-  if(currentIndex == getMaxArrayIndex()){
-    currentIndex = -1;
-    contentIterations += 1;
-  }
-}
-function checkIfContentHasBeenShowedFourTimes(){
-  if(contentIterations == 4){
-    //break the session here, the user is done
-    alert("you are done");
-    correctAnswers();
-  }else{
-    setArrayIteration();
-  }
-}
+
 
 // TODO
 function correctAnswers(){
@@ -75,7 +58,7 @@ function createAnswerObject(){
   var usersAnswer = $("#textarea1").val();
   var keywordHashCode = Template.instance().connectedKeywordHashCode.get();
   var answerIsADescription = (contentIterations % 2) == 0;
-  answerObj = {
+  var answerObj = {
     answer: usersAnswer,
     isADescriptionAnswer: answerIsADescription,
     hashCode: keywordHashCode,
@@ -83,12 +66,32 @@ function createAnswerObject(){
   return answerObj;
 }
 
+function getMaxArrayIndex(){
+  return testArray.length - 1;
+}
+
+function setArrayIteration(){
+  if(currentIndex == getMaxArrayIndex()){
+    currentIndex = -1;
+    contentIterations += 1;
+  }
+}
+
+function checkIfContentHasBeenShowedFourTimes(){
+  if(contentIterations == 4){
+    //TODO break the session here, the user is done
+    alert("you are done");
+    correctAnswers();
+  }
+}
 
 function changeFlashcardText(){
+  arrayOfAnswers.push(createAnswerObject());
+  setArrayIteration();
   checkIfContentHasBeenShowedFourTimes();
   setFlashcardText(currentIndex += 1);
-
 }
+
 function setFlashcardText(index){
   let value = testArray[index].keywordValue;
   let description = testArray[index].keywordDescription;
@@ -105,6 +108,7 @@ function setFlashcardText(index){
     Template.instance().currentHiddenFlashcardText.set(description);
     Template.instance().connectedKeywordHashCode.set(connectedKeywordCode);
   }
+  $("#textarea1").val(""); //clear the form
 }
 
 
@@ -161,10 +165,10 @@ Template.flashcardPracticePage.events({
 
   "click #submit-flashcard-answer-btn": function(event) {
     event.preventDefault();
-    answer = createAnswerObject();
-    arrayOfAnswers.push(answer);
+
     // TODO clear form text
     changeFlashcardText();
+
   },
 
 });
