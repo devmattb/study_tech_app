@@ -26,7 +26,7 @@ Template.summaryPage.onRendered(function(){
   if (!Session.get("numKeywords")) {
     Session.set("numKeywords", -1);
     Session.set("currentIndex", -1);
-    Session.set("keywords", {"keys":[]});
+    Session.set("keywords", {"keywords":[]});
   }
     // Set height to 100%
   $("#summaryPage").css('height', $(window).height());
@@ -60,7 +60,13 @@ Template.summaryPage.events({
   },
 
   "click #submitSummaryPageSession": function(event){
-
+    var keywordObject = {
+      "connectedStudySessionId": Meteor.userId(), // TODO!!!!!
+      "keywords": Session.get("keywords").keywords
+      // pages: "" TODO!
+    }
+    console.log(keywordObject);
+    Meteor.call("Keywords.insert", keywordObject);
   },
 
 });

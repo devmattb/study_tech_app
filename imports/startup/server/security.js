@@ -13,6 +13,7 @@ Keywords.allow({
     return true;
   },
 });
+
 //TODO
 KeywordAnswers.allow({
   insert: function() {
@@ -82,7 +83,7 @@ FeedbackAnswer.deny({
 });
 
 // Deny sketchy operations on the feedbackQuestion collection.
-FeedbackQuestion.deny({ 
+FeedbackQuestion.deny({
   insert: function() {
     return true;
   },

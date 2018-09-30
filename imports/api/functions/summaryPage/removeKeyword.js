@@ -9,12 +9,12 @@ export function removeKeyword(hashCode) {
     var keywords = Session.get("keywords");
 
     // Create a new keywords object, that replaces the old one.
-    var newKeywords = {"keys":[]};
+    var newKeywords = {"keywords":[]};
     // Copy all cells, but the cell that the user wants to delete.
     var cellno = 0;
-    jQuery.each(keywords["keys"], function(i, val) {
-      if ( keywords["keys"][i].hashCode !== hashCode ) {
-        newKeywords["keys"][cellno] = keywords["keys"][i];
+    jQuery.each(keywords["keywords"], function(i, val) {
+      if ( keywords["keywords"][i].hashCode !== hashCode ) {
+        newKeywords["keywords"][cellno] = keywords["keywords"][i];
         cellno++;
       }
     });
