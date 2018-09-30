@@ -3,7 +3,7 @@ import {pageInit} from "../../../api/functions/pageInit";
 
 import {addKeyword} from "../../../api/functions/summaryPage/addKeyword";
 import {editKeyword} from "../../../api/functions/summaryPage/editKeyword";
-import {generateRandomeHashCode} from "../../../api/functions/generateRandomeHashCode";
+import {generateRandomHashCode} from "../../../api/functions/generateRandomHashCode";
 
 Template.keywordModal.onRendered(function(){
   pageInit();
@@ -32,7 +32,7 @@ Template.body.events({
       else
       //  a new keyword template is being created
     {
-      var hashCode = generateRandomeHashCode();
+      var hashCode = generateRandomHashCode();
       addKeyword(hashCode, keywordValue, keywordDescription);
     }
 

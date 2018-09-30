@@ -29,7 +29,7 @@ import {stopTimer} from "../../api/functions/studySession/stopTimer"
 import {nextCyclePrep} from "../../api/functions/studySession/nextCyclePrep"
 import {updateStepIndicators} from "../../api/functions/studySession/updateStepIndicators"
 import {getSSObjects} from "../../api/functions/studySession/getSSObjects"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 Template.studySession.onCreated( () => {
   let template = Template.instance();

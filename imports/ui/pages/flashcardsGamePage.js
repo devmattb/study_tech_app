@@ -2,7 +2,7 @@ import "./flashcardsGamePage.html";
 import "../components/DragDropTouch.js"
 
 import {pageInit} from "../../api/functions/pageInit";
-import {subscriptions} from "../../api/functions/subscriptions";
+import {subscriptions} from "../../api/subscriptions";
 
 var keywordQue;
 // TODO dummy content, swop for db content

@@ -5,7 +5,7 @@ import "./login.html";
 import '../components/overrides/overrides.js';
 
 import {pageInit} from "../../api/functions/pageInit"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 Template.login.onCreated( () => {
   let template = Template.instance();

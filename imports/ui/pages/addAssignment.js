@@ -9,7 +9,7 @@ import {pageInit} from "../../api/functions/pageInit"
 import {initCal} from "../../api/functions/initCal"
 import {theMMRAlgorithm} from "../../api/functions/addAssignment/theMMRAlgorithm"
 import {getCourseType} from "../../api/functions/addAssignment/getCourseType"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 Template.addAssignment.onCreated(function(){
   // Course variables. Regulates examinationType options.

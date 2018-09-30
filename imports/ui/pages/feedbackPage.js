@@ -1,7 +1,7 @@
 import "./feedbackPage.html"
 
 import {pageInit} from "../../api/functions/pageInit"
-import {subscriptions} from "../../api/functions/subscriptions"
+import {subscriptions} from "../../api/subscriptions"
 
 Template.feedbackPage.onCreated( () => {
   let template = Template.instance();
