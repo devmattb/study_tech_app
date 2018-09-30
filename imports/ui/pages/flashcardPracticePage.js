@@ -45,20 +45,25 @@ function correctAnswers(){
   console.log(arrayOfAnswers);
 }
 
+// This answers i a description of a keyword
 function correctDescription(stringToBeCorrected){
+
+  stringToBeCorrected
+
   console.log("correctDescription " + stringToBeCorrected);
 }
 
+// This answers i a keyword that matches a description
 function correctKeywordValue(stringToBeCorrected){
   console.log("correctKeywordValue " + stringToBeCorrected);
 }
 
 
 function createAnswerObject(){
-  var usersAnswer = $("#textarea1").val();
-  var keywordHashCode = Template.instance().connectedKeywordHashCode.get();
-  var answerIsADescription = (contentIterations % 2) == 0;
-  var answerObj = {
+  const usersAnswer = $("#textarea1").val();
+  const keywordHashCode = Template.instance().connectedKeywordHashCode.get();
+  const answerIsADescription = (contentIterations % 2) == 0;
+  const answerObj = {
     answer: usersAnswer,
     isADescriptionAnswer: answerIsADescription,
     hashCode: keywordHashCode,
