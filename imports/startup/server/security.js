@@ -26,7 +26,7 @@ Keywords.deny({
   },
 });
 
-// It's okay for the user to insert and update their answers.
+//TODO
 KeywordAnswers.allow({
 
   insert: function (userId, doc) {

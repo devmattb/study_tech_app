@@ -4,14 +4,14 @@ export function editKeyword(hashCodeVal, keyVal, keyDesc) {
   // Add to the current "keywords" json object.
 
   var cellNumber = 0;
-  jQuery.each(keywords["keys"], function(i, val) {
-    if ( keywords["keys"][i].hashCode === hashCodeVal ) {
+  jQuery.each(keywords["keywords"], function(i, val) {
+    if ( keywords["keywords"][i].hashCode === hashCodeVal ) {
       cellNumber = i;
     }
   });
 
 
-  keywords["keys"][cellNumber] = {
+  keywords["keywords"][cellNumber] = {
     hashCode: hashCodeVal,
     keywordValue: keyVal,
     keywordDescription: keyDesc,

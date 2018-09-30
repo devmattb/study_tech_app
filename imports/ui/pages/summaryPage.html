@@ -19,7 +19,7 @@
           </div>
 
           <div id="keywordBox" style="margin-top: 20px;" class="row col s12">
-            {{#each keywords.keys}}
+            {{#each keywords.keywords}}
               {{>keyword hashCode=this.hashCode keywordValue=this.keywordValue keywordDescription=this.keywordDescription}}
             {{/each}}
           </div>

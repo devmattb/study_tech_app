@@ -3,7 +3,7 @@ export function addKeyword(hashCodeVal, keyVal, keyDesc) {
   var keywords = Session.get("keywords");
   // Add to the current "keywords" json object.
   Session.set("numKeywords", Session.get("numKeywords")+1);
-  keywords["keys"][Session.get("numKeywords")] = {
+  keywords["keywords"][Session.get("numKeywords")] = {
     hashCode: hashCodeVal,
     keywordValue: keyVal,
     keywordDescription: keyDesc,
