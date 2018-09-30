@@ -7,7 +7,6 @@ var amountOfReveals = 0;
 var maxAmountOfReveals = 10; // TODO function to get maxAmountOfReveals
 function allowToRevealAnswer(){
   amountOfReveals++;
-  console.log(amountOfReveals);
   if(amountOfReveals > maxAmountOfReveals){
     return false;
   }else{
@@ -22,11 +21,11 @@ var arrayOfAnswers = [];
 var contentIterations = 0; //shows how many times the array has been iterated
 var currentIndex = 0;
 var testArray = [
-  {keywordValue: "Cake", keywordDescription: "A bakery dish made with flour", connectedKeywordHashCode: "1"},
-  {keywordValue: "Ice cream", keywordDescription: "A mix of cream, sugar, milk and other goodies", connectedKeywordHashCode: "2"},
-  {keywordValue: "Ribs", keywordDescription: "The ribcage of a pig or cow, often BBQ’ed", connectedKeywordHashCode: "3"},
-  {keywordValue: "Mac and cheese", keywordDescription: "Cheese with macaroni, served warm", connectedKeywordHashCode: "4"},
-  {keywordValue: "Coca cola", keywordDescription: "The world's most famous soft drink", connectedKeywordHashCode: "5"}
+  {keywordValue: "Cake", keywordDescription: "A bakery dish made with flour", hashCode: "Cake"},
+  {keywordValue: "Ice cream", keywordDescription: "A mix of cream, sugar, milk and other goodies", hashCode: "Ice cream"},
+  // {keywordValue: "Ribs", keywordDescription: "The ribcage of a pig or cow, often BBQ’ed", hashCode: "3"},
+  // {keywordValue: "Mac and cheese", keywordDescription: "Cheese with macaroni, served warm", hashCode: "4"},
+  // {keywordValue: "Coca cola", keywordDescription: "The world's most famous soft drink", hashCode: "5"}
 ];
 
 
@@ -35,38 +34,86 @@ function correctAnswers(){
   length = arrayOfAnswers.length;
   for(var i=0; i < length; i++){
     var stringToBeCorrected = arrayOfAnswers[i].answer;
+    var hashCode = arrayOfAnswers[i].hashCode;
     var isDescAnswer = arrayOfAnswers[i].isADescriptionAnswer;
     if(isDescAnswer){
-      correctDescription(stringToBeCorrected);
+      correctDescription(stringToBeCorrected, hashCode);
     }else if(!isDescAnswer){
-      correctKeywordValue(stringToBeCorrected);
+      correctKeywordValue(stringToBeCorrected, hashCode);
     }
   }
   console.log(arrayOfAnswers);
 }
 
 // This answers i a description of a keyword
-function correctDescription(stringToBeCorrected){
-
-  stringToBeCorrected
-
-  console.log("correctDescription " + stringToBeCorrected);
+function correctDescription(stringToBeCorrected, hashCode){
+  // console.log("desc " + stringToBeCorrected);
 }
 
 // This answers i a keyword that matches a description
-function correctKeywordValue(stringToBeCorrected){
-  console.log("correctKeywordValue " + stringToBeCorrected);
+function correctKeywordValue(stringToBeCorrected, hashCode){
+  var isADescriptionAnswer = true;
+  var keywordObj;
+  var theRightAnswer;
+  for (var i = 0; i < testArray.length; i++) {
+    if(testArray[i].hashCode == hashCode){
+      keywordObj = testArray[i];
+    }
+  }
+
+  theRightAnswer = keywordObj.keywordValue.trim().toLowerCase();
+  stringToBeCorrected = stringToBeCorrected.trim().toLowerCase();
+  var worthAPoint = (theRightAnswer === stringToBeCorrected);
+
+  createAPoint(hashCode, worthAPoint, isADescriptionAnswer);
+
+  // console.log(theRightAnswer + " <<right || user>>" + stringToBeCorrected + " ||Answer was:" + worthAPoint);
+
+
+}
+
+
+
+function createAPoint(hashCode, worthAPoint, isADescriptionAnswer){
+
+  if(isADescriptionAnswer == true){
+    //This answers i a keyword that matches a description
+    if(worthAPoint == true){
+
+      for(var i=0; i<this.arrayOfPoints.length; i++){
+        if(hashCode == this.arrayOfPoints[i].hashCode){
+          this.arrayOfPoints[i].keywordAnswerPoints += 1;
+        }
+      }
+    }
+
+  }else{
+    // This answers i a description of a keyword
+    if(worthAPoint == true){
+      for(var i=0; i<this.arrayOfPoints.length; i++){
+        if(hashCode == this.arrayOfPoints[i].hashCode){
+
+          this.arrayOfPoints[i].descriptionAnswerPoints += 1;
+        }
+      }
+    }
+  }
+  for(var i=0; i<this.arrayOfPoints.length; i++){
+    console.log("arrayOfPoints: " + this.arrayOfPoints[i].hashCode + " descriptionAnswerPoints: " + this.arrayOfPoints[i].descriptionAnswerPoints + " keywordAnswerPoints: " + this.arrayOfPoints[i].keywordAnswerPoints);
+    console.log("");
+    console.log("");
+  }
 }
 
 
 function createAnswerObject(){
   const usersAnswer = $("#textarea1").val();
-  const keywordHashCode = Template.instance().connectedKeywordHashCode.get();
+  const hashCode = Template.instance().hashCode.get();
   const answerIsADescription = (contentIterations % 2) == 0;
   const answerObj = {
     answer: usersAnswer,
     isADescriptionAnswer: answerIsADescription,
-    hashCode: keywordHashCode,
+    hashCode: hashCode,
   }
   return answerObj;
 }
@@ -100,23 +147,34 @@ function changeFlashcardText(){
 function setFlashcardText(index){
   let value = testArray[index].keywordValue;
   let description = testArray[index].keywordDescription;
-  let connectedKeywordCode = testArray[index].connectedKeywordHashCode;
+  let connectedKeywordCode = testArray[index].hashCode;
 
   if((contentIterations % 2) != 0){
     // The user sees a keywordDescription and answers with a keywordValue
     Template.instance().currentFlashcardText.set(description);
     Template.instance().currentHiddenFlashcardText.set(value);
-    Template.instance().connectedKeywordHashCode.set(connectedKeywordCode);
+    Template.instance().hashCode.set(connectedKeywordCode);
   }else{
     // The user sees a keywordValue and answers with a keywordDescription
     Template.instance().currentFlashcardText.set(value);
     Template.instance().currentHiddenFlashcardText.set(description);
-    Template.instance().connectedKeywordHashCode.set(connectedKeywordCode);
+    Template.instance().hashCode.set(connectedKeywordCode);
   }
   $("#textarea1").val(""); //clear the form
 }
 
-
+function createArrayOfPoints(){
+  this.arrayOfPoints = [];
+  for(var i=0; i<testArray.length; i++){
+    var hashCode = testArray[i].hashCode;
+    pointObj = {
+      hashCode: hashCode,
+      keywordAnswerPoints: 0,
+      descriptionAnswerPoints: 0,
+    }
+    this.arrayOfPoints.push(pointObj);
+  }
+}
 
 Template.flashcardPracticePage.onCreated(function() {
   let template = Template.instance();
@@ -124,7 +182,9 @@ Template.flashcardPracticePage.onCreated(function() {
 
   this.currentFlashcardText = new ReactiveVar();
   this.currentHiddenFlashcardText = new ReactiveVar();
-  this.connectedKeywordHashCode = new ReactiveVar();
+  this.hashCode = new ReactiveVar();
+
+  createArrayOfPoints();
 
   setFlashcardText(currentIndex);
 });
