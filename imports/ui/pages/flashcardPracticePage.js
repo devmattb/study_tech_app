@@ -23,9 +23,9 @@ var currentIndex = 0;
 var testArray = [
   {keywordValue: "Cake", keywordDescription: "A bakery dish made with flour", hashCode: "Cake"},
   {keywordValue: "Ice cream", keywordDescription: "A mix of cream, sugar, milk and other goodies", hashCode: "Ice cream"},
-  // {keywordValue: "Ribs", keywordDescription: "The ribcage of a pig or cow, often BBQ’ed", hashCode: "3"},
-  // {keywordValue: "Mac and cheese", keywordDescription: "Cheese with macaroni, served warm", hashCode: "4"},
-  // {keywordValue: "Coca cola", keywordDescription: "The world's most famous soft drink", hashCode: "5"}
+  {keywordValue: "Ribs", keywordDescription: "The ribcage of a pig or cow, often BBQ’ed", hashCode: "3"},
+  {keywordValue: "Mac and cheese", keywordDescription: "Cheese with macaroni, served warm", hashCode: "4"},
+  {keywordValue: "Coca cola", keywordDescription: "The world's most famous soft drink", hashCode: "5"}
 ];
 
 
